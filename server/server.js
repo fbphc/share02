@@ -23,5 +23,8 @@ mongoose.connection.on("error", (error)=>{
 app.get("/test", (req,res) =>{
     res.status(200).json("testing route")
 })
+app.get("/testMergingFabio", (req,res) =>{
+    res.status(200).json("testing MergingFabio")
+})
 
 app.listen(PORT, (req, res) => console.log("Listening at port:", PORT));
