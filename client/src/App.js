@@ -6,14 +6,14 @@ import './App.css'
 import {Routes, Route} from 'react-router-dom';
 
 // routes
-import HomePage from './components/routes/HomePage.js';
-import AboutUs from './components/routes/AboutUs.js';
-import Login from './components/auth/Login.js';
-import ContactUs from './components/routes/ContactUs.js';
+import HomePage from './routes/homePage/HomePage.js';
+import AboutUs from './routes/about-us/AboutUs.js';
+import Login from './routes/auth/Login.js';
+import ContactUs from './routes/contact/ContactUs.js';
 
 // components
 import NavBar from './components/navigation/NavBar.js';
-import Register from './components/auth/Register.js';
+import Register from './routes/auth/Register.js';
 
 
 

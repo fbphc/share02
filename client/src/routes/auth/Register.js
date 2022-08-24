@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
-import { GermanyDataSet } from "../../../dataset/GermanyDataSet.js";
+import { GermanyDataSet } from "../../dataset/GermanyDataSet.js";
 
 
 
