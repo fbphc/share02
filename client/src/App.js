@@ -6,7 +6,7 @@ import './App.css'
 import {Routes, Route} from 'react-router-dom';
 
 // routes
-import LandingPage from './routes/landingPage/LandingPage.js';
+import HomePage from './routes/homePage/HomePage.js';
 import AboutUs from './routes/about-us/AboutUs.js';
 import Login from './routes/login/Login.js';
 import ContactUs from './routes/contact/ContactUs.js';
@@ -23,7 +23,7 @@ function App() {
       <NavBar/>
       {/* <BrowserRouter> */}
       <Routes>
-        <Route path='/' element={<LandingPage/>}/>
+        <Route path='/' element={<HomePage/>}/>
         <Route path='/aboutus' element={<AboutUs/>} />
         <Route path='/login' element={<Login/>}/>
         <Route path='/contact' element={<ContactUs/>}/>

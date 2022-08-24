@@ -1,7 +1,20 @@
 import { useState } from "react";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
+import { GermanyDataSet } from "../../dataset/GermanyDataSet.js";
+
+
+
 
 export default function Register() {
+  const [address, setAddress] = useState({
+    city: '',
+    postalCode: 0,
+    street: '',
+    houseNumber: '',
+    state: 'Germany',
+    stateCode: 'DE',
+    province: 'initial',
+})
   const [registerForm, setRegisterForm] = useState({
     username: "",
     fname: "",
@@ -9,9 +22,12 @@ export default function Register() {
     email: "",
     password: "",
     confirmPassword: "",
-    isOwner: false
+    isOwner: false,
+    address: address.province
   });
+ 
 
+    
   function changeHandler(e){
     const element = e.target.name
     const value = e.target.value
@@ -22,86 +38,100 @@ export default function Register() {
     })
   }
 
+  function addressHandler(e) {
+    const element = e.target.name
+    const value = e.target.value
+    setAddress((prevState) => {
+      return {...prevState, 
+        [element]: value
+      }
+  })
+  }
+  console.log(registerForm.address.province);
+
+  console.log(address.province);
+  
+
   return (
     <div>
       <h1>Register</h1>
       <Form onChange={(e) => changeHandler(e)}>
         <FormGroup>
           <Label for="exampleSelect">Select</Label>
-          <Input id="exampleSelect" name="isOwner" type="select">
+          <Input id="exampleSelect" name="isOwner" type="select" autoComplete="">
             <option value={false}>Car Owner</option>
             <option value={true}>Wall-Box Owner</option>
           </Input>
         </FormGroup>
         <FormGroup>
-          <Input name="username" placeholder="UserName" type="text" />
+          <Input name="username" placeholder="UserName" type="text" autoComplete=""/>
         </FormGroup>
         <FormGroup>
-          <Input name="fname" placeholder="First Name" type="text" />
+          <Input name="fname" placeholder="First Name" type="text" autoComplete=""/>
         </FormGroup>
         <FormGroup>
-          <Input name="lname" placeholder="Last Name" type="text" />
+          <Input name="lname" placeholder="Last Name" type="text" autoComplete=""/>
         </FormGroup>
         <FormGroup>
-          <Input name="email" placeholder="Email" type="email" />
+          <Input name="email" placeholder="Email" type="email" autoComplete=""/>
         </FormGroup>
         <FormGroup>
-          <Input name="password" placeholder="password" type="password" />
+          <Input name="password" placeholder="password" type="password" autoComplete=""/>
         </FormGroup>
         <FormGroup>
           <Input
             name="confirmPassword"
             placeholder="password placeholder"
             type="password"
+            autoComplete=""
           />
         </FormGroup>
-      </Form>
-
-      <Form /* style={{display: 'none'}} */>
-        <FormGroup className="d-flex">
-          <Input name="address" placeholder="street" />
-          <Input name="house number" placeholder="1" className="w-25" />
-        </FormGroup>
-        <FormGroup className="d-flex">
-          <Input name="zip code" placeholder="12345" />
-          <Input name="city" placeholder="city" />
-        </FormGroup>
-
+      {registerForm.isOwner && 
+      
+      <>
         <FormGroup>
-          <Label for="exampleSelectMulti">plugger</Label>
-          <Input id="plugger type" name="plugger type" type="select">
-            <option>plug 1</option>
-            <option>plug 2</option>
-            <option>plug 3</option>
-            <option>plug 4</option>
-            <option>plug 5</option>
-            <option>plug 6</option>
+        <Label for="exampleSelect">Select</Label>
+          <Input id="exampleSelect" name="isOwner" type="select" autoComplete="">
+            <option value={false}>Car Owner</option>
+            <option value={true}>Wall-Box Owner</option>
           </Input>
         </FormGroup>
-        {/* <FormGroup>
-    <Label for="exampleDate">
-      Date
-    </Label>
-    <Input
-      id="exampleDate"
-      name="date"
-      placeholder="date placeholder"
-      type="date"
-    />
-  </FormGroup>
-  <FormGroup>
-    <Label for="exampleTime">
-      Time
-    </Label>
-    <Input
-      id="exampleTime"
-      name="time"
-      placeholder="time placeholder"
-      type="time"
-    />
-  </FormGroup> */}
+        <FormGroup>
+        <Label for="exampleSelect">Select</Label>
+          <Input id="exampleSelect" name="isOwner" type="select" autoComplete="">
+            <option value={false}>Car Owner</option>
+            <option value={true}>Wall-Box Owner</option>
+          </Input>
+        </FormGroup>
+      </>
+      }
       </Form>
-      <Button>Submit</Button>
+      <Form>
+        {registerForm.isOwner && 
+        <FormGroup onChange={(e) => addressHandler(e)}>
+        <Label for="exampleSelect">Select</Label>
+        <Input id="exampleSelect" name="province" type="select" autoComplete="">
+          <option value={GermanyDataSet.BadenWürttemberg} >Baden-Württemberg</option>
+          <option value={GermanyDataSet.Bavaria} >Bavaria</option>
+          <option></option>
+          <option></option>
+          <option></option>
+          <option></option>
+          <option></option>
+          <option></option>
+          <option></option>
+          <option></option>
+          <option></option>
+          <option></option>
+          <option></option>
+          <option></option>
+          <option></option>
+          <option></option>
+          {/* <option value={true}>Wall-Box Owner</option> */}
+        </Input>
+      </FormGroup>}
+      </Form>
+      <Button>sign up</Button>
     </div>
   );
 }
