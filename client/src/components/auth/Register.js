@@ -23,7 +23,7 @@ export default function Register() {
     password: "",
     confirmPassword: "",
     isOwner: false,
-    address: address.province
+    address
   });
  
 
