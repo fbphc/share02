@@ -3,7 +3,17 @@ import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import { GermanyDataSet } from "../../../dataset/GermanyDataSet.js";
 
 export default function Register() {
+  const initAddress = {
+    city: "",
+    postalcode: 0,
+    street: "",
+    houseNr: "",
+    state: "Germany",
+    statecode: "DE",
+    province: "",
+  }
   const [registerToggle, setRegisterToggle] = useState(false);
+
   const [registerForm, setRegisterForm] = useState({
     username: "",
     fname: "",
@@ -15,15 +25,7 @@ export default function Register() {
     availability: "whole_week",
     telNumber: 0,
     typeOfCharger: "type01",
-    address: {
-      city: "",
-      postalcode: 0,
-      street: "",
-      houseNr: "",
-      state: "Germany",
-      statecode: "DE",
-      province: "",
-    },
+    address: initAddress,
   });
   function submit(e) {
     e.preventDefault();
