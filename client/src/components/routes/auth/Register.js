@@ -1,16 +1,15 @@
 import { useState } from "react";
-import { Button, Form, FormGroup, Input, Label } from "reactstrap";
+import { Button, Form, FormGroup, Input, Label, FormText } from "reactstrap";
 
 
 export default function Register() {
   const initAddress = {
     city: "",
-    postalcode: 0,
+    postalcode: "",
     street: "",
     houseNr: "",
     state: "Germany",
     statecode: "DE",
-    province: "",
   }
   const [registerToggle, setRegisterToggle] = useState(false);
 
@@ -23,7 +22,7 @@ export default function Register() {
     confirmPassword: "",
     isOwner: false,
     availability: "whole_week",
-    telNumber: 0,
+    telNumber: "",
     typeOfCharger: "type01",
     address: initAddress,
   });
@@ -53,20 +52,22 @@ export default function Register() {
   return (
     <div>
       <h1>Register</h1>
+      <p>required fields *</p>
       <Form onSubmit={submit}>
         <div onChange={(e) => changeHandler(e)}>
-          <FormGroup>
+        <FormGroup onChange={() => setRegisterToggle(!registerToggle)}>
             <Input name="isOwner" type="select">
-              <option value={false} onClick={() => setRegisterToggle(false)}>
+            
+              <option value={false}>
                 Car Owner
               </option>
-              <option value={true} onClick={() => setRegisterToggle(true)}>
+              <option value={true}>
                 Wall-Box Owner
               </option>
             </Input>
           </FormGroup>
           <FormGroup>
-            <Input name="username" placeholder="UserName" type="text" />
+            <Input name="username" placeholder="UserName" type="text" required/>
           </FormGroup>
           <FormGroup>
             <Input name="fname" placeholder="First Name" type="text" />
@@ -78,7 +79,7 @@ export default function Register() {
             <Input name="email" placeholder="Email" type="email" />
           </FormGroup>
           <FormGroup>
-            <Input name="password" placeholder="password" type="password" />
+            <Input name="password" placeholder="password" type="password" minLength={6}/>
           </FormGroup>
           <FormGroup>
             <Input
@@ -92,11 +93,8 @@ export default function Register() {
         {registerToggle && (
           <>
             <div
-              style={{ border: "3px solid red" }}
               onChange={(e) => changeHandler(e)}
             >
-              {" "}
-              {/* THE STYLE IS TEMP OR I GO CRAZY :D */}
               <FormGroup>
                 <Input name="typeOfCharger" type="select">
                   <option value="type01">type01</option>
@@ -114,11 +112,9 @@ export default function Register() {
             </div>
 
             <div
-              style={{ border: "3px solid red" }}
               onChange={(e) => addressHandler(e)}
             >
-              {" "}
-              {/* THE STYLE IS TEMP OR I GO CRAZY :D */}
+              
               <FormGroup>
                 <Input name="street" placeholder="street" type="text" />
               </FormGroup>
@@ -132,7 +128,7 @@ export default function Register() {
                 <Input
                   name="postalcode"
                   placeholder="postal Code"
-                  type="number"
+                  type="text"
                 />
               </FormGroup>
             </div>

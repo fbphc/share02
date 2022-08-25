@@ -20,7 +20,7 @@ const userAppSchema = new mongoose.Schema({
   id: {
     type: Number,
   },
-  availability: {type: Object},
+  availability: {type: String},
   address: {type:Object},
   telNumber: {type: String},
   reviewRate: {type: Object},
