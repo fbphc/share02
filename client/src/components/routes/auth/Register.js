@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Button, Form, FormGroup, Input } from "reactstrap";
 
 
@@ -10,7 +11,6 @@ export default function Register() {
     houseNr: "",
     state: "Germany",
     statecode: "DE",
-    province: "",
   }
   const [registerToggle, setRegisterToggle] = useState(false);
 
@@ -55,12 +55,12 @@ export default function Register() {
       <h1>Register</h1>
       <Form onSubmit={submit}>
         <div onChange={(e) => changeHandler(e)}>
-          <FormGroup>
+        <FormGroup onChange={() => setRegisterToggle(!registerToggle)}>
             <Input name="isOwner" type="select">
-              <option value={false} onClick={() => setRegisterToggle(false)}>
+              <option value={false} /* onClick={() => setRegisterToggle(false)} */>
                 Car Owner
               </option>
-              <option value={true} onClick={() => setRegisterToggle(true)}>
+              <option value={true} /* onClick={() => setRegisterToggle(true)} */>
                 Wall-Box Owner
               </option>
             </Input>
@@ -140,6 +140,8 @@ export default function Register() {
         )}
         <Button type="submit">sign up</Button>
       </Form>
+      <div>you have an account?</div>
+      <Link to='/login' >login</Link>
     </div>
   );
 }

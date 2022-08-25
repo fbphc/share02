@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Button, Form, FormGroup, Input, Label } from 'reactstrap'
+import { Button, Form, FormGroup, Input } from 'reactstrap'
 
 export default function Login() {
   return (
@@ -8,24 +8,16 @@ export default function Login() {
         <h1>Login</h1>
         <Form>
   <FormGroup>
-    <Label for="exampleEmail">
-      Email
-    </Label>
     <Input
-      id="exampleEmail"
       name="email"
-      placeholder="with a placeholder"
+      placeholder="Email"
       type="email"
     />
   </FormGroup>
   <FormGroup>
-    <Label for="examplePassword">
-      Password
-    </Label>
     <Input
-      id="examplePassword"
       name="password"
-      placeholder="password placeholder"
+      placeholder="password"
       type="password"
     />
   </FormGroup>
