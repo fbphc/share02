@@ -12,6 +12,8 @@ const registerUser = async (req, res) => {
     });
   }
 
+  
+
   const {
     username,
     fname,
@@ -66,4 +68,34 @@ const registerUser = async (req, res) => {
   }
 };
 
-export { registerUser };
+const loginUser = async (req, res) => {
+  const { email, password } = req.body;
+
+  const user = await userApp.findByEmail(email);
+  if (!user)
+  return res.status(404).json({
+    msg: `Either email or password is not correct !!!`,
+  });
+  
+  const isPasswordCorrect = await bcrypt.compare(password, user.password);
+  if (!isPasswordCorrect) {
+    return res.status(404).json({
+      msg: `Your email or password are not correct !!!`,
+    });
+  }
+
+  const token = generateToken({ id: user.id, name: user.name });
+
+  res.status(200).json({
+    message: "you are logged in !!!",
+    token: token,
+    user: user,
+  });
+};
+
+const tokenValidator = (req, res) =>{
+  res.json(req.user)
+  
+}
+
+export { registerUser, loginUser, tokenValidator };

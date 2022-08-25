@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
-import { GermanyDataSet } from "../../../dataset/GermanyDataSet.js";
+
 
 export default function Register() {
   const initAddress = {
@@ -49,6 +49,7 @@ export default function Register() {
       };
     });
   }
+  
   return (
     <div>
       <h1>Register</h1>
@@ -133,37 +134,6 @@ export default function Register() {
                   placeholder="postal Code"
                   type="number"
                 />
-              </FormGroup>
-              <FormGroup>
-                <Input name="province" type="select">
-                  <option value={GermanyDataSet.BadenWürttemberg}>
-                    Baden-Württemberg
-                  </option>
-                  <option value={GermanyDataSet.Bavaria}>Bavaria</option>
-                  <option value={GermanyDataSet.Berlin}>Berlin</option>
-
-                  <option value={GermanyDataSet.Brandenburg}>Brandenburg</option>
-
-                  <option value={GermanyDataSet.Bremen}>Bremen</option>
-                  <option value={GermanyDataSet.Hamburg}>Hamburg</option>
-                  <option value={GermanyDataSet.Hesse}>Hesse</option>
-                  <option value={GermanyDataSet.LowerSaxony}>Lower-Saxony</option>
-                  <option value={GermanyDataSet.MecklenburgVorpommern}>
-                  Mecklenburg-Vorpommern
-                  </option>
-                  <option value={GermanyDataSet.NorthRhineWestphalia}>
-                  NorthRhine-Westphalia
-                  </option>
-                  <option value={GermanyDataSet.RhinelandPalatinate}>
-                  Rhineland-Palatinate
-                  </option>
-                  <option value={GermanyDataSet.Saarland}>Saarland</option>
-                  <option value={GermanyDataSet.Saxony}>Saxony</option>
-                  <option value={GermanyDataSet.SchleswigHolstein}>
-                  Schleswig-Holstein
-                  </option>
-                  <option value={GermanyDataSet.Thuringia}>Thuringia</option>
-                </Input>
               </FormGroup>
             </div>
           </>

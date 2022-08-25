@@ -1,25 +1,18 @@
 import { Router } from "express";
-import { validator } from "../middlewares/validator.js";
+import { validatorSignUp, validatorLogIn } from "../middlewares/validators.js";
+import authenticateToken from "../middlewares/authToken.js";
 
 import {
   registerUser,
-  /* loginUser, */
-  /* tokenValidator */
+  loginUser,
+  tokenValidator
 } from "../controllers/authControllers.js";
 
 const userRouter = Router();
 
-userRouter.post("/sign_up", validator(), registerUser);
+userRouter.post("/sign_up", validatorSignUp(), registerUser);
 
-userRouter.post(
-  "/login",
-  /* validator(), */ (req, res) => {
-    try {
-      res.status(400).json("login route");
-    } catch (err) {
-      res.status(400).json({ errorMessage: err.message });
-    }
-  }
-);
+userRouter.post("/login", validatorLogIn(), loginUser);
+userRouter.get("/tokenValidation", authenticateToken, tokenValidator )
 
 export default userRouter;
