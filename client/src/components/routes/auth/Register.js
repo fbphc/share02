@@ -50,7 +50,7 @@ export default function Register() {
   }
 
   // form changes function
-  function changeFormHandler(e) {
+  function registerFormHandler(e) {
     const element = e.target.name;
     const value = e.target.value;
     setRegisterForm((prevState) => {
@@ -62,15 +62,21 @@ export default function Register() {
   // show and hide password and confirm password state
   const [passToggle, setPassToggle] = useState({
     showPassword: "",
+    showConfirmPassword: ""
   });
   
   // show and hide password function
   function show_hidePassword(e) {
+    if(e === "password"){
     setPassToggle({
       ...passToggle,
       showPassword: e === passToggle.showPassword ? "" : e,
-    });
-    console.log(passToggle);
+    })} else if(e === "confirmPassword"){
+      setPassToggle({
+        ...passToggle,
+        showConfirmPassword: e === passToggle.showConfirmPassword? "" : e,
+      })
+    }
   }
 
   // address changes function
@@ -135,7 +141,7 @@ export default function Register() {
     <div>
       <h1>Register</h1>
       <Form onSubmit={submit}>
-        <div onChange={(e) => changeFormHandler(e)}>
+        <di onChange={(e) => registerFormHandler(e)}>
           <FormGroup onChange={() => setRegisterToggle(!registerToggle)}>
             <Input required name="isOwner" type="select">
               <option
@@ -199,7 +205,7 @@ export default function Register() {
               name="confirmPassword"
               placeholder="confirmPassword"
               type={
-                passToggle.showPassword === "confirmPassword"
+                passToggle.showConfirmPassword === "confirmPassword"
                   ? "text"
                   : "password"
               }
@@ -224,12 +230,12 @@ export default function Register() {
           <FormGroup>
             <Input type="tel" name="telNumber" placeholder="Phone Number" />
           </FormGroup>
-        </div>
+        </di>
 
         {registerToggle && (
           <>
             <div
-              onChange={(e) => changeFormHandler(e)}
+              onChange={(e) => registerFormHandler(e)}
             >
               {" "}
               {/* THE STYLE IS TEMP OR I GO CRAZY :D */}
