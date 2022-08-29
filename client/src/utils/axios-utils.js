@@ -7,9 +7,11 @@ export const signup = (user) => clientAPI.post("/user/sign_up", user);
 export const login = (user) => clientAPI.post("/user/login", user);
 
 export const validateToken = () => {
- /*  return clientAPI.get("/user/tokenValidation", {
+  if(!localStorage.getItem("user")) return null
+  const parsedUser = JSON.parse(localStorage.getItem("user"));
+  return clientAPI.get("/user/tokenValidation", {
     headers: {
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
+      Authorization: `Bearer ${parsedUser.token}`,
     },
-  }); */
+  });
 };

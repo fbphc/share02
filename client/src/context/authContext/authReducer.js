@@ -40,8 +40,6 @@ export const authState = {
         return {
           ...state,
           isAuthenticated: true,
-  
-          user: payload,
         };
       }
   

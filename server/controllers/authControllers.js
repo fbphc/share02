@@ -93,7 +93,6 @@ const loginUser = async (req, res) => {
 
 const tokenValidator = (req, res) =>{
   res.json(req.user)
-  
 }
 
 export { registerUser, loginUser, tokenValidator };
