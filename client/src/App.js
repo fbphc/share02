@@ -15,10 +15,14 @@ import ContactUs from './components/routes/contact/ContactUs.js';
 import NavBar from './components/navigation/NavBar.js';
 import Register from './components/routes/auth/Register.js';
 
+// Provider
+import { AuthProvider } from "./context/authContext/authContext.js";
+
 
 
 function App() {
   return (
+    <AuthProvider>
     <div className="App">
       <NavBar/>
       {/* <BrowserRouter> */}
@@ -31,6 +35,7 @@ function App() {
       </Routes>
       {/* </BrowserRouter> */}
     </div>
+    </AuthProvider>
   );
 }
 

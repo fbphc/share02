@@ -2,8 +2,11 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import useAuth from "../../../context/authContext/useAuth";
 
 export default function Register() {
+  const {signUp} = useAuth()
+
   const initAddress = {
     city: "",
     postalcode: 0,
@@ -45,8 +48,10 @@ export default function Register() {
 
   function submit(e) {
     e.preventDefault();
+    if(input.password !== input.confirmPassword) return alert("password and confirm password don't match")
+      signUp(registerForm);
+      alert("you are registered")
 
-    console.log("regForm", registerForm);
   }
 
   // form changes function
@@ -109,11 +114,9 @@ export default function Register() {
 
       switch (name) {
         case "password":
-          if (!value) {
-            stateObj[name] = "Please enter Password.";
-          } else if (input.confirmPassword && value !== input.confirmPassword) {
+          if (input.confirmPassword && value !== input.confirmPassword) {
             stateObj["confirmPassword"] =
-              "Password and Confirm Password does not match.";
+              "Password and Confirm Password don't match.";
           } else {
             stateObj["confirmPassword"] = input.confirmPassword
               ? ""
@@ -122,10 +125,8 @@ export default function Register() {
           break;
 
         case "confirmPassword":
-          if (!value) {
-            stateObj[name] = "Please enter Confirm Password.";
-          } else if (input.password && value !== input.password) {
-            stateObj[name] = "Password and Confirm Password does not match.";
+          if (input.password && value !== input.password) {
+            stateObj[name] = "Password and Confirm Password don't match.";
           }
           break;
 
@@ -214,7 +215,7 @@ export default function Register() {
               onChange={inputChange}
               onBlur={inputValidator}
             />
-            {passToggle.showPassword === "confirmPassword" ? (
+            {passToggle.showConfirmPassword === "confirmPassword" ? (
               <AiOutlineEyeInvisible
                 onClick={() => show_hidePassword("confirmPassword")}
                 style={{ position: "absolute", right: "3%", top: "25%" }}
