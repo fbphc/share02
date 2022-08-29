@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import useAuth from "../../../context/authContext/useAuth";
+import useAuth from "../../../context/authContext/useAuth.js";
 
 export default function Register() {
   const {signUp} = useAuth()
@@ -142,7 +142,7 @@ export default function Register() {
     <div>
       <h1>Register</h1>
       <Form onSubmit={submit}>
-        <di onChange={(e) => registerFormHandler(e)}>
+        <div onChange={(e) => registerFormHandler(e)}>
           <FormGroup onChange={() => setRegisterToggle(!registerToggle)}>
             <Input required name="isOwner" type="select">
               <option
@@ -233,7 +233,7 @@ export default function Register() {
           <FormGroup>
             <Input type="tel" name="telNumber" placeholder="Phone Number" />
           </FormGroup>
-        </di>
+        </div>
 
         {registerToggle && (
           <>
