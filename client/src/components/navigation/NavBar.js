@@ -18,7 +18,7 @@ export default function NavBar() {
   const { tokenValidator, signOut } = useAuth();
   const location = useLocation();
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
+    const user = localStorage.getItem("user");
     if (user) {
       tokenValidator();
     }
