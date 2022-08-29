@@ -9,7 +9,7 @@ export default function Register() {
 
   const initAddress = {
     city: "",
-    postalcode: 0,
+    postalcode: "",
     street: "",
     houseNr: "",
     state: "Germany",
@@ -30,7 +30,7 @@ export default function Register() {
     confirmPassword: "",
     isOwner: false,
     availability: "whole_week",
-    telNumber: 0,
+    telNumber: "",
     typeOfCharger: "type01",
     address: initAddress,
   });
@@ -141,6 +141,7 @@ export default function Register() {
   return (
     <div>
       <h1>Register</h1>
+      <p>required fields *</p>
       <Form onSubmit={submit}>
         <di onChange={(e) => registerFormHandler(e)}>
           <FormGroup onChange={() => setRegisterToggle(!registerToggle)}>
@@ -240,8 +241,6 @@ export default function Register() {
             <div
               onChange={(e) => registerFormHandler(e)}
             >
-              {" "}
-              {/* THE STYLE IS TEMP OR I GO CRAZY :D */}
               <FormGroup>
               <Label>type of charger</Label>
                 <Input required name="typeOfCharger" type="select">
@@ -263,8 +262,7 @@ export default function Register() {
             <div
               onChange={(e) => addressHandler(e)}
             >
-              {" "}
-              {/* THE STYLE IS TEMP OR I GO CRAZY :D */}
+              
               <FormGroup>
                 <Label for="address">Address</Label>
                 <Input
@@ -291,7 +289,7 @@ export default function Register() {
                   required
                   name="postalcode"
                   placeholder="postal Code"
-                  type="number"
+                  type="text"
                 />
               </FormGroup>
             </div>

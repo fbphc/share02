@@ -51,7 +51,7 @@ const registerUser = async (req, res) => {
   });
   const payload = {
     id: Id,
-    username: userAppModel.name,
+    username: userAppModel.username,
   };
 
   const token = generateToken(payload);

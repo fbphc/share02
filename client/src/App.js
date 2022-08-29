@@ -1,9 +1,9 @@
 // styles
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css'
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
 
 // libraries
-import {Routes, Route} from 'react-router-dom';
+import { Routes, Route } from "react-router-dom";
 
 // routes
 import HomePage from './components/routes/homePage/HomePage.js';
@@ -19,6 +19,8 @@ import Register from './components/routes/auth/Register.js';
 import { AuthProvider } from "./context/authContext/AuthContext.js";
 
 
+// Provider
+import { AuthProvider } from "./context/authContext/authContext.js";
 
 function App() {
   return (
