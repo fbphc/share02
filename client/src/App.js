@@ -19,9 +19,6 @@ import Register from './components/routes/auth/Register.js';
 import { AuthProvider } from "./context/authContext/AuthContext.js";
 
 
-// Provider
-import { AuthProvider } from "./context/authContext/authContext.js";
-
 function App() {
   return (
     <AuthProvider>
