@@ -183,6 +183,7 @@ export default function Register() {
                 passToggle.showPassword === "password" ? "text" : "password"
               }
               minLength={6}
+              autoComplete=""
               value={input.username}
               onChange={inputChange}
               onBlur={inputValidator}
@@ -211,6 +212,7 @@ export default function Register() {
                   : "password"
               }
               minLength={6}
+              autoComplete=""
               value={input.username}
               onChange={inputChange}
               onBlur={inputValidator}

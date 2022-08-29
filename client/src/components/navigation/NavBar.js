@@ -1,15 +1,34 @@
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Offcanvas, OffcanvasBody, OffcanvasHeader,  } from 'reactstrap';
 import {BiMenu} from 'react-icons/bi';
-import {Link} from 'react-router-dom'
+import {Link, useLocation} from 'react-router-dom'
+import useAuth from "../../context/authContext/useAuth.js"
 
 export default function NavBar() {
+
+  
     const [show, setShow] = useState(false)
     function closeMenu () {
       setShow(false)
     }
+
+    /* --- check the validation --- */
+  const { tokenValidator, signOut } = useAuth();
+  const location = useLocation();
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user) {
+      tokenValidator();
+    }
+  }, [location.pathname]);
+  /* ------------- */
+
+function loggingOut(){
+  signOut()
+  setShow(false)
+}
   return (
     <div>
         <div>
@@ -28,7 +47,7 @@ export default function NavBar() {
     toggle={function noRefCheck(){setShow(false)}}
   >
     <OffcanvasHeader toggle={function noRefCheck(){setShow(false)}}>
-      Offcanvas
+      <Button onClick={loggingOut}>sign out</Button>
     </OffcanvasHeader>
     <OffcanvasBody>
       <strong className='linksContainer' >

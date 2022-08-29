@@ -16,7 +16,7 @@ import NavBar from './components/navigation/NavBar.js';
 import Register from './components/routes/auth/Register.js';
 
 // Provider
-import { AuthProvider } from "./context/authContext/authContext.js";
+import { AuthProvider } from "./context/authContext/AuthContext.js";
 
 
 
