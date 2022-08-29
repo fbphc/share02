@@ -31,6 +31,7 @@ userAppSchema.statics.findByEmail = function (email) {
   return this.findOne({ email: email });
 };
 
+
 const userApp = mongoose.model("userApp", userAppSchema);
 
 export default userApp;
