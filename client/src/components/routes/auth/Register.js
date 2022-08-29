@@ -269,7 +269,6 @@ export default function Register() {
                 <Label for="address">Address</Label>
                 <Input
                   required
-                  id="address"
                   name="street"
                   placeholder="street"
                   type="text"

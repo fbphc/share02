@@ -18,6 +18,7 @@ import NavBar from './components/navigation/NavBar.js';
 
 // Provider
 import { AuthProvider } from "./context/authContext/AuthContext.js";
+import Footer from './components/navigation/Footer';
 
 
 
@@ -34,6 +35,7 @@ function App() {
         <Route path='/register' element={<Register/>}/>\
         <Route path='mainmap' element={<MainMap/>}/>
       </Routes>
+      <Footer/>
     </div>
     </AuthProvider>
   );
