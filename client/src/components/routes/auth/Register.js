@@ -5,7 +5,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import useAuth from "../../../context/authContext/useAuth.js";
 
 export default function Register() {
-  const {signUp} = useAuth()
+  const { signUp } = useAuth()
 
   const initAddress = {
     city: "",
@@ -14,11 +14,31 @@ export default function Register() {
     houseNr: "",
     state: "Germany",
     statecode: "DE",
+    type: 'strasse'
   };
+
+  const typeOfStreet = [
+    "strasse",
+    "straße",
+    "str",
+    "damm",
+    "alle",
+    "chaussee",
+    "gasse",
+    "landstrasse",
+    "landstraße",
+    "pfad",
+    "platz",
+    "ring",
+    "steig",
+    "ufer",
+    "weg",
+    "zeile",
+  ];
   // show and hide wall-box owner state
   const [registerToggle, setRegisterToggle] = useState(false);
 
-  
+
 
   // register information state
   const [registerForm, setRegisterForm] = useState({
@@ -48,9 +68,14 @@ export default function Register() {
 
   function submit(e) {
     e.preventDefault();
-    if(input.password !== input.confirmPassword) return alert("password and confirm password don't match")
+    const isIncluded = typeOfStreet.filter((item) => registerForm.address.street.includes(item));
+    if (input.password !== input.confirmPassword) return alert("password and confirm password don't match")
+    else if (isIncluded.length > 0) {
+      alert('please enter the type of street in the next field')
+    } else {
       signUp(registerForm);
       alert("you are registered")
+    }
 
   }
 
@@ -69,17 +94,18 @@ export default function Register() {
     showPassword: "",
     showConfirmPassword: ""
   });
-  
+
   // show and hide password function
   function show_hidePassword(e) {
-    if(e === "password"){
-    setPassToggle({
-      ...passToggle,
-      showPassword: e === passToggle.showPassword ? "" : e,
-    })} else if(e === "confirmPassword"){
+    if (e === "password") {
       setPassToggle({
         ...passToggle,
-        showConfirmPassword: e === passToggle.showConfirmPassword? "" : e,
+        showPassword: e === passToggle.showPassword ? "" : e,
+      })
+    } else if (e === "confirmPassword") {
+      setPassToggle({
+        ...passToggle,
+        showConfirmPassword: e === passToggle.showConfirmPassword ? "" : e,
       })
     }
   }
@@ -243,7 +269,7 @@ export default function Register() {
               {" "}
               {/* THE STYLE IS TEMP OR I GO CRAZY :D */}
               <FormGroup>
-              <Label>type of charger</Label>
+                <Label>type of charger</Label>
                 <Input required name="typeOfCharger" type="select">
                   <option value="type01">type01</option>
                   <option value="type02">type02</option>
@@ -251,7 +277,7 @@ export default function Register() {
                 </Input>
               </FormGroup>
               <FormGroup>
-              <Label>availability</Label>
+                <Label>availability</Label>
                 <Input required name="availability" type="select">
                   <option value="whole_week">Whole Week</option>
                   <option value="not_weekend">Not on the Weekend</option>
@@ -266,13 +292,28 @@ export default function Register() {
               {" "}
               {/* THE STYLE IS TEMP OR I GO CRAZY :D */}
               <FormGroup>
-                <Label for="address">Address</Label>
+                <Label>Address</Label>
                 <Input
                   required
                   name="street"
                   placeholder="street"
                   type="text"
                 />
+                <Input required name="type" type="select">
+                  <option value="strasse">strasse</option>
+                  <option value="damm">damm</option>
+                  <option value="alle">alle</option>
+                  <option value="chaussee">chaussee</option>
+                  <option value="gasse">gasse</option>
+                  <option value="landstrasse">landstrasse</option>
+                  <option value="pfad">pfad</option>
+                  <option value="platz">platz</option>
+                  <option value="ring">ring</option>
+                  <option value="steig">steig</option>
+                  <option value="ufer">ufer</option>
+                  <option value="weg">weg</option>
+                  <option value="zeile">zeile</option>
+                </Input>
               </FormGroup>
               <FormGroup>
                 <Input

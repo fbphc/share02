@@ -13,6 +13,7 @@ const PORT = process.env.PORT || 5007;
 
 app.use(cors());
 app.use(express.json());
+app.use("/upload", express.static('uploads'));
 
 /* --- DATABASE --- */
 connectDB()
@@ -31,20 +32,14 @@ mongoose.connection.on("error", (error) => {
 app.get("/test", (req, res) => {
     res.status(200).json("testing route")
 })
+
 /* --------------- */
 
-/*----------- testing uploads img----------------*/
-app.use("/uploads", express.static('uploads'))
-/*-----------------------------*/
 
 /* --- User ---*/
 app.use("/user", userRouter)
+
 /* --------------- */
-
-
-
-
-
 
 
 app.listen(PORT, (req, res) => console.log("Listening at port:", PORT));

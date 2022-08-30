@@ -1,30 +1,30 @@
-import { useState } from "react";
-import axios from "axios";
+// import { useState } from "react";
+// import axios from "axios";
 
-export default function LandingPage() {
-  const [selectedFile, setSelectedFile] = useState(null)
+// export default function LandingPage() {
+//   const [selectedFile, setSelectedFile] = useState(null)
 
-  function fileHandler(e) {
-    setSelectedFile(e.target.files[0]);
+//   function fileHandler(e) {
+//     setSelectedFile(e.target.files[0]);
    
-  }
-  function uploadHandler() {
-    const fd = new FormData();
-    fd.append('image', selectedFile, selectedFile.name)
-    console.log(selectedFile);
-    axios.post('http://localhost:5006/test', fd)
-      .then(res => {
-        console.log(res);
-      })
-  }
+//   }
+//   function uploadHandler() {
+//     const fd = new FormData();
+//     fd.append('image', selectedFile, selectedFile.name)
+//     console.log(selectedFile);
+//     axios.post('http://localhost:5006/test', fd)
+//       .then(res => {
+//         console.log(res);
+//       })
+//   }
 
-  return (
-    <div>
-      Home page
-      <div>
-        <input type='file' onInput={(e) => fileHandler(e)} />
-        <button onClick={uploadHandler}>Upload</button>
-      </div>
-    </div>
-  )
-}
+//   return (
+//     <div>
+//       Home page
+//       <div>
+//         <input type='file' onInput={(e) => fileHandler(e)} />
+//         <button onClick={uploadHandler}>Upload</button>
+//       </div>
+//     </div>
+//   )
+// }

@@ -10,22 +10,49 @@ import {
   Form,
 } from "reactstrap";
 // import { FaLocationArrow } from "react-icons/fa";
-import {BiCurrentLocation} from 'react-icons/bi'
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function MainMap() {
+  const typeOfStreet = [
+    "strasse",
+    "straße",
+    "str",
+    "damm",
+    "alle",
+    "chaussee",
+    "gasse",
+    "landstrasse",
+    "landstraße",
+    "pfad",
+    "platz",
+    "ring",
+    "steig",
+    "ufer",
+    "weg",
+    "zeile",
+  ];
   const [modal, setModal] = useState(false);
+
   const [routeForm, setRouteForm] = useState({
-    firstAddress: "",
-    secondAddress: "",
+    city: "",
+    street: "",
+    houseNr: "",
+    state: "Germany",
+    statecode: "DE",
+    type: 'strasse'
   });
 
   const toggle = () => setModal(!modal);
 
   function submit(e) {
     e.preventDefault();
-    console.log(routeForm);
+    const isIncluded = typeOfStreet.filter((item) => routeForm.street.includes(item));
+    if (isIncluded.length > 0) {
+      alert('please enter the type of street in the next field')
+    } else {
+      console.log(routeForm);
+    }
   }
 
   function routeChangeHandler(e) {
@@ -36,16 +63,16 @@ export default function MainMap() {
     });
   }
 
-    // const externalCloseBtn = (
-    //   <button
-    //     type="button"
-    //     className="close"
-    //     style={{ position: "absolute", top: "15px", right: "15px" }}
-    //     onClick={toggle}
-    //   >
-    //     &times;
-    //   </button>
-    // );
+  // const externalCloseBtn = (
+  //   <button
+  //     type="button"
+  //     className="close"
+  //     style={{ position: "absolute", top: "15px", right: "15px" }}
+  //     onClick={toggle}
+  //   >
+  //     &times;
+  //   </button>
+  // );
   return (
     <div>
       <div style={{ width: "100%", height: "50%" }}>
@@ -78,43 +105,95 @@ export default function MainMap() {
 
       <div>
         Are you traveling?
-        <Button color="primary" onClick={toggle}>calculate a Route</Button>
+        <Button color="primary" onClick={toggle}>
+          calculate a Route
+        </Button>
         <Modal isOpen={modal} toggle={toggle} /* external={externalCloseBtn} */>
-            <Form onSubmit={(e) => submit(e)}>
-          <ModalHeader>Modal title</ModalHeader>
-          <ModalBody>
+          <Form onSubmit={(e) => submit(e)}>
+            <ModalHeader>Modal title</ModalHeader>
+            <ModalBody>
               <div onChange={(e) => routeChangeHandler(e)}>
-                <FormGroup style={{position: "relative"}}>
-                  <Label for="address">From</Label>
+                <FormGroup>
+                  <Label>From</Label>
                   <Input
                     required
-                    name="firstAddress"
-                    placeholder="street, House Number, PLZ, City"
+                    name="street"
+                    placeholder="street"
                     type="text"
                   />
-                  <BiCurrentLocation style={{position: "absolute", top: "60%", right: "3%"}}/>
+                  <Input required name="type" type="select">
+                    <option value="strasse">strasse</option>
+                    <option value="damm">damm</option>
+                    <option value="alle">alle</option>
+                    <option value="chaussee">chaussee</option>
+                    <option value="gasse">gasse</option>
+                    <option value="landstrasse">landstrasse</option>
+                    <option value="pfad">pfad</option>
+                    <option value="platz">platz</option>
+                    <option value="ring">ring</option>
+                    <option value="steig">steig</option>
+                    <option value="ufer">ufer</option>
+                    <option value="weg">weg</option>
+                    <option value="zeile">zeile</option>
+                  </Input>
+                </FormGroup>
+                <FormGroup>
+                  <Input
+                    required
+                    name="houseNr"
+                    placeholder="houseNr"
+                    type="text"
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <Input required name="city" placeholder="city" type="text" />
                 </FormGroup>
                 <FormGroup>
                   <Label for="address">to</Label>
                   <Input
                     required
-                    name="secondAddress"
-                    placeholder="street, House Number, PLZ, City"
+                    name="street"
+                    placeholder="street"
+                    type="text"
+                  />
+                  <Input required name="type" type="select">
+                    <option>strasse</option>
+                    <option>damm</option>
+                    <option>alle</option>
+                    <option>chaussee</option>
+                    <option>gasse</option>
+                    <option>landstrasse</option>
+                    <option>pfad</option>
+                    <option>platz</option>
+                    <option>ring</option>
+                    <option>steig</option>
+                    <option>ufer</option>
+                    <option>weg</option>
+                    <option>zeile</option>
+                  </Input>
+                </FormGroup>
+                <FormGroup>
+                  <Input
+                    required
+                    name="houseNr"
+                    placeholder="houseNr"
                     type="text"
                   />
                 </FormGroup>
+                <FormGroup>
+                  <Input required name="city" placeholder="city" type="text" />
+                </FormGroup>
               </div>
-          </ModalBody>
-          <ModalFooter>
-            <Button color="primary" /* onClick={toggle} */ type="submit">
-              calculate
-            </Button>{" "}
-            <Button color="secondary" onClick={toggle}>
-              Cancel
-            </Button>
-
-          </ModalFooter>
-            </Form>
+            </ModalBody>
+            <ModalFooter>
+              <Button color="primary" /* onClick={toggle} */ type="submit">
+                calculate
+              </Button>{" "}
+              <Button color="secondary" onClick={toggle}>
+                Cancel
+              </Button>
+            </ModalFooter>
+          </Form>
         </Modal>
       </div>
     </div>
