@@ -16,11 +16,11 @@ app.use(express.json());
 
 /* --- DATABASE --- */
 connectDB()
-mongoose.connection.on("open", ()=>{
+mongoose.connection.on("open", () => {
     console.log("db is connected")
 })
 
-mongoose.connection.on("error", (error)=>{
+mongoose.connection.on("error", (error) => {
     console.log("Connection to MongoDB has failed", error.message)
 })
 
@@ -28,14 +28,22 @@ mongoose.connection.on("error", (error)=>{
 
 
 /* --- Testing ---*/
-app.get("/test", (req,res) =>{
+app.get("/test", (req, res) => {
     res.status(200).json("testing route")
 })
 /* --------------- */
 
+/*----------- testing uploads img----------------*/
+app.use("/uploads", express.static('uploads'))
+/*-----------------------------*/
+
 /* --- User ---*/
 app.use("/user", userRouter)
 /* --------------- */
+
+
+
+
 
 
 

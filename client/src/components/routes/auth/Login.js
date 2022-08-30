@@ -1,41 +1,53 @@
-import { Link } from 'react-router-dom'
-import { Button, Form, FormGroup, Input, Label } from 'reactstrap'
-
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { Button, Form, FormGroup, Input } from "reactstrap";
+import useAuth from "../../../context/authContext/useAuth";
+//isratest@gmail.com
 export default function Login() {
+  const { logIn, isAuthenticated } = useAuth();
+  
+  const [logInForm, setLogInForm] = useState({
+    email: "",
+    password: "",
+  });
+
+ function submit(e) {
+    e.preventDefault();
+    logIn(logInForm);
+  }
+
+  function changeHandler(e) {
+    const element = e.target.name;
+    const value = e.target.value;
+    setLogInForm((prevState) => {
+      return { ...prevState, [element]: value };
+    });
+  }
+
   return (
     <div>
+      <h1>Login</h1>
+      <Form onSubmit={(e)=>submit(e)}>
+        <div onChange={(e) => changeHandler(e)}>
+          <FormGroup>
+            <Input name="email" placeholder="email" type="email" required />
+          </FormGroup>
+          <FormGroup>
+            <Input
+              name="password"
+              placeholder="password placeholder"
+              type="password"
+              required
+              minLength={6}
+              autoComplete=""
+            />
+          </FormGroup>
+        </div>
+        <Button type="submit">Login</Button>
+      </Form>
+{isAuthenticated ? <p className="h4">u r logged in</p> : <p className="h4">suka!</p>}
 
-        <h1>Login</h1>
-        <Form>
-  <FormGroup>
-    <Label for="exampleEmail">
-      Email
-    </Label>
-    <Input
-      id="exampleEmail"
-      name="email"
-      placeholder="with a placeholder"
-      type="email"
-    />
-  </FormGroup>
-  <FormGroup>
-    <Label for="examplePassword">
-      Password
-    </Label>
-    <Input
-      id="examplePassword"
-      name="password"
-      placeholder="password placeholder"
-      type="password"
-    />
-  </FormGroup>
-  
-  <Button>
-    Login
-  </Button>
-</Form>
-
-<Link to='/register' >Register</Link>
+      <Link to="/register">Register</Link>
     </div>
-  )
+  );
 }
