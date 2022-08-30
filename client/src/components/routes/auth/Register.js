@@ -14,7 +14,27 @@ export default function Register() {
     houseNr: "",
     state: "Germany",
     statecode: "DE",
+    type: 'strasse'
   };
+
+  const typeOfStreet = [
+    "strasse",
+    "straße",
+    "str",
+    "damm",
+    "alle",
+    "chaussee",
+    "gasse",
+    "landstrasse",
+    "landstraße",
+    "pfad",
+    "platz",
+    "ring",
+    "steig",
+    "ufer",
+    "weg",
+    "zeile",
+  ];
   // show and hide wall-box owner state
   const [registerToggle, setRegisterToggle] = useState(false);
 
@@ -48,9 +68,14 @@ export default function Register() {
 
   function submit(e) {
     e.preventDefault();
+    const isIncluded = typeOfStreet.filter((item) => registerForm.address.street.includes(item));
     if(input.password !== input.confirmPassword) return alert("password and confirm password don't match")
+    else if(isIncluded.length > 0){
+      alert('please enter the type of street in the next field')
+    }else {
       signUp(registerForm);
       alert("you are registered")
+    }
 
   }
 
@@ -266,13 +291,28 @@ export default function Register() {
               {" "}
               {/* THE STYLE IS TEMP OR I GO CRAZY :D */}
               <FormGroup>
-                <Label for="address">Address</Label>
+                <Label>Address</Label>
                 <Input
                   required
                   name="street"
                   placeholder="street"
                   type="text"
                 />
+                <Input required name="type" type="select">
+                <option value="strasse">strasse</option>
+                <option value="damm">damm</option>
+                <option value="alle">alle</option>
+                <option value="chaussee">chaussee</option>
+                <option value="gasse">gasse</option>
+                <option value="landstrasse">landstrasse</option>
+                <option value="pfad">pfad</option>
+                <option value="platz">platz</option>
+                <option value="ring">ring</option>
+                <option value="steig">steig</option>
+                <option value="ufer">ufer</option>
+                <option value="weg">weg</option>
+                <option value="zeile">zeile</option>
+                </Input>
               </FormGroup>
               <FormGroup>
                 <Input
