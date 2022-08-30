@@ -31,7 +31,7 @@ const storage = multer.diskStorage({
 
 const fileFilter = (req, file, cb) => {
   if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-    return cb(null, true)
+     return cb(null, true)
   } else {
     return cb(null, false)
   }
@@ -40,7 +40,7 @@ const fileFilter = (req, file, cb) => {
 const upload = multer({
   storage: storage,
   limits: {
-    fileSize: 1024 * 1024 * 4
+    fileSize: 1024 * 1024 
   },
   fileFilter: fileFilter
 })
@@ -51,11 +51,13 @@ userRouter.post('/testing', upload.single('imageFile'), (req, res) => {
     image: req.file.path
   })
   image
+    .save()
     .then(result => {
       console.log(result);
       res.status(201).json({
         message: "Created image successfully",
         createdImage: {
+
           request: {
             type: 'GET',
             url: "http://localhost:5006/user/testing" + result
