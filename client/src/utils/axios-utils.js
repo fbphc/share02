@@ -10,7 +10,6 @@ export const validateToken = () => {
   if(!localStorage.getItem("user")) {
     return null
   }  else{
-
     const parsedUser = JSON.parse(localStorage.getItem("user"));
     return clientAPI.get("/user/tokenValidation", {
       headers: {
@@ -19,3 +18,5 @@ export const validateToken = () => {
     });
   }
 };
+
+export const getAllOwners = () => clientAPI.get("/user/getAllOwners") 

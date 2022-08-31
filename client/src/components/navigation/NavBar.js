@@ -31,10 +31,10 @@ function loggingOut(){
 }
   return (
     <div>
-        <div>
-            <img src={''} alt=''/>
-        </div>
-        <div>
+      <div>
+        <img src={""} alt="" />
+      </div>
+      <div>
         <Button
     color="primary"
     onClick={function noRefCheck(){setShow(true)}}

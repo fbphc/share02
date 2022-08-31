@@ -20,8 +20,9 @@ const userAppSchema = new mongoose.Schema({
   id: {
     type: Number,
   },
-  availability: {type: Object},
+  availability: {type: String},
   address: {type:Object},
+  addressInfo: {type:Object},
   telNumber: {type: String},
   reviewRate: {type: Object},
   typeOfCharger: {type: String}
@@ -30,6 +31,7 @@ const userAppSchema = new mongoose.Schema({
 userAppSchema.statics.findByEmail = function (email) {
   return this.findOne({ email: email });
 };
+
 
 const userApp = mongoose.model("userApp", userAppSchema);
 

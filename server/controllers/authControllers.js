@@ -12,8 +12,6 @@ const registerUser = async (req, res) => {
     });
   }
 
-  
-
   const {
     username,
     fname,
@@ -26,6 +24,7 @@ const registerUser = async (req, res) => {
     telNumber,
     reviewRate,
     typeOfCharger,
+    addressInfo
   } = req.body;
 
   const user = await userApp.findByEmail(email);
@@ -45,6 +44,7 @@ const registerUser = async (req, res) => {
     isOwner,
     availability,
     address,
+    addressInfo,
     telNumber,
     reviewRate,
     typeOfCharger,
@@ -53,7 +53,7 @@ const registerUser = async (req, res) => {
   });
   const payload = {
     id: Id,
-    username: userAppModel.name,
+    username: userAppModel.username,
   };
 
   const token = generateToken(payload);
@@ -73,10 +73,10 @@ const loginUser = async (req, res) => {
 
   const user = await userApp.findByEmail(email);
   if (!user)
-  return res.status(404).json({
-    msg: `Either email or password is not correct !!!`,
-  });
-  
+    return res.status(404).json({
+      msg: `Either email or password is not correct !!!`,
+    });
+
   const isPasswordCorrect = await bcrypt.compare(password, user.password);
   if (!isPasswordCorrect) {
     return res.status(404).json({
@@ -93,9 +93,17 @@ const loginUser = async (req, res) => {
   });
 };
 
-const tokenValidator = (req, res) =>{
-  res.json(req.user)
-  
-}
+const tokenValidator = (req, res) => {
+  res.json(req.user);
+};
 
-export { registerUser, loginUser, tokenValidator };
+const getAllOwners = (req, res) => {
+  try {
+    const allUsers = userApp.find({isOwner: true}, function (err, users) {
+      res.status(200).json(users);
+    });
+  } catch (err) {
+    console.log(err.message);
+  }
+};
+export { registerUser, loginUser, tokenValidator, getAllOwners };

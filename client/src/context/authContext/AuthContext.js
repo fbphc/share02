@@ -1,6 +1,10 @@
 import { createContext, useReducer } from "react";
 import authReducer, { authState } from "./authReducer.js";
-import { login, signup, validateToken } from "../../utils/axios-utils.js";
+import {
+  login,
+  signup,
+  validateToken,
+} from "../../utils/axios-utils.js";
 export const AuthContext = createContext(authState);
 
 export const AuthProvider = ({ children }) => {
@@ -43,23 +47,28 @@ export const AuthProvider = ({ children }) => {
         dispatch({ type: "SIGN_OUT" });
         localStorage.removeItem("user");
       } else {
-        console.log(response)
         dispatch({
           type: "AUTH_VALID",
-          
         });
       }
     } catch (err) {
       console.log(err);
     }
-  };
+  }
 
-   function signOut(){
+  function signOut() {
     dispatch({ type: "SIGN_OUT" });
     localStorage.removeItem("user");
-  };
+  }
 
-  const value = { logIn, signUp, signOut, isAuthenticated: state.isAuthenticated, tokenValidator };
+  
+  const value = {
+    logIn,
+    signUp,
+    signOut,
+    isAuthenticated: state.isAuthenticated,
+    tokenValidator,
+  };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
