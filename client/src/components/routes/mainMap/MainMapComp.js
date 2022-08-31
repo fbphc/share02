@@ -14,17 +14,15 @@ import useMap from "../../../context/mapContext/useMap.js";
 
 function MainMapComp() {
   const center = [52.51, 13.37];
-  const test = [
-    { latitude: 52.51, longitude: 9.37 },
-    { latitude: 52.51, longitude: 10.37 },
-    { latitude: 52.51, longitude: 11.37 },
-  ];
-  const { ownerArray } = useMap();
-  const x = ownerArray();
-  console.log(x);
-  const [addressesArray, setAddressesArray] = useState(x);
+
+  const { locations, ownerArray } = useMap();
+
+
   const [exTog, setExTog] = useState(true);
-  
+
+  useEffect(() => {
+    ownerArray();
+  }, []);
   return (
     <>
       <div className="leaflet-container">
@@ -42,7 +40,7 @@ function MainMapComp() {
             <Marker position={[52.51, 10.37]}></Marker>
             <Marker position={[52.51, 11.37]}></Marker> */}
 
-            {addressesArray.map((item, idx) => (
+            {locations.map((item, idx) => (
               <Marker
                 position={[item.latitude, item.longitude]}
                 key={idx + "marker"}

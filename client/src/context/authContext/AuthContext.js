@@ -4,7 +4,6 @@ import {
   login,
   signup,
   validateToken,
-  getAllOwners,
 } from "../../utils/axios-utils.js";
 export const AuthContext = createContext(authState);
 
