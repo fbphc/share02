@@ -22,6 +22,7 @@ const userAppSchema = new mongoose.Schema({
   },
   availability: {type: String},
   address: {type:Object},
+  addressInfo: {type:Object},
   telNumber: {type: String},
   reviewRate: {type: Object},
   typeOfCharger: {type: String}
