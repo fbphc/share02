@@ -5,11 +5,11 @@ import {
   FormGroup,
   Input,
   Label,
-  Modal,
+  /* Modal,
   ModalHeader,
   ModalBody,
   ModalFooter,
-  Form,
+  Form, */
 } from "reactstrap";
 
 import MainMapComp from "../mainMap/MainMapComp.js";
