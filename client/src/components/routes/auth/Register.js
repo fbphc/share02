@@ -68,10 +68,10 @@ export default function Register() {
 
   function submit(e) {
     e.preventDefault();
-    const isIncluded = typeOfStreet.filter((item) => registerForm.address.street.includes(item));
+    const isIncluded = typeOfStreet.filter((item) => registerForm.address.street.toLowerCase().includes(item));
     if(input.password !== input.confirmPassword) return alert("password and confirm password don't match")
     else if(isIncluded.length > 0){
-      alert('please enter the type of street in the next field')
+      alert(`please enter ${isIncluded} in the next field`)
     }else {
       signUp(registerForm);
       alert("you are registered")

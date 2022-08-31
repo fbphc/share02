@@ -47,9 +47,9 @@ export default function MainMap() {
 
   function submit(e) {
     e.preventDefault();
-    const isIncluded = typeOfStreet.filter((item) => routeForm.street.includes(item));
+    const isIncluded = typeOfStreet.filter((item) => routeForm.street.toLowerCase().includes(item));
     if(isIncluded.length > 0){
-      alert('please enter the type of street in the next field')
+      alert(`please enter ${isIncluded} in the next field`)
     } else{
       console.log(routeForm);
     }
