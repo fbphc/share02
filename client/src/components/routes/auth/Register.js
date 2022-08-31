@@ -1,12 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import useAuth from "../../../context/authContext/useAuth";
+import { typeOfStreet } from "../../../dataset/dataset.js";
+import axios from "axios";
 
 export default function Register() {
-  const {signUp} = useAuth()
+  const { signUp } = useAuth();
 
+  /********* API ********* */
+  const [toggleAPI, setToggleAPI] = useState(false);
+
+  /********************* */
   const initAddress = {
     city: "",
     postalcode: "",
@@ -15,10 +21,6 @@ export default function Register() {
     state: "Germany",
     statecode: "DE",
   };
-  // show and hide wall-box owner state
-  const [registerToggle, setRegisterToggle] = useState(false);
-
-  
 
   // register information state
   const [registerForm, setRegisterForm] = useState({
@@ -33,7 +35,10 @@ export default function Register() {
     telNumber: "",
     typeOfCharger: "type01",
     address: initAddress,
+    addressInfo: {},
   });
+  // show and hide wall-box owner state
+  const [registerToggle, setRegisterToggle] = useState(false);
 
   //check if password and confirm password match state
   const [input, setInput] = useState({
@@ -48,10 +53,19 @@ export default function Register() {
 
   function submit(e) {
     e.preventDefault();
-    if(input.password !== input.confirmPassword) return alert("password and confirm password don't match")
-      signUp(registerForm);
-      alert("you are registered")
+    toggleAPI ? setToggleAPI(false) : setToggleAPI(true);
 
+    const isIncluded = typeOfStreet.filter((item) =>
+      registerForm.address.street.toLowerCase().includes(item)
+    );
+    if (input.password !== input.confirmPassword)
+      return alert("password and confirm password don't match");
+    else if (isIncluded.length > 0) {
+      alert(`please enter ${isIncluded} in the next field`);
+    } else {
+      signUp(registerForm);
+      alert("you are registered");
+    }
   }
 
   // form changes function
@@ -61,27 +75,6 @@ export default function Register() {
     setRegisterForm((prevState) => {
       return { ...prevState, [element]: value };
     });
-  }
-
-
-  // show and hide password and confirm password state
-  const [passToggle, setPassToggle] = useState({
-    showPassword: "",
-    showConfirmPassword: ""
-  });
-  
-  // show and hide password function
-  function show_hidePassword(e) {
-    if(e === "password"){
-    setPassToggle({
-      ...passToggle,
-      showPassword: e === passToggle.showPassword ? "" : e,
-    })} else if(e === "confirmPassword"){
-      setPassToggle({
-        ...passToggle,
-        showConfirmPassword: e === passToggle.showConfirmPassword? "" : e,
-      })
-    }
   }
 
   // address changes function
@@ -96,7 +89,53 @@ export default function Register() {
     });
   }
 
-  // password change function 
+  /*********** API LATITUDE LONGITUDE ************ */
+  //doesn't work with empty fields
+  useEffect(() => {
+    axios
+      .get(
+        `http://api.positionstack.com/v1/forward?access_key=b51d3e2d643f495fdfe1018f9d9a6499&query=${
+          registerForm.address.houseNr
+        }%20${registerForm.address.street.split(" ").join("%20")},%20${
+          registerForm.address.city
+        }%20DE`
+      )
+      .then((response) => {
+        setRegisterForm((prevState) => {
+          return {
+            ...prevState,
+            addressInfo: response.data.data[0],
+          };
+        });
+        console.log("registerForm", registerForm);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  /*********************************************** */
+
+  // show and hide password and confirm password state
+  const [passToggle, setPassToggle] = useState({
+    showPassword: "",
+    showConfirmPassword: "",
+  });
+
+  // show and hide password function
+  function show_hidePassword(e) {
+    if (e === "password") {
+      setPassToggle({
+        ...passToggle,
+        showPassword: e === passToggle.showPassword ? "" : e,
+      });
+    } else if (e === "confirmPassword") {
+      setPassToggle({
+        ...passToggle,
+        showConfirmPassword: e === passToggle.showConfirmPassword ? "" : e,
+      });
+    }
+  }
+
+  // password change function
   const inputChange = (e) => {
     const { name, value } = e.target;
     setInput((prev) => ({
@@ -143,7 +182,7 @@ export default function Register() {
       <h1>Register</h1>
       <p>required fields *</p>
       <Form onSubmit={submit}>
-        <di onChange={(e) => registerFormHandler(e)}>
+        <div onChange={(e) => registerFormHandler(e)}>
           <FormGroup onChange={() => setRegisterToggle(!registerToggle)}>
             <Input required name="isOwner" type="select">
               <option
@@ -175,7 +214,7 @@ export default function Register() {
           <FormGroup>
             <Input required name="email" placeholder="Email" type="email" />
           </FormGroup>
-          <FormGroup style={{ position: "relative" }} >
+          <FormGroup style={{ position: "relative" }}>
             <Input
               required
               name="password"
@@ -234,15 +273,13 @@ export default function Register() {
           <FormGroup>
             <Input type="tel" name="telNumber" placeholder="Phone Number" />
           </FormGroup>
-        </di>
+        </div>
 
         {registerToggle && (
           <>
-            <div
-              onChange={(e) => registerFormHandler(e)}
-            >
+            <div onChange={(e) => registerFormHandler(e)}>
               <FormGroup>
-              <Label>type of charger</Label>
+                <Label>type of charger</Label>
                 <Input required name="typeOfCharger" type="select">
                   <option value="type01">type01</option>
                   <option value="type02">type02</option>
@@ -250,7 +287,7 @@ export default function Register() {
                 </Input>
               </FormGroup>
               <FormGroup>
-              <Label>availability</Label>
+                <Label>availability</Label>
                 <Input required name="availability" type="select">
                   <option value="whole_week">Whole Week</option>
                   <option value="not_weekend">Not on the Weekend</option>
@@ -259,19 +296,30 @@ export default function Register() {
               </FormGroup>
             </div>
 
-            <div
-              onChange={(e) => addressHandler(e)}
-            >
-              
+            <div onChange={(e) => addressHandler(e)}>
               <FormGroup>
-                <Label for="address">Address</Label>
+                <Label>Address</Label>
                 <Input
                   required
-                  id="address"
                   name="street"
                   placeholder="street"
                   type="text"
                 />
+                <Input required name="type" type="select">
+                  <option value="strasse">strasse</option>
+                  <option value="damm">damm</option>
+                  <option value="alle">alle</option>
+                  <option value="chaussee">chaussee</option>
+                  <option value="gasse">gasse</option>
+                  <option value="landstrasse">landstrasse</option>
+                  <option value="pfad">pfad</option>
+                  <option value="platz">platz</option>
+                  <option value="ring">ring</option>
+                  <option value="steig">steig</option>
+                  <option value="ufer">ufer</option>
+                  <option value="weg">weg</option>
+                  <option value="zeile">zeile</option>
+                </Input>
               </FormGroup>
               <FormGroup>
                 <Input
@@ -295,6 +343,7 @@ export default function Register() {
             </div>
           </>
         )}
+
         <Button type="submit">sign up</Button>
       </Form>
       <div>

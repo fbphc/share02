@@ -24,6 +24,7 @@ const registerUser = async (req, res) => {
     telNumber,
     reviewRate,
     typeOfCharger,
+    addressInfo
   } = req.body;
 
   const user = await userApp.findByEmail(email);
@@ -43,6 +44,7 @@ const registerUser = async (req, res) => {
     isOwner,
     availability,
     address,
+    addressInfo,
     telNumber,
     reviewRate,
     typeOfCharger,

@@ -19,4 +19,4 @@ export const validateToken = () => {
   }
 };
 
-export const getAllOwners = ()=> clientAPI.get("/user/getAllOwners") 
+export const getAllOwners = () => clientAPI.get("/user/getAllOwners") 

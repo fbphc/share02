@@ -4,7 +4,6 @@ import {
   login,
   signup,
   validateToken,
-  getAllOwners,
 } from "../../utils/axios-utils.js";
 export const AuthContext = createContext(authState);
 
@@ -62,30 +61,13 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("user");
   }
 
-  function produceCoordinatesOwner() {
-    let z = [];
-    (async () => {
-      const x = await getAllOwners();
-      x.data.map((item) => {
-        const y = {
-          street: item.address.street.split("straße").join(" strasse"),
-          houseNr: item.address.houseNr,
-          city: item.address.city,
-        };
-
-        z.push(y);
-      });
-      
-    })();
-    return z;
-  }
+  
   const value = {
     logIn,
     signUp,
     signOut,
     isAuthenticated: state.isAuthenticated,
     tokenValidator,
-    produceCoordinatesOwner,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
