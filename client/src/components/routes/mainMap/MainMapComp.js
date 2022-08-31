@@ -1,60 +1,75 @@
-import { useState, useEffect, useLayoutEffect } from "react";
-import axios from "axios";
-
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
 import {
   MapContainer,
   TileLayer,
   Marker,
   Popup,
-  Circle,
-  center,
-  Tooltip,
+  CircleMarker,
 } from "react-leaflet";
-import useMap from "../../../context/mapContext/useMap.js";
 
-function MainMapComp() {
+import useMap from "../../../context/mapContext/useMap.js";
+import useAuth from "../../../context/authContext/useAuth.js";
+
+function MainMapComp({ chargerFilter, setChargerFilter }) {
+  const { isAuthenticated } = useAuth();
   const center = [52.51, 13.37];
 
-  const { locations, ownerArray } = useMap();
-
-
-  const [exTog, setExTog] = useState(true);
+  const { locations, ownerArray, filterByCharger } = useMap();
 
   useEffect(() => {
     ownerArray();
   }, []);
+
+  useEffect(() => {
+    filterByCharger(chargerFilter.typeOfCharger)
+ /*    setChargerFilter({ typeOfCharger: "type01", filter: false }); */
+  }, [chargerFilter.filter]);
+
+
   return (
     <>
       <div className="leaflet-container">
         <>
           <MapContainer center={center} zoom={6}>
-            {/* <TooltipCircle center={center}/> */}
-            <TileLayer
-              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            {/* <Marker position={center}>
-              <Popup>Berlin</Popup>
-            </Marker> */}
-            {/* <Marker position={[52.51, 9.37]}></Marker>
-            <Marker position={[52.51, 10.37]}></Marker>
-            <Marker position={[52.51, 11.37]}></Marker> */}
+            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
-            {locations.map((item, idx) => (
-              <Marker
-                position={[item.latitude, item.longitude]}
-                key={idx + "marker"}
-              >
-                <Popup>{item.username}</Popup>
-              </Marker>
-            ))}
-            {/* {triggerToggle && <LocationMarker />} */}
+            {isAuthenticated
+              ? locations.map((item, idx) => (
+                  <Marker
+                    position={[item.latitude, item.longitude]}
+                    key={idx + "marker"}
+                  >
+                    {/* A BIT OF BOOTSTRAP-STYLING for the POP-UP*/}
+                    <Popup>
+                      <p className="text-center my-1 ">
+                        <b>{item.username}</b>
+                      </p>
+                      <p className="text-center my-1">{item.typeOfCharger}</p>
+                      <Link to="/route_endpoint">FinalRouteTemp</Link>
+                    </Popup>
+                  </Marker>
+                ))
+              : locations.map((item, idx) => (
+                  <CircleMarker
+                    center={[item.latitude, item.longitude]}
+                    pathOptions={{
+                      fillColor: "blue",
+                      fillOpacity: 0.6,
+                      color: "lightblue",
+                    }}
+                    radius={10}
+                  >
+                    <Popup>
+                      <p className="text-center my-1 ">
+                        <b>{item.username}</b>
+                      </p>
+                    </Popup>
+                  </CircleMarker>
+                ))}
           </MapContainer>
         </>
       </div>
-      <button onClick={() => (exTog ? setExTog(false) : setExTog(true))}>
-        asddasdasdsas
-      </button>
     </>
   );
 }
