@@ -4,7 +4,7 @@ import "leaflet-routing-machine";
 
 
 const RoutingComp = createControlComponent(({from,to}) => {
- 
+ console.log(from, to)
   const instance = L.Routing.control({
     waypoints: [
         L.latLng(from[0], from[1]),

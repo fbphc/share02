@@ -13,8 +13,13 @@ import {
 } from "reactstrap";
 
 import { typeOfStreetDataset } from "../../../dataset/dataset.js";
+import useMap from "../../../context/mapContext/useMap.js";
+
+
 
 function ModalSearchRoute({ modal, toggle }) {
+
+  const { routeCoordiantes } = useMap();
   const [routeForm, setRouteForm] = useState({
     fromCity: "",
     fromStreet: "",
@@ -22,6 +27,7 @@ function ModalSearchRoute({ modal, toggle }) {
     fromFtate: "Germany",
     fromStatecode: "DE",
     fromTypeOfStreet: "strasse",
+
     toCity: "",
     toStreet: "",
     toHouseNr: "",
@@ -29,7 +35,7 @@ function ModalSearchRoute({ modal, toggle }) {
     toStatecode: "DE",
     toTypeOfStreet: "strasse",
   });
-  
+
   function submit(e) {
     e.preventDefault();
     const isIncludedFrom = typeOfStreetDataset.filter((item) =>
@@ -41,7 +47,7 @@ function ModalSearchRoute({ modal, toggle }) {
       });
       routeForm.fromStreet = newStreet[0].trim();
     } else {
-      routeForm.fromStreet = routeForm.address.street.trim();
+      routeForm.fromStreet = routeForm.fromStreet.trim();
     }
     const isIncludedTo = typeOfStreetDataset.filter((item) =>
       routeForm.toStreet.toLowerCase().includes(item)
@@ -52,14 +58,17 @@ function ModalSearchRoute({ modal, toggle }) {
       });
       routeForm.toStreet = newStreet[0].trim();
     } else {
-      routeForm.toStreet = routeForm.address.street.trim();
+      routeForm.toStreet = routeForm.toStreet.trim();
     }
+
+    routeCoordiantes(routeForm);
   }
 
   function routeChangeHandler(e) {
     const element = e.target.name;
     const value = e.target.value;
     setRouteForm((prevState) => {
+      console.log(routeForm);
       return { ...prevState, [element]: value };
     });
   }
@@ -114,6 +123,7 @@ function ModalSearchRoute({ modal, toggle }) {
                 type="text"
               />
               <Input required name="toTypeOfStreet" type="select">
+                <option value="strasse">strasse</option>
                 <option value="damm">damm</option>
                 <option value="alle">alle</option>
                 <option value="chaussee">chaussee</option>
@@ -142,7 +152,7 @@ function ModalSearchRoute({ modal, toggle }) {
           </div>
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" /* onClick={toggle} */ type="submit">
+          <Button color="primary" onClick={submit} type="submit">
             calculate
           </Button>{" "}
           <Button color="secondary" onClick={toggle}>

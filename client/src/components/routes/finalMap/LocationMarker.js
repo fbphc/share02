@@ -19,7 +19,7 @@ function LocationMarker() {
   });
 
   return position === null ? null : (
-    <Marker position={position} pathOptions={{ fillColor: "lightblue" }}>
+    <Marker position={position}>
       <Tooltip direction="top" offset={[-10, 0]} opacity={1} permanent>
         You are here!
       </Tooltip>

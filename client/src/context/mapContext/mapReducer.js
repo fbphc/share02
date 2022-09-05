@@ -3,7 +3,7 @@ export const mapState = {
   routeData: {},
   actualPosition: null,
   startPoint:null,
-  endPoint:null
+  endPoint:{}
 };
 const mapReducer = (state, action) => {
   const { type, payload } = action;
@@ -23,16 +23,23 @@ const mapReducer = (state, action) => {
     case "CAlC_ENDPOINT": {
       return {
         ...state,
-        routeData: payload,
+        endPoint: payload,
       };
     }
-    case "ACTUAL_POS": {
+    case "START_POINT": {
       return {
         ...state,
-        actualPosition: payload,
+        startPoint: payload,
       };
     }
-    
+    case "CALC_ROUTE":{
+      console.log(payload)
+      return{
+        ...state,
+        startPoint:{lat: payload.startLat_Long.lat, lng: payload.startLat_Long.long},
+        endPoint:{lat: payload.endLat_Long.lat, lng: payload.endLat_Long.long},
+      }
+    }
     default: {
       return state;
     }

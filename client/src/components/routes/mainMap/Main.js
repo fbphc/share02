@@ -23,13 +23,9 @@ function MainMap() {
   const toggle = () => setModal(!modal);
   const [modal, setModal] = useState(false);
 
-
-
   return (
     <div>
-      <MainMapComp
-        chargerFilter={chargerFilter}
-      />
+      <MainMapComp chargerFilter={chargerFilter} />
 
       <div>
         To see wall-boxes addresses please
@@ -55,7 +51,6 @@ function MainMap() {
             <option value="type03">type03</option>
           </Input>
         </strong>
-      
       </FormGroup>
 
       <div>

@@ -38,7 +38,7 @@ const registerUser = async (req, res) => {
 
   try {
    const response = await axios.get(
-      `http://api.positionstack.com/v1/forward?access_key=b51d3e2d643f495fdfe1018f9d9a6499&query=${address.houseNr}%20${address.street}%20${address.typeOfStreet},%20${address.city}%20DE`
+      `http://api.positionstack.com/v1/forward?access_key=${process.env.POS_STACK_API}&query=${address.houseNr}%20${address.street}%20${address.typeOfStreet},%20${address.city}%20DE`
     
       ); 
    const addressInfo = response.data.data[0]

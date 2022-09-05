@@ -14,9 +14,8 @@ import useMap from "../../../context/mapContext/useMap.js";
 import useAuth from "../../../context/authContext/useAuth.js";
 
 function MainMapComp({ chargerFilter }) {
-
   const { isAuthenticated } = useAuth();
-  const { getEndPoint, actualPosition } = useMap();
+  const { getEndPoint, endPoint, actualPosition } = useMap();
 
   const center = [50.56, 9.71];
 
@@ -50,20 +49,31 @@ function MainMapComp({ chargerFilter }) {
                       </p>
                       <p className="text-center my-1">{item.typeOfCharger}</p>
 
-                      {actualPosition !== null && (
+                      {endPoint !== null && (
+                        <>
                         <Link
-                          to="/calc_route"
-                          onClick={(e) =>
-                            getCoordinates({
-                              lat: item.latitude,
-                              long: item.longitude,
-                            })
-                          }
-                        >
-                          FinalRouteTemp
-                        </Link>
+                            className="d-block text-center"
+                            to="/userProfile"
+                            state={{ id: item.id }}
+                          >
+                            Watch {item.username} Profile
+                          </Link>
+                          <Link
+                            className="d-block text-center"
+                            to="/calc_route"
+                            onClick={(e) =>
+                              getCoordinates({
+                                lat: item.latitude,
+                                long: item.longitude,
+                              })
+                            }
+                          >
+                            FinalRouteTemp
+                          </Link>
+                          
+                        </>
                       )}
-                      {actualPosition === null && (
+                      {endPoint === null && (
                         <Link to="/userProfile" state={{ id: item.id }}>
                           Watch {item.username} Profile
                         </Link>
