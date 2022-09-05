@@ -67,7 +67,7 @@ export default function Register() {
       registerForm.address.street = registerForm.address.street.trim();
     }
     signUp(registerForm);
-    //navigate("/");
+    navigate("/germany");
   }
   // form changes function
   function registerFormHandler(e) {

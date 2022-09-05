@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button, Form, FormGroup, Input } from "reactstrap";
 import useAuth from "../../../context/authContext/useAuth";
 //isratest@gmail.com
 export default function Login() {
+  const navigate = useNavigate()
   const { logIn, isAuthenticated } = useAuth();
   
   const [logInForm, setLogInForm] = useState({
@@ -14,6 +15,7 @@ export default function Login() {
  function submit(e) {
     e.preventDefault();
     logIn(logInForm);
+navigate("/germany")
   }
 
   function changeHandler(e) {
