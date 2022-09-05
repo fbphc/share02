@@ -16,6 +16,7 @@ import FinalRoute from "./components/routes/mainMap/FinalRoute.js"
 // components
 import NavBar from "./components/navigation/NavBar.js";
 import Register from "./components/routes/auth/Register.js";
+import Profile from './components/Profile'
 
 // Provider
 import { AuthProvider } from "./context/authContext/AuthContext.js";
@@ -37,6 +38,8 @@ function App() {
 
             <Route path="/mainmap" element={<Main />} />
             <Route path="/route_endpoint" element={<FinalRoute />} />
+            {/* added */}
+            <Route path="/profile" element={<Profile />} />
 
           </Routes>
         </MapProvider>

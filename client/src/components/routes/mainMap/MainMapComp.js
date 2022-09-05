@@ -22,10 +22,9 @@ function MainMapComp({ chargerFilter, setChargerFilter }) {
   }, []);
 
   useEffect(() => {
-    filterByCharger(chargerFilter.typeOfCharger)
- /*    setChargerFilter({ typeOfCharger: "type01", filter: false }); */
+    filterByCharger(chargerFilter.typeOfCharger);
+    /*    setChargerFilter({ typeOfCharger: "type01", filter: false }); */
   }, [chargerFilter.filter]);
-
 
   return (
     <>
@@ -52,6 +51,7 @@ function MainMapComp({ chargerFilter, setChargerFilter }) {
                 ))
               : locations.map((item, idx) => (
                   <CircleMarker
+                    key={idx + "marker"}
                     center={[item.latitude, item.longitude]}
                     pathOptions={{
                       fillColor: "blue",

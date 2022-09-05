@@ -3,3 +3,15 @@
   height: 60vh;
   margin: 0 auto;
 }
+
+:root {
+  --primary-color: #FFA822;
+  --secondary-color: #134E6F;
+  --danger-color: #FF6150;
+  --info-color: #1AC0C6;
+  --dark-color: #DEE0E6;
+}
+
+.secondary {
+  color: var(--primary-color)
+}
