@@ -4,18 +4,18 @@ import { Button, Form, FormGroup, Input } from "reactstrap";
 import useAuth from "../../../context/authContext/useAuth";
 //isratest@gmail.com
 export default function Login() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { logIn, isAuthenticated } = useAuth();
-  
+
   const [logInForm, setLogInForm] = useState({
     email: "",
     password: "",
   });
 
- function submit(e) {
+  function submit(e) {
     e.preventDefault();
     logIn(logInForm);
-navigate("/germany")
+    navigate("/germany");
   }
 
   function changeHandler(e) {
@@ -29,7 +29,7 @@ navigate("/germany")
   return (
     <div>
       <h1>Login</h1>
-      <Form onSubmit={(e)=>submit(e)}>
+      <Form onSubmit={(e) => submit(e)}>
         <div onChange={(e) => changeHandler(e)}>
           <FormGroup>
             <Input name="email" placeholder="email" type="email" required />
@@ -47,7 +47,11 @@ navigate("/germany")
         </div>
         <Button type="submit">Login</Button>
       </Form>
-{isAuthenticated ? <p className="h4">u r logged in</p> : <p className="h4">suka!</p>}
+      {isAuthenticated ? (
+        <p className="h4">u r logged in</p>
+      ) : (
+        <p className="h4">suka!</p>
+      )}
 
       <Link to="/register">Register</Link>
     </div>

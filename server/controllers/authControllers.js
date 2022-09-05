@@ -107,7 +107,7 @@ const tokenValidator = (req, res) => {
 };
 
 const getAllOwners = (req, res) => {
-console.log(req.body)
+
   try {
     if(req.body.typeOfCharger === "all"){
       const allUsers = userApp.find({ isOwner: true }, function (err, users) {

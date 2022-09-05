@@ -15,7 +15,7 @@ import useAuth from "../../../context/authContext/useAuth.js";
 
 function MainMapComp({ chargerFilter }) {
   const { isAuthenticated } = useAuth();
-  const { getEndPoint, endPoint, actualPosition } = useMap();
+  const { getEndPoint, endPoint } = useMap();
 
   const center = [50.56, 9.71];
 
@@ -64,7 +64,7 @@ function MainMapComp({ chargerFilter }) {
                             onClick={(e) =>
                               getCoordinates({
                                 lat: item.latitude,
-                                long: item.longitude,
+                                lng: item.longitude,
                               })
                             }
                           >
