@@ -1,4 +1,4 @@
-export const typeOfStreet = [
+export const typeOfStreetDataset = [
   "strasse",
   "straße",
   "str",

@@ -8,24 +8,27 @@ import {
   CircleMarker,
 } from "react-leaflet";
 
+import LocationMarker from "../finalMap/LocationMarker.js";
+
 import useMap from "../../../context/mapContext/useMap.js";
 import useAuth from "../../../context/authContext/useAuth.js";
 
-function MainMapComp({ chargerFilter, setChargerFilter }) {
+function MainMapComp({ chargerFilter }) {
+
   const { isAuthenticated } = useAuth();
-  const center = [52.51, 13.37];
+  const { getEndPoint, actualPosition } = useMap();
 
-  const { locations, ownerArray, filterByCharger } = useMap();
+  const center = [50.56, 9.71];
 
-  useEffect(() => {
-    ownerArray();
-  }, []);
+  const { locations, ownerArray } = useMap();
 
   useEffect(() => {
-    filterByCharger(chargerFilter.typeOfCharger)
- /*    setChargerFilter({ typeOfCharger: "type01", filter: false }); */
-  }, [chargerFilter.filter]);
+    ownerArray(chargerFilter.typeOfCharger);
+  }, [chargerFilter]);
 
+  function getCoordinates(routeData) {
+    getEndPoint(routeData);
+  }
 
   return (
     <>
@@ -46,7 +49,25 @@ function MainMapComp({ chargerFilter, setChargerFilter }) {
                         <b>{item.username}</b>
                       </p>
                       <p className="text-center my-1">{item.typeOfCharger}</p>
-                      <Link to="/route_endpoint">FinalRouteTemp</Link>
+
+                      {actualPosition !== null && (
+                        <Link
+                          to="/calc_route"
+                          onClick={(e) =>
+                            getCoordinates({
+                              lat: item.latitude,
+                              long: item.longitude,
+                            })
+                          }
+                        >
+                          FinalRouteTemp
+                        </Link>
+                      )}
+                      {actualPosition === null && (
+                        <Link to="/userProfile" state={{ id: item.id }}>
+                          Watch {item.username} Profile
+                        </Link>
+                      )}
                     </Popup>
                   </Marker>
                 ))
@@ -59,6 +80,7 @@ function MainMapComp({ chargerFilter, setChargerFilter }) {
                       color: "lightblue",
                     }}
                     radius={10}
+                    key={idx + "marker"}
                   >
                     <Popup>
                       <p className="text-center my-1 ">
@@ -67,6 +89,7 @@ function MainMapComp({ chargerFilter, setChargerFilter }) {
                     </Popup>
                   </CircleMarker>
                 ))}
+            <LocationMarker />
           </MapContainer>
         </>
       </div>

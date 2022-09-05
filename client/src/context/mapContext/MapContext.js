@@ -7,15 +7,16 @@ export const MapContext = createContext(mapState);
 export const MapProvider = ({ children }) => {
   const [state, dispatch] = useReducer(mapReducer, mapState);
 
-  function ownerArray() {
+  function ownerArray(typeOfCharger) {
     let ownersArray = [];
     (async () => {
-      const response = await getAllOwners();
+      const response = await getAllOwners(typeOfCharger);
       try {
         response.data.map((item) => {
           const userAddress = {
             /**** later on we have to delete ****/
             username: item.username,
+            id: item.id,
             street: item.address.street,
             houseNr: item.address.houseNr,
             city: item.address.city,
@@ -34,42 +35,24 @@ export const MapProvider = ({ children }) => {
     })();
     return ownersArray;
   }
-function filterByCharger(charger) {
-  let ownersArray = [];
-  (async () => {
-    const response = await getAllOwners();
-    try {
-      response.data.map((item) => {
-        const userAddress = {
-          /**** later on we have to delete ****/
-          username: item.username,
-          street: item.address.street,
-          houseNr: item.address.houseNr,
-          city: item.address.city,
-          typeOfCharger: item.typeOfCharger,
-          /********************************** */
-          latitude: item.addressInfo.latitude,
-          longitude: item.addressInfo.longitude,
-        };
-
-        ownersArray.push(userAddress);
-        
-        
-      });
-     const filteredArray = ownersArray.filter(item => item.typeOfCharger === charger)
-      
-      dispatch({ type: "FILTER_CHARGER", payload: filteredArray });
-    } catch (err) {
-      console.log(err);
-    }
-  })();
-  return ownersArray;
+  
+  function getEndPoint(routeData) {
+    dispatch({ type: "CAlC_ENDPOINT", payload: routeData });
   }
+  function getActualPosition(actualPosition) {
+    dispatch({ type: "ACTUAL_POS", payload: actualPosition });
+
+  }
+
   const value = {
     ownerArray,
     locations: state.locations,
-    filterByCharger
+    getEndPoint,
+    routeData: state.routeData,
+    getActualPosition,
+    actualPosition: state.actualPosition,
   };
-
+  
+  
   return <MapContext.Provider value={value}>{children}</MapContext.Provider>;
 };

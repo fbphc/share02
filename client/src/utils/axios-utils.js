@@ -7,9 +7,9 @@ export const signup = (user) => clientAPI.post("/user/sign_up", user);
 export const login = (user) => clientAPI.post("/user/login", user);
 
 export const validateToken = () => {
-  if(!localStorage.getItem("user")) {
-    return null
-  }  else{
+  if (!localStorage.getItem("user")) {
+    return null;
+  } else {
     const parsedUser = JSON.parse(localStorage.getItem("user"));
     return clientAPI.get("/user/tokenValidation", {
       headers: {
@@ -18,5 +18,6 @@ export const validateToken = () => {
     });
   }
 };
-
-export const getAllOwners = () => clientAPI.get("/user/getAllOwners") 
+export const getProfile = (userId) =>
+  clientAPI.post("/user/profileInfo", { "id": userId });
+export const getAllOwners = (typeOfCharger) => clientAPI.post("/user/getAllOwners", {typeOfCharger:typeOfCharger});

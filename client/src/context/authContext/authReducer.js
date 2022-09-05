@@ -40,7 +40,6 @@ export const authState = {
         return {
           ...state,
           isAuthenticated: true,
-  
           user: payload,
         };
       }
@@ -51,7 +50,12 @@ export const authState = {
           error: false,
         };
       }
-  
+  case "USER_INFO": {
+    return {
+      ...state, 
+      user: payload
+    }
+  }
       default: {
         return state;
       }
