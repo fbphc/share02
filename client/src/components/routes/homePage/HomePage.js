@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 
 export default function LandingPage() {
-    const [selectedFile, setSelectedFile] = useState(null) // case reducer
+    const [selectedFile, setSelectedFile] = useState(null) 
 
     function fileHandler(e) {
         setSelectedFile(e.target.files[0]);
