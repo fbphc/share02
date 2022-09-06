@@ -7,11 +7,11 @@ import { Link, useLocation } from "react-router-dom";
 function OwnerProfile() {
   const { isAuthenticated, getProfileInfo, state } = useAuth();
 
-  const location = useLocation()
-useEffect(()=>{
-   const {id} = location.state
-    getProfileInfo(id)
-},[])
+  const location = useLocation();
+  useEffect(() => {
+    const { id } = location.state;
+    getProfileInfo(id);
+  }, []);
   return (
     <div>
       {isAuthenticated ? (
@@ -20,22 +20,18 @@ useEffect(()=>{
             <div className="d-flex justify-content-between border-bottom border-dark">
               <p>User Name</p>
               <p>{state.user.username}</p>
-              <AiOutlineEdit />
             </div>
             <div className="d-flex justify-content-between border-bottom border-dark">
               <p>First Name</p>
               <p>{state.user.fname}</p>
-              <AiOutlineEdit />
             </div>
             <div className="d-flex justify-content-between border-bottom border-dark">
               <p>Last Name</p>
               <p>{state.user.lname}</p>
-              <AiOutlineEdit />
             </div>
             <div className="d-flex justify-content-between border-bottom border-dark">
               <p>Email</p>
               <p>{state.user.email}</p>
-              <AiOutlineEdit />
             </div>
             {state.user.isOwner && (
               <div className="d-flex justify-content-between border-bottom border-dark">
@@ -45,14 +41,12 @@ useEffect(()=>{
                   {state.user.address.houseNr}, {state.user.address.postalcode}{" "}
                   {state.user.address.city}
                 </p>
-                <AiOutlineEdit />
               </div>
             )}
             {state.user.telNumber && (
               <div className="d-flex justify-content-between border-bottom border-dark">
                 <p>Phone Number</p>
                 <p>{state.user.telNumber}</p>
-                <AiOutlineEdit />
               </div>
             )}
           </div>
