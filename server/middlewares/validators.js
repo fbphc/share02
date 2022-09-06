@@ -21,7 +21,6 @@ export const validatorSignUp = () => {
 
 export const validatorLogIn = () => {
   return [
-    check("username", "Name is required").notEmpty(),
     check("email", "Please include a valid email").isEmail(),
     check(
       "password",

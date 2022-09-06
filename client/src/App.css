@@ -1,4 +1,10 @@
-.navlinkMenu{
-    /* color: green; */
-    display: block;
+.leaflet-container {
+  width: 100%;
+  height: 60vh;
+  margin: 0 auto;
+}
+.leaflet-routing-container{
+  height: 10rem;
+  overflow: scroll;
+  background-color: rgba(255, 255, 255, 0.8);
 }
