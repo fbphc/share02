@@ -20,7 +20,7 @@ export default function Register() {
     houseNr: "",
     state: "Germany",
     statecode: "DE",
-    type: 'strasse'
+    type: "strasse",
   };
 
   // register information state
@@ -215,7 +215,7 @@ export default function Register() {
           <FormGroup>
             <Input required name="email" placeholder="Email" type="email" />
           </FormGroup>
-          <FormGroup style={{ position: "relative" }}>
+          <FormGroup className="position-relative">
             <Input
               required
               name="password"
@@ -231,13 +231,13 @@ export default function Register() {
             />
             {passToggle.showPassword === "password" ? (
               <AiOutlineEyeInvisible
+                className="position-absolute bottom-0 end-0 mb-2 me-1"
                 onClick={() => show_hidePassword("password")}
-                style={{ position: "absolute", right: "3%", top: "25%" }}
               />
             ) : (
               <AiOutlineEye
+                className="position-absolute bottom-0 end-0 mb-2 me-1"
                 onClick={() => show_hidePassword("password")}
-                style={{ position: "absolute", right: "3%", top: "25%" }}
               />
             )}
             {error.password && <p>{error.password}</p>}
@@ -260,17 +260,17 @@ export default function Register() {
             />
             {passToggle.showConfirmPassword === "confirmPassword" ? (
               <AiOutlineEyeInvisible
+                className="position-absolute bottom-0 end-0 mb-2 me-1"
                 onClick={() => show_hidePassword("confirmPassword")}
-                style={{ position: "absolute", right: "3%", top: "25%" }}
               />
             ) : (
               <AiOutlineEye
+                className="position-absolute bottom-0 end-0 mb-2 me-1"
                 onClick={() => show_hidePassword("confirmPassword")}
-                style={{ position: "absolute", right: "3%", top: "25%" }}
               />
             )}
-            {error.confirmPassword && <p>{error.confirmPassword}</p>}
           </FormGroup>
+            {error.confirmPassword && <p>{error.confirmPassword}</p>}
           <FormGroup>
             <Input type="tel" name="telNumber" placeholder="Phone Number" />
           </FormGroup>

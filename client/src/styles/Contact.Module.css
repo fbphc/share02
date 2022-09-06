@@ -1,11 +1,18 @@
-/* .teamImageContainer{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 60%;
-    margin: 0 auto;
+@import url('https://fonts.googleapis.com/css2?family=Tiro+Bangla&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alegreya&display=swap');
+
+
+.contactContainer{
+    color: var(--dark-color);
+    font-family: 'Alegreya', serif;
 }
-.teamImage{
-    width: 25%;
-    border-radius: 50%;
-} */
+.titles{
+    font-family: 'Tiro Bangla', serif;
+}
+.submitButton{
+    background-color: var(--dark-color);
+    color: var(--secondary-color);
+}
+.resetButton{
+    background-color: var(--danger-color);
+}

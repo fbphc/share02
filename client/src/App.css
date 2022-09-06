@@ -1,3 +1,7 @@
+body{
+  background-color: var(--secondary-color);
+}
+
 .leaflet-container {
   width: 100%;
   height: 60vh;
@@ -12,6 +16,18 @@
   --dark-color: #DEE0E6;
 }
 
+.primary{
+  color: var(--primary-colors)
+}
 .secondary {
   color: var(--primary-color)
+}
+.danger{
+  color: var(--danger-color)
+}
+.danger{
+  color: var(--info-color)
+}
+.danger{
+  color: var(--dark-color)
 }
