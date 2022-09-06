@@ -1,14 +1,16 @@
-import { createContext, useReducer } from "react";
+import { createContext, useReducer, useState } from "react";
 import authReducer, { authState } from "./authReducer.js";
 import {
   login,
   signup,
   validateToken,
+  getProfile,
 } from "../../utils/axios-utils.js";
 export const AuthContext = createContext(authState);
 
 export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, authState);
+
 
   async function signUp(FormData) {
     try {
@@ -56,18 +58,30 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
+  async function getProfileInfo(userId) {
+    try {
+      const response = await getProfile(userId);
+      console.log(response);
+      dispatch({ type: "USER_INFO", payload: response.data[0] });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   function signOut() {
     dispatch({ type: "SIGN_OUT" });
     localStorage.removeItem("user");
   }
 
-  
   const value = {
     logIn,
     signUp,
     signOut,
     isAuthenticated: state.isAuthenticated,
     tokenValidator,
+    getProfileInfo,
+    state,
+    
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

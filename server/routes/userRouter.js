@@ -6,7 +6,8 @@ import {
   registerUser,
   loginUser,
   tokenValidator,
-  getAllOwners
+  getAllOwners,
+  getInfo
 } from "../controllers/authControllers.js";
 
 const userRouter = Router();
@@ -14,7 +15,9 @@ const userRouter = Router();
 userRouter.post("/sign_up", validatorSignUp(), registerUser);
 
 userRouter.post("/login", validatorLogIn(), loginUser);
-userRouter.get("/getAllOwners", getAllOwners)
+userRouter.post("/getAllOwners", getAllOwners)
 userRouter.get("/tokenValidation", authenticateToken, tokenValidator )
+userRouter.post("/profileInfo", getInfo )
+
 
 export default userRouter;
