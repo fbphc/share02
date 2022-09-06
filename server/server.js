@@ -13,6 +13,7 @@ const PORT = process.env.PORT || 5007;
 
 app.use(cors());
 app.use(express.json());
+app.use("upload", express.static('uploads'));
 
 /* --- DATABASE --- */
 connectDB()
@@ -27,11 +28,6 @@ mongoose.connection.on("error", (error)=>{
 /* --------------- */
 
 
-/* --- Testing ---*/
-app.get("/test", (req,res) =>{
-    res.status(200).json("testing route")
-})
-/* --------------- */
 
 /* --- User ---*/
 app.use("/user", userRouter)
