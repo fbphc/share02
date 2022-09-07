@@ -2,3 +2,29 @@
     /* color: green; */
     display: block;
 }
+
+
+:root {
+    --primary-color: #FFA822;
+    --secondary-color: #134E6F;
+    --danger-color: ##FF6150;
+    --info-color: #1AC0C6;
+    --dark-color: #DEE0E6;
+}
+
+.primary {
+    background-color: var(--primary-color);
+    color: var(--secondary-color)
+}
+.secondary {
+    background-color: var(--secondary-color)
+}
+.danger {
+    background-color: var(--danger-color)
+}
+.info {
+    background-color: var(--info-color);
+}
+.dark {
+    background-color: var(--dark-color)
+}

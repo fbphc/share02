@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Button, Form, FormGroup, Input } from "reactstrap";
 import useAuth from "../../../context/authContext/useAuth";
+import { Button, Form, FormGroup, Input } from "reactstrap";
+import 'bootstrap/dist/css/bootstrap.min.css';import 'bootstrap/dist/css/bootstrap.min.css';
+
 //isratest@gmail.com
 export default function Login() {
   const { logIn, isAuthenticated } = useAuth();
@@ -43,9 +45,9 @@ export default function Login() {
             />
           </FormGroup>
         </div>
-        <Button type="submit">Login</Button>
+        <Button className="primary" type="submit">Login</Button>
       </Form>
-{isAuthenticated ? <p className="h4">u r logged in</p> : <p className="h4">suka!</p>}
+{isAuthenticated ? <p className="primary h4">u r logged in</p> : <p className="h4">suka!</p>}
 
       <Link to="/register">Register</Link>
     </div>
