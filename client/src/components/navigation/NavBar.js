@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../../styles/NavBar.Module.css";
 import {
   Button,
   CardImg,
