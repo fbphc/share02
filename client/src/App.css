@@ -19,18 +19,22 @@ body{
   --dark-color: #DEE0E6;
 }
 
-.primary{
-  color: var(--primary-colors)
+.primary {
+  background-color: var(--primary-color);
+  color: var(--secondary-color)
 }
 .secondary {
-  color: var(--primary-color)
+  background-color: var(--secondary-color)
 }
-.danger{
-  color: var(--danger-color)
+.danger {
+  background-color: var(--danger-color)
 }
-.danger{
-  color: var(--info-color)
+.info {
+  background-color: var(--info-color);
 }
-.danger{
-  color: var(--dark-color)
+.dark {
+  background-color: var(--dark-color)
+}
+.secondaryText{
+  color: var(--secondary-color);
 }

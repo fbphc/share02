@@ -1,12 +1,21 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Button, Form, FormGroup, Input, Label } from "reactstrap";
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import {
+  Button,
+  Form,
+  FormGroup,
+  Input,
+  Label,
+  Modal,
+  ModalHeader,
+  ModalBody,
+} from "reactstrap";
+import {AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import {IoCloseOutline} from 'react-icons/io5'
 import useAuth from "../../../context/authContext/useAuth";
 import { typeOfStreetDataset } from "../../../dataset/dataset.js";
 
-
-export default function Register() {
+export default function Register({ modalRegister, toggleRegister, closeMenu }) {
   const { signUp } = useAuth();
   const navigate = useNavigate();
 
@@ -37,7 +46,7 @@ export default function Register() {
     typeOfCharger: "type01",
     address: initAddress,
     addressInfo: {},
-    imgProfile: {}
+    imgProfile: {},
   });
 
   //check if password and confirm password match state
@@ -135,8 +144,6 @@ export default function Register() {
     inputValidator(e);
   };
 
-
-  
   function submit(e) {
     e.preventDefault();
     if (input.password !== input.confirmPassword)
@@ -157,193 +164,221 @@ export default function Register() {
     signUp(registerForm);
 
     navigate("/germany");
+    closeMenu();
+    toggleRegister();
   }
 
   return (
     <>
-      <div>
-        <h1>Register</h1>
-        <p>required fields *</p>
-        <Form onSubmit={submit}>
-          <div onChange={(e) => registerFormHandler(e)}>
-            <FormGroup onChange={() => setRegisterToggle(!registerToggle)}>
-              <Input required name="isOwner" type="select">
-                <option
-                  value={false} /* onClick={() => setRegisterToggle(false)} */
-                >
-                  Car Owner
-                </option>
-                <option
-                  value={true} /* onClick={() => setRegisterToggle(true)} */
-                >
-                  Wall-Box Owner
-                </option>
-              </Input>
-            </FormGroup>
-            <FormGroup>
-              <Input
-                required
-                name="username"
-                placeholder="UserName"
-                type="text"
-              />
-            </FormGroup>
-            <FormGroup>
-              <Input
-                required
-                name="fname"
-                placeholder="First Name"
-                type="text"
-              />
-            </FormGroup>
-            <FormGroup>
-              <Input
-                required
-                name="lname"
-                placeholder="Last Name"
-                type="text"
-              />
-            </FormGroup>
-            <FormGroup>
-              <Input required name="email" placeholder="Email" type="email" />
-            </FormGroup>
-            <FormGroup style={{ position: "relative" }}>
-              <Input
-                required
-                name="password"
-                placeholder="password"
-                type={
-                  passToggle.showPassword === "password" ? "text" : "password"
-                }
-                minLength={6}
-                autoComplete=""
-                value={input.username}
-                onChange={inputChange}
-                onBlur={inputValidator}
-              />
-              {passToggle.showPassword === "password" ? (
-                <AiOutlineEyeInvisible
-                  onClick={() => show_hidePassword("password")}
-                  style={{ position: "absolute", right: "3%", top: "25%" }}
+      <Modal isOpen={modalRegister}>
+          <ModalHeader className="d-flex">
+            Register
+          <IoCloseOutline className="fs-3 position-absolute end-0 me-2" onClick={toggleRegister} role='button'/>
+          </ModalHeader>
+        <ModalBody className="secondary text-light rounded-bottom">
+          <p>required fields *</p>
+          <Form onSubmit={submit}>
+            <div onChange={(e) => registerFormHandler(e)}>
+              <FormGroup onChange={() => setRegisterToggle(!registerToggle)}>
+                <Input required name="isOwner" type="select">
+                  <option
+                    value={false}
+                  >
+                    Car Owner
+                  </option>
+                  <option
+                    value={true}
+                  >
+                    Wall-Box Owner
+                  </option>
+                </Input>
+              </FormGroup>
+              <FormGroup>
+                <Input
+                  required
+                  name="username"
+                  placeholder="UserName"
+                  type="text"
                 />
-              ) : (
-                <AiOutlineEye
-                  onClick={() => show_hidePassword("password")}
-                  style={{ position: "absolute", right: "3%", top: "25%" }}
+              </FormGroup>
+              <div className="d-flex gap-2">
+                <FormGroup>
+                  <Input
+                    required
+                    name="fname"
+                    placeholder="First Name"
+                    type="text"
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <Input
+                    required
+                    name="lname"
+                    placeholder="Last Name"
+                    type="text"
+                  />
+                </FormGroup>
+              </div>
+              <FormGroup>
+                <Input required name="email" placeholder="Email" type="email" />
+              </FormGroup>
+              <FormGroup className="position-relative">
+                <Input
+                  required
+                  name="password"
+                  placeholder="password"
+                  type={
+                    passToggle.showPassword === "password" ? "text" : "password"
+                  }
+                  minLength={6}
+                  autoComplete=""
+                  value={input.username}
+                  onChange={inputChange}
+                  onBlur={inputValidator}
                 />
-              )}
-              {error.password && <p>{error.password}</p>}
-            </FormGroup>
-            <FormGroup style={{ position: "relative" }}>
-              <Input
-                required
-                name="confirmPassword"
-                placeholder="confirmPassword"
-                type={
-                  passToggle.showConfirmPassword === "confirmPassword"
-                    ? "text"
-                    : "password"
-                }
-                minLength={6}
-                autoComplete=""
-                value={input.username}
-                onChange={inputChange}
-                onBlur={inputValidator}
-              />
-              {passToggle.showConfirmPassword === "confirmPassword" ? (
-                <AiOutlineEyeInvisible
-                  onClick={() => show_hidePassword("confirmPassword")}
-                  style={{ position: "absolute", right: "3%", top: "25%" }}
+                {passToggle.showPassword === "password" ? (
+                  <AiOutlineEyeInvisible
+                    className="position-absolute top-50 end-0 translate-middle"
+                    onClick={() => show_hidePassword("password")}
+                  />
+                ) : (
+                  <AiOutlineEye
+                    className="position-absolute top-50 end-0 translate-middle"
+                    onClick={() => show_hidePassword("password")}
+                  />
+                )}
+                {error.password && <p>{error.password}</p>}
+              </FormGroup>
+              <FormGroup style={{ position: "relative" }}>
+                <Input
+                  required
+                  name="confirmPassword"
+                  placeholder="confirmPassword"
+                  type={
+                    passToggle.showConfirmPassword === "confirmPassword"
+                      ? "text"
+                      : "password"
+                  }
+                  minLength={6}
+                  autoComplete=""
+                  value={input.username}
+                  onChange={inputChange}
+                  onBlur={inputValidator}
                 />
-              ) : (
-                <AiOutlineEye
-                  onClick={() => show_hidePassword("confirmPassword")}
-                  style={{ position: "absolute", right: "3%", top: "25%" }}
-                />
-              )}
+                {passToggle.showConfirmPassword === "confirmPassword" ? (
+                  <AiOutlineEyeInvisible
+                    className="position-absolute top-50 end-0 translate-middle"
+                    onClick={() => show_hidePassword("confirmPassword")}
+                  />
+                ) : (
+                  <AiOutlineEye
+                    className="position-absolute top-50 end-0 translate-middle"
+                    onClick={() => show_hidePassword("confirmPassword")}
+                  />
+                )}
+              </FormGroup>
               {error.confirmPassword && <p>{error.confirmPassword}</p>}
-            </FormGroup>
-            <FormGroup>
-              <Input type="tel" name="telNumber" placeholder="Phone Number" />
-            </FormGroup>
+              <FormGroup>
+                <Input type="tel" name="telNumber" placeholder="Phone Number" />
+              </FormGroup>
+            </div>
+
+            {registerToggle && (
+              <>
+                <div onChange={(e) => registerFormHandler(e)}>
+                  <FormGroup>
+                    <Label>type of charger</Label>
+                    <Input required name="typeOfCharger" type="select">
+                      <option value="type01">type01</option>
+                      <option value="type02">type02</option>
+                      <option value="type03">type03</option>
+                    </Input>
+                  </FormGroup>
+                  <FormGroup>
+                    <Label>availability</Label>
+                    <Input required name="availability" type="select">
+                      <option value="whole_week">Whole Week</option>
+                      <option value="not_weekend">Not on the Weekend</option>
+                      <option value="night_avaiable">Night Availability</option>
+                    </Input>
+                  </FormGroup>
+                </div>
+
+                <div onChange={(e) => addressHandler(e)}>
+                  <Label className="">
+                    {" "}
+                    <b>Address</b>
+                  </Label>
+
+                  <FormGroup>
+                    <Input
+                      required
+                      name="city"
+                      placeholder="city"
+                      type="text"
+                    />
+                  </FormGroup>
+                  <FormGroup className="">
+                    <Input
+                      required
+                      name="street"
+                      placeholder="street"
+                      type="text"
+                    />
+                  </FormGroup>
+                  <FormGroup className="">
+                    <Input required name="type" type="select">
+                      <option value="strasse">strasse</option>
+                      <option value="damm">damm</option>
+                      <option value="alle">alle</option>
+                      <option value="chaussee">chaussee</option>
+                      <option value="gasse">gasse</option>
+                      <option value="landstrasse">landstrasse</option>
+                      <option value="pfad">pfad</option>
+                      <option value="platz">platz</option>
+                      <option value="ring">ring</option>
+                      <option value="steig">steig</option>
+                      <option value="ufer">ufer</option>
+                      <option value="weg">weg</option>
+                      <option value="zeile">zeile</option>
+                    </Input>
+                  </FormGroup>
+
+                  <div className="d-flex gap-2">
+                    <FormGroup className="w-25">
+                      <Input
+                        required
+                        name="houseNr"
+                        placeholder="houseNr"
+                        type="text"
+                      />
+                    </FormGroup>
+                    <FormGroup className="w-75">
+                      <Input
+                        required
+                        name="postalcode"
+                        placeholder="postal Code"
+                        type="text"
+                      />
+                    </FormGroup>
+                  </div>
+                </div>
+              </>
+            )}
+
+            <Button
+              type="submit"
+              onClick={() => (registerForm ? toggleRegister : null)}
+            >
+              sign up
+            </Button>
+            <Button onClick={toggleRegister}>cancel</Button>
+          </Form>
+          <div>
+            <p>you have an account?</p>
           </div>
-
-          {registerToggle && (
-            <>
-              <div onChange={(e) => registerFormHandler(e)}>
-                <FormGroup>
-                  <Label>type of charger</Label>
-                  <Input required name="typeOfCharger" type="select">
-                    <option value="type01">type01</option>
-                    <option value="type02">type02</option>
-                    <option value="type03">type03</option>
-                  </Input>
-                </FormGroup>
-                <FormGroup>
-                  <Label>availability</Label>
-                  <Input required name="availability" type="select">
-                    <option value="whole_week">Whole Week</option>
-                    <option value="not_weekend">Not on the Weekend</option>
-                    <option value="night_avaiable">Night Availability</option>
-                  </Input>
-                </FormGroup>
-              </div>
-
-              <div onChange={(e) => addressHandler(e)}>
-                <FormGroup>
-                  <Label>Address</Label>
-                  <Input
-                    required
-                    name="street"
-                    placeholder="street"
-                    type="text"
-                  />
-                  <Input required name="typeOfStreet" type="select">
-                    <option value="strasse">strasse</option>
-                    <option value="damm">damm</option>
-                    <option value="alle">alle</option>
-                    <option value="chaussee">chaussee</option>
-                    <option value="gasse">gasse</option>
-                    <option value="landstrasse">landstrasse</option>
-                    <option value="pfad">pfad</option>
-                    <option value="platz">platz</option>
-                    <option value="ring">ring</option>
-                    <option value="steig">steig</option>
-                    <option value="ufer">ufer</option>
-                    <option value="weg">weg</option>
-                    <option value="zeile">zeile</option>
-                  </Input>
-                </FormGroup>
-                <FormGroup>
-                  <Input
-                    required
-                    name="houseNr"
-                    placeholder="houseNr"
-                    type="text"
-                  />
-                </FormGroup>
-                <FormGroup>
-                  <Input required name="city" placeholder="city" type="text" />
-                </FormGroup>
-                <FormGroup>
-                  <Input
-                    required
-                    name="postalcode"
-                    placeholder="postal Code"
-                    type="text"
-                  />
-                </FormGroup>
-              </div>
-            </>
-          )}
-
-          <Button type="submit">sign up</Button>
-        </Form>
-        <div>
-          <p>you have an account?</p>
-          <Link to="/login">login</Link>
-        </div>
-      </div>
+        </ModalBody>
+      </Modal>
     </>
   );
 }
