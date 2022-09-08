@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { Button, Form, FormGroup, Input } from "reactstrap";
-import useAuth from "../../../context/authContext/useAuth";
+import { Link, useNavigate } from "react-router-dom";
+import { Button, Form, FormGroup, Input, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
+import useAuth from "../../../context/authContext/useAuth.js";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 //isratest@gmail.com
-export default function Login() {
+export default function Login({modalLogin, toggleLogin, closeMenu}) {
+    const navigate = useNavigate();
   const { logIn, isAuthenticated } = useAuth();
 
   const [logInForm, setLogInForm] = useState({
@@ -16,6 +17,9 @@ export default function Login() {
   function submit(e) {
     e.preventDefault();
     logIn(logInForm);
+    navigate('/mainmap')
+    closeMenu()
+    toggleLogin()
   }
 
   function changeHandler(e) {
@@ -40,8 +44,9 @@ export default function Login() {
   }
 
   return (
-    <div>
-      <h1>Login</h1>
+    <Modal isOpen={modalLogin}  >
+      <ModalHeader>Login</ModalHeader>
+      <ModalBody className="secondary">
       <Form onSubmit={(e) => submit(e)}>
         <div onChange={(e) => changeHandler(e)}>
           <FormGroup>
@@ -71,15 +76,18 @@ export default function Login() {
             )}
           </FormGroup>
         </div>
-        <Button type="submit">Login</Button>
+        <ModalFooter>
+
+        <Button onClick={() => logInForm? toggleLogin : null} type="submit">Login</Button>
+        <Button onClick={toggleLogin}>cancel</Button>
+        </ModalFooter>
       </Form>
       {isAuthenticated ? (
         <p className="h4">u r logged in</p>
       ) : (
         <p className="h4">suka!</p>
       )}
-
-      <Link to="/register">Register</Link>
-    </div>
+      </ModalBody>
+    </Modal>
   );
 }

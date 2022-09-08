@@ -88,7 +88,7 @@ export default function Profile() {
           <AiOutlineEdit />
         </div>
           }
-          </div> : <p>please<Link to="/login">login</Link></p>}
+          </div> : <p>please login to see the content of this page</p>}
     </div>
   );
 }

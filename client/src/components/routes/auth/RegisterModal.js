@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { Button, Form, FormGroup, Input, Label } from "reactstrap";
+import { Link, useNavigate } from "react-router-dom";
+import { Button, Form, FormGroup, Input, Label, Modal, ModalBody, ModalHeader } from "reactstrap";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import useAuth from "../../../context/authContext/useAuth";
 import { typeOfStreet } from "../../../dataset/dataset.js";
 import axios from "axios";
 
-export default function Register() {
+export default function Register({modalRegister, toggleRegister, closeMenu}) {
   const { signUp } = useAuth();
+  const navigate = useNavigate()
 
   /********* API ********* */
   const [toggleAPI, setToggleAPI] = useState(false);
@@ -55,6 +56,7 @@ export default function Register() {
   function submit(e) {
     e.preventDefault();
     toggleAPI ? setToggleAPI(false) : setToggleAPI(true);
+    
 
     const isIncluded = typeOfStreet.filter((item) =>
       registerForm.address.street.toLowerCase().includes(item)
@@ -67,6 +69,9 @@ export default function Register() {
       signUp(registerForm);
       alert("you are registered");
     }
+    navigate('/mainmap')
+    closeMenu()
+    toggleRegister()
   }
 
   // form changes function
@@ -179,8 +184,9 @@ export default function Register() {
   };
 
   return (
-    <div>
-      <h1>Register</h1>
+    <Modal isOpen={modalRegister}>
+        <ModalBody className="secondary text-light">
+      <ModalHeader>Register</ModalHeader>
       <p>required fields *</p>
       <Form onSubmit={submit}>
         <div onChange={(e) => registerFormHandler(e)}>
@@ -206,12 +212,14 @@ export default function Register() {
               type="text"
             />
           </FormGroup>
+          <div className="d-flex gap-2">
           <FormGroup>
             <Input required name="fname" placeholder="First Name" type="text" />
           </FormGroup>
           <FormGroup>
             <Input required name="lname" placeholder="Last Name" type="text" />
           </FormGroup>
+          </div>
           <FormGroup>
             <Input required name="email" placeholder="Email" type="email" />
           </FormGroup>
@@ -298,14 +306,22 @@ export default function Register() {
             </div>
 
             <div onChange={(e) => addressHandler(e)}>
-              <FormGroup>
-                <Label>Address</Label>
+                <Label className=""> <b>Address</b></Label>
+
+            <FormGroup>
+                <Input required name="city" placeholder="city" type="text" />
+              </FormGroup>
+              <FormGroup 
+                  className=""
+                  >
                 <Input
                   required
                   name="street"
                   placeholder="street"
                   type="text"
                 />
+                </FormGroup>
+                <FormGroup className="">
                 <Input required name="type" type="select">
                   <option value="strasse">strasse</option>
                   <option value="damm">damm</option>
@@ -322,7 +338,11 @@ export default function Register() {
                   <option value="zeile">zeile</option>
                 </Input>
               </FormGroup>
-              <FormGroup>
+              
+              
+              <div className="d-flex gap-2">
+
+              <FormGroup className="w-25">
                 <Input
                   required
                   name="houseNr"
@@ -330,10 +350,7 @@ export default function Register() {
                   type="text"
                 />
               </FormGroup>
-              <FormGroup>
-                <Input required name="city" placeholder="city" type="text" />
-              </FormGroup>
-              <FormGroup>
+              <FormGroup className="w-75">
                 <Input
                   required
                   name="postalcode"
@@ -341,16 +358,19 @@ export default function Register() {
                   type="text"
                 />
               </FormGroup>
+              </div>
+              
             </div>
           </>
         )}
 
-        <Button type="submit">sign up</Button>
+        <Button type="submit" onClick={() => registerForm? toggleRegister : null}>sign up</Button>
+        <Button onClick={toggleRegister}>cancel</Button>
       </Form>
       <div>
         <p>you have an account?</p>
-        <Link to="/login">login</Link>
       </div>
-    </div>
+      </ModalBody>
+    </Modal>
   );
 }
