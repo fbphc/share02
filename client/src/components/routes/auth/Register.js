@@ -111,6 +111,7 @@ export default function Register() {
         console.log("registerForm", registerForm);
       })
       .catch((err) => console.log(err));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   /*********************************************** */

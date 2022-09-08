@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
   Button,
-  CardImg,
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownToggle,
+  // CardImg,
+  // Dropdown,
+  // DropdownItem,
+  // DropdownMenu,
+  // DropdownToggle,
   Offcanvas,
   OffcanvasBody,
   OffcanvasHeader,
@@ -19,15 +19,13 @@ import { Link, useLocation } from "react-router-dom";
 import useAuth from "../../context/authContext/useAuth.js";
 
 export default function NavBar() {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  // const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const [modalLogin, setModalLogin] = useState(false);
   const toggleLogin = () => setModalLogin(!modalLogin);
 
   const [modalRegister, setModalRegister] = useState(false);
   const toggleRegister = () => setModalRegister(!modalRegister);
-
-  const toggle = () => setDropdownOpen(!dropdownOpen);
 
   const [show, setShow] = useState(false);
   function closeMenu() {
@@ -43,6 +41,7 @@ export default function NavBar() {
     if (user) {
       tokenValidator();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname]);
   /* ------------- */
 
