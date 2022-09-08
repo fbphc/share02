@@ -1,8 +1,15 @@
-import { createContext, useReducer } from "react";
+import { createContext, useReducer, useState } from "react";
 import authReducer, { authState } from "./authReducer.js";
-import { login, signup, validateToken } from "../../utils/axios-utils.js";
+import {
+  login,
+  signup,
+  validateToken,
+  getProfile,
+  getAvatar,
+} from "../../utils/axios-utils.js";
 export const AuthContext = createContext(authState);
-
+// added
+let userInfo = {}
 export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, authState);
 
@@ -31,6 +38,8 @@ export const AuthProvider = ({ children }) => {
         token: response.data.token,
       };
       localStorage.setItem("user", JSON.stringify(userStorage));
+      // added
+      userInfo = response.data.user
       return response;
     } catch (err) {
       dispatch({ type: "SIGNIN_ERR", payload: err.message });
@@ -43,23 +52,40 @@ export const AuthProvider = ({ children }) => {
         dispatch({ type: "SIGN_OUT" });
         localStorage.removeItem("user");
       } else {
-        console.log(response)
         dispatch({
           type: "AUTH_VALID",
-          
         });
       }
     } catch (err) {
       console.log(err);
     }
-  };
+  }
 
-   function signOut(){
+  async function getProfileInfo(userId) {
+    try {
+      const response = await getProfile(userId);
+
+      dispatch({ type: "USER_INFO", payload: response.data[0] });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  function signOut() {
     dispatch({ type: "SIGN_OUT" });
     localStorage.removeItem("user");
-  };
+  }
 
-  const value = { logIn, signUp, signOut, isAuthenticated: state.isAuthenticated, tokenValidator };
+
+  const value = {
+    logIn,
+    signUp,
+    signOut,
+    isAuthenticated: state.isAuthenticated,
+    tokenValidator,
+    getProfileInfo,
+    state,
+    }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

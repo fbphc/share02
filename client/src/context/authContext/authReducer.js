@@ -2,6 +2,7 @@ export const authState = {
     isAuthenticated: false,
     user: {},
     error: false,
+    imgObj: {}
   };
 
   const authReducer = (state, action) => {
@@ -13,7 +14,7 @@ export const authState = {
           ...state,
           isAuthenticated: true,
           user: payload.user,
-          };
+        };
       }
       case "SIGN_OUT": {
         return {
@@ -40,7 +41,6 @@ export const authState = {
         return {
           ...state,
           isAuthenticated: true,
-  
           user: payload,
         };
       }
@@ -51,7 +51,18 @@ export const authState = {
           error: false,
         };
       }
-  
+  case "USER_INFO": {
+    return {
+      ...state, 
+      user: payload
+    }
+  }
+  case "GET_IMG": {
+    return {
+      ...state, 
+      imgObj: payload
+    }
+  }
       default: {
         return state;
       }

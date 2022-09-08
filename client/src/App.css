@@ -1,4 +1,40 @@
-.navlinkMenu{
-    /* color: green; */
-    display: block;
+body{
+  background-color: var(--secondary-color);
+}
+.leaflet-container {
+  width: 100%;
+  height: 60vh;
+  margin: 0 auto;
+}
+.leaflet-routing-container{
+  height: 10rem;
+  overflow: scroll;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+:root {
+  --primary-color: #FFA822;
+  --secondary-color: #134E6F;
+  --danger-color: #FF6150;
+  --info-color: #1AC0C6;
+  --dark-color: #DEE0E6;
+}
+
+.primary {
+  background-color: var(--primary-color);
+  color: var(--secondary-color)
+}
+.secondary {
+  background-color: var(--secondary-color)
+}
+.danger {
+  background-color: var(--danger-color)
+}
+.info {
+  background-color: var(--info-color);
+}
+.dark {
+  background-color: var(--dark-color)
+}
+.secondaryText{
+  color: var(--secondary-color);
 }

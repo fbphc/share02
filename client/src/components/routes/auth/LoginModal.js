@@ -1,13 +1,12 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { /* Link, */ useNavigate } from "react-router-dom";
 import { Button, Form, FormGroup, Input, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
-import useAuth from "../../../context/authContext/useAuth";
+import useAuth from "../../../context/authContext/useAuth.js";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import { IoCloseOutline } from "react-icons/io5";
 
 //isratest@gmail.com
 export default function Login({modalLogin, toggleLogin, closeMenu}) {
-  const navigate = useNavigate();
+    const navigate = useNavigate();
   const { logIn, isAuthenticated } = useAuth();
 
   const [logInForm, setLogInForm] = useState({
@@ -18,9 +17,9 @@ export default function Login({modalLogin, toggleLogin, closeMenu}) {
   function submit(e) {
     e.preventDefault();
     logIn(logInForm);
-    navigate("/germany");
+    navigate('/mainmap')
     closeMenu()
-    toggleLogin() 
+    toggleLogin()
   }
 
   function changeHandler(e) {
@@ -31,25 +30,23 @@ export default function Login({modalLogin, toggleLogin, closeMenu}) {
     });
   }
 
+  // show and hide password and confirm password state
   const [passToggle, setPassToggle] = useState({
     showPassword: "",
   });
 
-
+  // show and hide password function
   function show_hidePassword(e) {
-    setPassToggle({
-      ...passToggle,
-      showPassword: e === passToggle.showPassword ? "" : e,
-    });
-}
+      setPassToggle({
+        ...passToggle,
+        showPassword: e === passToggle.showPassword ? "" : e,
+      });
+  }
 
   return (
-    <Modal isOpen={modalLogin}>
-      <ModalHeader>Login
-      <IoCloseOutline className="fs-3 position-absolute end-0 me-2" onClick={toggleLogin} role='button'/>
-
-      </ModalHeader>
-      <ModalBody className=" rounded-bottom secondary">
+    <Modal isOpen={modalLogin}  >
+      <ModalHeader>Login</ModalHeader>
+      <ModalBody className="secondary">
       <Form onSubmit={(e) => submit(e)}>
         <div onChange={(e) => changeHandler(e)}>
           <FormGroup>
@@ -58,7 +55,7 @@ export default function Login({modalLogin, toggleLogin, closeMenu}) {
           <FormGroup className="position-relative">
             <Input
               name="password"
-              placeholder="password placeholder"
+              placeholder="password"
               type={
                 passToggle.showPassword === "password" ? "text" : "password"
               }
@@ -80,10 +77,16 @@ export default function Login({modalLogin, toggleLogin, closeMenu}) {
           </FormGroup>
         </div>
         <ModalFooter>
-        <Button type="submit">Login</Button>
+
+        <Button onClick={() => logInForm? toggleLogin : null} type="submit">Login</Button>
         <Button onClick={toggleLogin}>cancel</Button>
         </ModalFooter>
       </Form>
+      {isAuthenticated ? (
+        <p className="h4">u r logged in</p>
+      ) : (
+        <p className="h4">suka!</p>
+      )}
       </ModalBody>
     </Modal>
   );

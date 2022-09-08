@@ -3,7 +3,7 @@ import cors from "cors";
 import "dotenv/config";
 
 import userRouter from "./routes/userRouter.js";
-
+/* import path from "path" */
 
 import connectDB from "./helpers/dbConnect.js"
 import mongoose from "mongoose";
@@ -13,6 +13,9 @@ const PORT = process.env.PORT || 5007;
 
 app.use(cors());
 app.use(express.json());
+
+
+
 
 /* --- DATABASE --- */
 connectDB()
@@ -27,11 +30,6 @@ mongoose.connection.on("error", (error)=>{
 /* --------------- */
 
 
-/* --- Testing ---*/
-app.get("/test", (req,res) =>{
-    res.status(200).json("testing route")
-})
-/* --------------- */
 
 /* --- User ---*/
 app.use("/user", userRouter)
