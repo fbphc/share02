@@ -1,14 +1,15 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import useAuth from "../../../context/authContext/useAuth";
 import { typeOfStreetDataset } from "../../../dataset/dataset.js";
-import axios from "axios";
+
 
 export default function Register() {
   const { signUp } = useAuth();
   const navigate = useNavigate();
+
   // show and hide wall-box owner state
   const [registerToggle, setRegisterToggle] = useState(false);
 
@@ -36,6 +37,7 @@ export default function Register() {
     typeOfCharger: "type01",
     address: initAddress,
     addressInfo: {},
+    imgProfile: {}
   });
 
   //check if password and confirm password match state
@@ -49,26 +51,6 @@ export default function Register() {
     confirmPassword: "",
   });
 
-  function submit(e) {
-    e.preventDefault();
-    if (input.password !== input.confirmPassword)
-      return alert("password and confirm password don't match");
-
-    const isIncluded = typeOfStreetDataset.filter((item) =>
-      registerForm.address.street.toLowerCase().includes(item)
-    );
-    if (isIncluded.length > 0) {
-      const newStreet = isIncluded.map((item) => {
-        return registerForm.address.street.toLowerCase().split(item)[0].trim();
-      });
-
-      registerForm.address.street = newStreet[0].trim();
-    } else {
-      registerForm.address.street = registerForm.address.street.trim();
-    }
-    signUp(registerForm);
-    navigate("/germany");
-  }
   // form changes function
   function registerFormHandler(e) {
     const element = e.target.name;
@@ -111,16 +93,6 @@ export default function Register() {
     }
   }
 
-  // password change function
-  const inputChange = (e) => {
-    const { name, value } = e.target;
-    setInput((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-    inputValidator(e);
-  };
-
   // checking if password and confirm password match function
   const inputValidator = (e) => {
     let { name, value } = e.target;
@@ -153,179 +125,225 @@ export default function Register() {
     });
   };
 
+  // password change function
+  const inputChange = (e) => {
+    const { name, value } = e.target;
+    setInput((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+    inputValidator(e);
+  };
+
+
+  
+  function submit(e) {
+    e.preventDefault();
+    if (input.password !== input.confirmPassword)
+      return alert("password and confirm password don't match");
+
+    const isIncluded = typeOfStreetDataset.filter((item) =>
+      registerForm.address.street.toLowerCase().includes(item)
+    );
+    if (isIncluded.length > 0) {
+      const newStreet = isIncluded.map((item) => {
+        return registerForm.address.street.toLowerCase().split(item)[0].trim();
+      });
+
+      registerForm.address.street = newStreet[0].trim();
+    } else {
+      registerForm.address.street = registerForm.address.street.trim();
+    }
+    signUp(registerForm);
+
+    navigate("/germany");
+  }
+
   return (
-    <div>
-      <h1>Register</h1>
-      <p>required fields *</p>
-      <Form onSubmit={submit}>
-        <div onChange={(e) => registerFormHandler(e)}>
-          <FormGroup onChange={() => setRegisterToggle(!registerToggle)}>
-            <Input required name="isOwner" type="select">
-              <option
-                value={false} /* onClick={() => setRegisterToggle(false)} */
-              >
-                Car Owner
-              </option>
-              <option
-                value={true} /* onClick={() => setRegisterToggle(true)} */
-              >
-                Wall-Box Owner
-              </option>
-            </Input>
-          </FormGroup>
-          <FormGroup>
-            <Input
-              required
-              name="username"
-              placeholder="UserName"
-              type="text"
-            />
-          </FormGroup>
-          <FormGroup>
-            <Input required name="fname" placeholder="First Name" type="text" />
-          </FormGroup>
-          <FormGroup>
-            <Input required name="lname" placeholder="Last Name" type="text" />
-          </FormGroup>
-          <FormGroup>
-            <Input required name="email" placeholder="Email" type="email" />
-          </FormGroup>
-          <FormGroup style={{ position: "relative" }}>
-            <Input
-              required
-              name="password"
-              placeholder="password"
-              type={
-                passToggle.showPassword === "password" ? "text" : "password"
-              }
-              minLength={6}
-              autoComplete=""
-              value={input.username}
-              onChange={inputChange}
-              onBlur={inputValidator}
-            />
-            {passToggle.showPassword === "password" ? (
-              <AiOutlineEyeInvisible
-                onClick={() => show_hidePassword("password")}
-                style={{ position: "absolute", right: "3%", top: "25%" }}
-              />
-            ) : (
-              <AiOutlineEye
-                onClick={() => show_hidePassword("password")}
-                style={{ position: "absolute", right: "3%", top: "25%" }}
-              />
-            )}
-            {error.password && <p>{error.password}</p>}
-          </FormGroup>
-          <FormGroup style={{ position: "relative" }}>
-            <Input
-              required
-              name="confirmPassword"
-              placeholder="confirmPassword"
-              type={
-                passToggle.showConfirmPassword === "confirmPassword"
-                  ? "text"
-                  : "password"
-              }
-              minLength={6}
-              autoComplete=""
-              value={input.username}
-              onChange={inputChange}
-              onBlur={inputValidator}
-            />
-            {passToggle.showConfirmPassword === "confirmPassword" ? (
-              <AiOutlineEyeInvisible
-                onClick={() => show_hidePassword("confirmPassword")}
-                style={{ position: "absolute", right: "3%", top: "25%" }}
-              />
-            ) : (
-              <AiOutlineEye
-                onClick={() => show_hidePassword("confirmPassword")}
-                style={{ position: "absolute", right: "3%", top: "25%" }}
-              />
-            )}
-            {error.confirmPassword && <p>{error.confirmPassword}</p>}
-          </FormGroup>
-          <FormGroup>
-            <Input type="tel" name="telNumber" placeholder="Phone Number" />
-          </FormGroup>
-        </div>
-
-        {registerToggle && (
-          <>
-            <div onChange={(e) => registerFormHandler(e)}>
-              <FormGroup>
-                <Label>type of charger</Label>
-                <Input required name="typeOfCharger" type="select">
-                  <option value="type01">type01</option>
-                  <option value="type02">type02</option>
-                  <option value="type03">type03</option>
-                </Input>
-              </FormGroup>
-              <FormGroup>
-                <Label>availability</Label>
-                <Input required name="availability" type="select">
-                  <option value="whole_week">Whole Week</option>
-                  <option value="not_weekend">Not on the Weekend</option>
-                  <option value="night_avaiable">Night Availability</option>
-                </Input>
-              </FormGroup>
-            </div>
-
-            <div onChange={(e) => addressHandler(e)}>
-              <FormGroup>
-                <Label>Address</Label>
-                <Input
-                  required
-                  name="street"
-                  placeholder="street"
-                  type="text"
-                />
-                <Input required name="typeOfStreet" type="select">
-                  <option value="strasse">strasse</option>
-                  <option value="damm">damm</option>
-                  <option value="alle">alle</option>
-                  <option value="chaussee">chaussee</option>
-                  <option value="gasse">gasse</option>
-                  <option value="landstrasse">landstrasse</option>
-                  <option value="pfad">pfad</option>
-                  <option value="platz">platz</option>
-                  <option value="ring">ring</option>
-                  <option value="steig">steig</option>
-                  <option value="ufer">ufer</option>
-                  <option value="weg">weg</option>
-                  <option value="zeile">zeile</option>
-                </Input>
-              </FormGroup>
-              <FormGroup>
-                <Input
-                  required
-                  name="houseNr"
-                  placeholder="houseNr"
-                  type="text"
-                />
-              </FormGroup>
-              <FormGroup>
-                <Input required name="city" placeholder="city" type="text" />
-              </FormGroup>
-              <FormGroup>
-                <Input
-                  required
-                  name="postalcode"
-                  placeholder="postal Code"
-                  type="text"
-                />
-              </FormGroup>
-            </div>
-          </>
-        )}
-
-        <Button type="submit">sign up</Button>
-      </Form>
+    <>
       <div>
-        <p>you have an account?</p>
-        <Link to="/login">login</Link>
+        <h1>Register</h1>
+        <p>required fields *</p>
+        <Form onSubmit={submit}>
+          <div onChange={(e) => registerFormHandler(e)}>
+            <FormGroup onChange={() => setRegisterToggle(!registerToggle)}>
+              <Input required name="isOwner" type="select">
+                <option
+                  value={false} /* onClick={() => setRegisterToggle(false)} */
+                >
+                  Car Owner
+                </option>
+                <option
+                  value={true} /* onClick={() => setRegisterToggle(true)} */
+                >
+                  Wall-Box Owner
+                </option>
+              </Input>
+            </FormGroup>
+            <FormGroup>
+              <Input
+                required
+                name="username"
+                placeholder="UserName"
+                type="text"
+              />
+            </FormGroup>
+            <FormGroup>
+              <Input
+                required
+                name="fname"
+                placeholder="First Name"
+                type="text"
+              />
+            </FormGroup>
+            <FormGroup>
+              <Input
+                required
+                name="lname"
+                placeholder="Last Name"
+                type="text"
+              />
+            </FormGroup>
+            <FormGroup>
+              <Input required name="email" placeholder="Email" type="email" />
+            </FormGroup>
+            <FormGroup style={{ position: "relative" }}>
+              <Input
+                required
+                name="password"
+                placeholder="password"
+                type={
+                  passToggle.showPassword === "password" ? "text" : "password"
+                }
+                minLength={6}
+                autoComplete=""
+                value={input.username}
+                onChange={inputChange}
+                onBlur={inputValidator}
+              />
+              {passToggle.showPassword === "password" ? (
+                <AiOutlineEyeInvisible
+                  onClick={() => show_hidePassword("password")}
+                  style={{ position: "absolute", right: "3%", top: "25%" }}
+                />
+              ) : (
+                <AiOutlineEye
+                  onClick={() => show_hidePassword("password")}
+                  style={{ position: "absolute", right: "3%", top: "25%" }}
+                />
+              )}
+              {error.password && <p>{error.password}</p>}
+            </FormGroup>
+            <FormGroup style={{ position: "relative" }}>
+              <Input
+                required
+                name="confirmPassword"
+                placeholder="confirmPassword"
+                type={
+                  passToggle.showConfirmPassword === "confirmPassword"
+                    ? "text"
+                    : "password"
+                }
+                minLength={6}
+                autoComplete=""
+                value={input.username}
+                onChange={inputChange}
+                onBlur={inputValidator}
+              />
+              {passToggle.showConfirmPassword === "confirmPassword" ? (
+                <AiOutlineEyeInvisible
+                  onClick={() => show_hidePassword("confirmPassword")}
+                  style={{ position: "absolute", right: "3%", top: "25%" }}
+                />
+              ) : (
+                <AiOutlineEye
+                  onClick={() => show_hidePassword("confirmPassword")}
+                  style={{ position: "absolute", right: "3%", top: "25%" }}
+                />
+              )}
+              {error.confirmPassword && <p>{error.confirmPassword}</p>}
+            </FormGroup>
+            <FormGroup>
+              <Input type="tel" name="telNumber" placeholder="Phone Number" />
+            </FormGroup>
+          </div>
+
+          {registerToggle && (
+            <>
+              <div onChange={(e) => registerFormHandler(e)}>
+                <FormGroup>
+                  <Label>type of charger</Label>
+                  <Input required name="typeOfCharger" type="select">
+                    <option value="type01">type01</option>
+                    <option value="type02">type02</option>
+                    <option value="type03">type03</option>
+                  </Input>
+                </FormGroup>
+                <FormGroup>
+                  <Label>availability</Label>
+                  <Input required name="availability" type="select">
+                    <option value="whole_week">Whole Week</option>
+                    <option value="not_weekend">Not on the Weekend</option>
+                    <option value="night_avaiable">Night Availability</option>
+                  </Input>
+                </FormGroup>
+              </div>
+
+              <div onChange={(e) => addressHandler(e)}>
+                <FormGroup>
+                  <Label>Address</Label>
+                  <Input
+                    required
+                    name="street"
+                    placeholder="street"
+                    type="text"
+                  />
+                  <Input required name="typeOfStreet" type="select">
+                    <option value="strasse">strasse</option>
+                    <option value="damm">damm</option>
+                    <option value="alle">alle</option>
+                    <option value="chaussee">chaussee</option>
+                    <option value="gasse">gasse</option>
+                    <option value="landstrasse">landstrasse</option>
+                    <option value="pfad">pfad</option>
+                    <option value="platz">platz</option>
+                    <option value="ring">ring</option>
+                    <option value="steig">steig</option>
+                    <option value="ufer">ufer</option>
+                    <option value="weg">weg</option>
+                    <option value="zeile">zeile</option>
+                  </Input>
+                </FormGroup>
+                <FormGroup>
+                  <Input
+                    required
+                    name="houseNr"
+                    placeholder="houseNr"
+                    type="text"
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <Input required name="city" placeholder="city" type="text" />
+                </FormGroup>
+                <FormGroup>
+                  <Input
+                    required
+                    name="postalcode"
+                    placeholder="postal Code"
+                    type="text"
+                  />
+                </FormGroup>
+              </div>
+            </>
+          )}
+
+          <Button type="submit">sign up</Button>
+        </Form>
+        <div>
+          <p>you have an account?</p>
+          <Link to="/login">login</Link>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
