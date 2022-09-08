@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 
 export default function LandingPage() {
-    const [selectedFile, setSelectedFile] = useState(null)
+    const [selectedFile, setSelectedFile] = useState(null) 
 
     function fileHandler(e) {
         setSelectedFile(e.target.files[0]);
@@ -11,7 +11,7 @@ export default function LandingPage() {
     function uploadHandler() {
         const fd = new FormData();
         fd.append('imageFile', selectedFile, selectedFile.name)
-        axios.post('http://localhost:5006/user/upload', fd, {
+        axios.post('http://localhost:5006/user/upload', fd, {       // axios utils
         })
             .then(res => {
                 console.log(res);
