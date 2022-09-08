@@ -3,7 +3,7 @@ import cors from "cors";
 import "dotenv/config";
 
 import userRouter from "./routes/userRouter.js";
-
+/* import path from "path" */
 
 import connectDB from "./helpers/dbConnect.js"
 import mongoose from "mongoose";
@@ -13,7 +13,9 @@ const PORT = process.env.PORT || 5007;
 
 app.use(cors());
 app.use(express.json());
-app.use("upload", express.static('uploads'));
+
+
+
 
 /* --- DATABASE --- */
 connectDB()

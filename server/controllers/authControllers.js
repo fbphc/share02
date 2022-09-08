@@ -133,4 +133,8 @@ const getInfo = async (req, res) => {
     console.log(err.message);
   }
 };
-export { registerUser, loginUser, tokenValidator, getAllOwners, getInfo };
+
+const updateProfile = async (req, res) => {
+  res.status(400).json("update_Profile")
+}
+export { registerUser, loginUser, tokenValidator, getAllOwners, getInfo,updateProfile };

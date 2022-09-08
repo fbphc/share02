@@ -5,12 +5,12 @@ import {
   signup,
   validateToken,
   getProfile,
+  getAvatar,
 } from "../../utils/axios-utils.js";
 export const AuthContext = createContext(authState);
 
 export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, authState);
-
 
   async function signUp(FormData) {
     try {
@@ -61,7 +61,7 @@ export const AuthProvider = ({ children }) => {
   async function getProfileInfo(userId) {
     try {
       const response = await getProfile(userId);
-      console.log(response);
+
       dispatch({ type: "USER_INFO", payload: response.data[0] });
     } catch (err) {
       console.log(err);
@@ -73,6 +73,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("user");
   }
 
+
   const value = {
     logIn,
     signUp,
@@ -81,8 +82,7 @@ export const AuthProvider = ({ children }) => {
     tokenValidator,
     getProfileInfo,
     state,
-    
-  };
+    }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

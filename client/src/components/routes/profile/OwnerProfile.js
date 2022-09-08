@@ -1,22 +1,26 @@
 import { useEffect, useState } from "react";
 // import { Button, Modal, ModalBody, ModalFooter} from "reactstrap";
-import { AiOutlineEdit } from "react-icons/ai";
+
 import useAuth from "../../../context/authContext/useAuth.js";
 import { Link, useLocation } from "react-router-dom";
 
 function OwnerProfile() {
-  const { isAuthenticated, getProfileInfo, state } = useAuth();
-
+  const { isAuthenticated, getProfileInfo, state} =
+    useAuth();
   const location = useLocation();
   useEffect(() => {
     const { id } = location.state;
+
     getProfileInfo(id);
   }, []);
+
+
   return (
     <div>
       {isAuthenticated ? (
         state.user ? (
           <div style={{ width: "60%", margin: "10rem auto" }}>
+            
             <div className="d-flex justify-content-between border-bottom border-dark">
               <p>User Name</p>
               <p>{state.user.username}</p>

@@ -7,21 +7,21 @@ import {
   loginUser,
   tokenValidator,
   getAllOwners,
-  getInfo
+  getInfo,
+  updateProfile,
 } from "../controllers/authControllers.js";
 
-import getFile from "../controllers/fileControllers.js";
-import uploadFile from "../middlewares/uploadFile.js";
+
 
 const userRouter = Router();
 
 userRouter.post("/sign_up", validatorSignUp(), registerUser);
-
 userRouter.post("/login", validatorLogIn(), loginUser);
-userRouter.post("/getAllOwners", getAllOwners)
-userRouter.get("/tokenValidation", authenticateToken, tokenValidator )
-userRouter.post("/profileInfo", getInfo )
-userRouter.post("/img/upload", uploadFile, getFile)
+
+userRouter.post("/getAllOwners", getAllOwners);
+userRouter.get("/tokenValidation", authenticateToken, tokenValidator);
+userRouter.post("/profileInfo", getInfo);
+userRouter.put("/updateProfile", updateProfile);
 
 
 
