@@ -21,3 +21,5 @@ export const validateToken = () => {
 export const getProfile = (userId) =>
   clientAPI.post("/user/profileInfo", { "id": userId });
 export const getAllOwners = (typeOfCharger) => clientAPI.post("/user/getAllOwners", {typeOfCharger:typeOfCharger});
+
+
