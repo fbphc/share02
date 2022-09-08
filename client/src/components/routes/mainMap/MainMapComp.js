@@ -83,6 +83,7 @@ function MainMapComp({ chargerFilter }) {
                 ))
               : locations.map((item, idx) => (
                   <CircleMarker
+                    key={idx + "marker"}
                     center={[item.latitude, item.longitude]}
                     pathOptions={{
                       fillColor: "blue",

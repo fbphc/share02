@@ -14,7 +14,7 @@ export const authState = {
           ...state,
           isAuthenticated: true,
           user: payload.user,
-          };
+        };
       }
       case "SIGN_OUT": {
         return {

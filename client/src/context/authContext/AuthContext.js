@@ -8,7 +8,8 @@ import {
   getAvatar,
 } from "../../utils/axios-utils.js";
 export const AuthContext = createContext(authState);
-
+// added
+let userInfo = {}
 export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, authState);
 
@@ -37,6 +38,8 @@ export const AuthProvider = ({ children }) => {
         token: response.data.token,
       };
       localStorage.setItem("user", JSON.stringify(userStorage));
+      // added
+      userInfo = response.data.user
       return response;
     } catch (err) {
       dispatch({ type: "SIGNIN_ERR", payload: err.message });
