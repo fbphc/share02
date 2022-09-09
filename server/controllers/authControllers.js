@@ -25,6 +25,8 @@ const registerUser = async (req, res) => {
     telNumber,
     reviewRate,
     typeOfCharger,
+    imgProfile
+
   } = req.body;
 
   const user = await userApp.findByEmail(email);
@@ -58,6 +60,8 @@ const registerUser = async (req, res) => {
       typeOfCharger,
       password: hashedPassword,
       id: Id,
+      imgProfile
+
     });
 
     if (newUserApp) {

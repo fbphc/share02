@@ -13,13 +13,16 @@ import LocationMarker from "../finalMap/LocationMarker.js";
 import useMap from "../../../context/mapContext/useMap.js";
 import useAuth from "../../../context/authContext/useAuth.js";
 
+import { Image } from "cloudinary-react";
+import noPhoto from "../../../img/noPhoto.png";
+
 function MainMapComp({ chargerFilter }) {
   const { isAuthenticated } = useAuth();
-  const { getEndPoint, endPoint } = useMap();
+ 
 
   const center = [50.56, 9.71];
 
-  const { locations, ownerArray } = useMap();
+  const { locations, ownerArray, startPoint, getEndPoint } = useMap();
 
   useEffect(() => {
     ownerArray(chargerFilter.typeOfCharger);
@@ -44,46 +47,47 @@ function MainMapComp({ chargerFilter }) {
                   >
                     {/* A BIT OF BOOTSTRAP-STYLING for the POP-UP*/}
                     <Popup>
+                      {item.imgProfile && item.imgProfile !== "no_photo" ? (
+                        <Image
+                          className="w-25 mx-auto d-block"
+                          cloudName="schoolgroupfinal"
+                          publicId={item.imgProfile}
+                        />
+                      ) : (
+                        <img
+                          src={noPhoto}
+                          alt="user"
+                          className="w-25 mx-auto d-block"
+                        />
+                      )}
                       <p className="text-center my-1 ">
                         <b>{item.username}</b>
                       </p>
                       <p className="text-center my-1">{item.typeOfCharger}</p>
 
-                      {endPoint !== null && (
-                        <>
+                      {startPoint !== null && (
                         <Link
-                            className="d-block text-center"
-                            to="/userProfile"
-                            state={{ id: item.id }}
-                          >
-                            Watch {item.username} Profile
-                          </Link>
-                          <Link
-                            className="d-block text-center"
-                            to="/calc_route"
-                            onClick={(e) =>
-                              getCoordinates({
-                                lat: item.latitude,
-                                lng: item.longitude,
-                              })
-                            }
-                          >
-                            FinalRouteTemp
-                          </Link>
-                          
-                        </>
-                      )}
-                      {endPoint === null && (
-                        <Link to="/userProfile" state={{ id: item.id }}>
-                          Watch {item.username} Profile
+                          className="d-block text-center"
+                          to="/calc_route"
+                          onClick={(e) =>
+                            getCoordinates({
+                              lat: item.latitude,
+                              lng: item.longitude,
+                            })
+                          }
+                        >
+                          FinalRouteTemp
                         </Link>
                       )}
+
+                      <Link to="/userProfile" state={{ id: item.id }}>
+                        Watch {item.username} Profile
+                      </Link>
                     </Popup>
                   </Marker>
                 ))
               : locations.map((item, idx) => (
                   <CircleMarker
-                    key={idx + "marker"}
                     center={[item.latitude, item.longitude]}
                     pathOptions={{
                       fillColor: "blue",

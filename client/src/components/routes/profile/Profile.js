@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { AiOutlineEdit } from "react-icons/ai";
 import useAuth from "../../../context/authContext/useAuth.js";
 import { Link } from "react-router-dom";
+import { Image } from "cloudinary-react";
+import noPhoto from "../../../img/noPhoto.png";
 
 function Profile() {
   const { isAuthenticated, getProfileInfo, state } = useAuth();
@@ -17,6 +19,19 @@ function Profile() {
       {isAuthenticated ? (
         state.user ? (
           <div style={{ width: "60%", margin: "10rem auto" }}>
+            {state.user.imgProfile === "no_photo" ? (
+              <div>
+                <img src={noPhoto} alt="user" />
+              </div>
+            ) : (
+              <div>
+                <Image
+                  cloudName="schoolgroupfinal"
+                  publicId={state.user.imgProfile}
+                />
+              </div>
+            )}
+
             <div className="d-flex justify-content-between border-bottom border-dark">
               <p>User Name</p>
               <p>{state.user.username}</p>

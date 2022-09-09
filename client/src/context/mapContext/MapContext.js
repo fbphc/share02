@@ -26,6 +26,7 @@ const navigate =  useNavigate()
             /********************************** */
             latitude: item.addressInfo.latitude,
             longitude: item.addressInfo.longitude,
+            imgProfile: item.imgProfile
           };
 
           ownersArray.push(userAddress);
@@ -61,6 +62,7 @@ const navigate =  useNavigate()
         navigate("/calc_route")
       })()
   }
+  
   const value = {
     ownerArray,
     locations: state.locations,

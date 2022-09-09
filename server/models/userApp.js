@@ -21,7 +21,7 @@ const userAppSchema = new mongoose.Schema(
     id: {
       type: Number,
     },
-    imageFile: {type: Object},
+    imgProfile: {type: String},
     availability: { type: String },
     address: { type: Object },
     addressInfo: { type: Object },

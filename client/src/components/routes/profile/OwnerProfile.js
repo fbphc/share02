@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 
 import useAuth from "../../../context/authContext/useAuth.js";
 import { Link, useLocation } from "react-router-dom";
+import {Image} from "cloudinary-react"
+import noPhoto from "../../../img/noPhoto.png";
 
 function OwnerProfile() {
   const { isAuthenticated, getProfileInfo, state} =
@@ -20,7 +22,16 @@ function OwnerProfile() {
       {isAuthenticated ? (
         state.user ? (
           <div style={{ width: "60%", margin: "10rem auto" }}>
-            
+            {state.user.imgProfile && state.user.imgProfile !== "no_photo" ?
+              <div>
+                <Image
+                  cloudName="schoolgroupfinal"
+                  publicId={state.user.imgProfile}
+                />
+              </div> : <div>
+                <img src={noPhoto} alt="user" />
+              </div>
+            }
             <div className="d-flex justify-content-between border-bottom border-dark">
               <p>User Name</p>
               <p>{state.user.username}</p>

@@ -14,6 +14,9 @@ import {AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import {IoCloseOutline} from 'react-icons/io5'
 import useAuth from "../../../context/authContext/useAuth";
 import { typeOfStreetDataset } from "../../../dataset/dataset.js";
+import axios from "axios";
+
+
 
 export default function Register({ modalRegister, toggleRegister, closeMenu }) {
   const { signUp } = useAuth();
@@ -46,7 +49,7 @@ export default function Register({ modalRegister, toggleRegister, closeMenu }) {
     typeOfCharger: "type01",
     address: initAddress,
     addressInfo: {},
-    imgProfile: {},
+    imgProfile: "no_photo",
   });
 
   //check if password and confirm password match state
@@ -167,7 +170,26 @@ export default function Register({ modalRegister, toggleRegister, closeMenu }) {
     closeMenu();
     toggleRegister();
   }
+/****** IMAGES ***** */
+const [imageSelected, setImageSelected] = useState("");
 
+const uploadImage = () => {
+  const formData = new FormData();
+  formData.append("file", imageSelected);
+  formData.append("upload_preset", "schoolGroup");
+
+  axios
+    .post(
+      "https://api.cloudinary.com/v1_1/schoolgroupfinal/image/upload",
+      formData
+    )
+    .then((response) => setRegisterForm({...registerForm, imgProfile: response.data.url}))
+    .catch((err) => {
+      setRegisterForm({...registerForm, imgProfile: "no_Img"})
+      return console.log(err)});
+};
+
+/********************* */
   return (
     <>
       <Modal isOpen={modalRegister}>
@@ -179,6 +201,13 @@ export default function Register({ modalRegister, toggleRegister, closeMenu }) {
           <p>required fields *</p>
           <Form onSubmit={submit}>
             <div onChange={(e) => registerFormHandler(e)}>
+            <FormGroup>
+          <Input
+            type="file"
+            onChange={(e) => setImageSelected(e.target.files[0])}
+          />
+          <Button onClick={uploadImage}>Upload Image</Button>
+        </FormGroup>
               <FormGroup onChange={() => setRegisterToggle(!registerToggle)}>
                 <Input required name="isOwner" type="select">
                   <option

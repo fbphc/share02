@@ -21,6 +21,7 @@ export const AuthProvider = ({ children }) => {
         username: response.data.user.username,
         id: response.data.user.id,
         token: response.data.token,
+        imgProfile: response.data.imgProfile
       };
       localStorage.setItem("user", JSON.stringify(userStorage));
       return response;
@@ -32,13 +33,15 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await login(FormData);
       dispatch({ type: "AUTH_SIGNIN", payload: response.data });
+      
       const userStorage = {
         username: response.data.user.username,
         id: response.data.user.id,
         token: response.data.token,
+        imgProfile: response.data.user.imgProfile
       };
       localStorage.setItem("user", JSON.stringify(userStorage));
-      // added
+      
       userInfo = response.data.user
       return response;
     } catch (err) {
