@@ -1,12 +1,21 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Button, Form, FormGroup, Input, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
+import {
+  Button,
+  Form,
+  FormGroup,
+  Input,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+} from "reactstrap";
 import useAuth from "../../../context/authContext/useAuth";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { IoCloseOutline } from "react-icons/io5";
 
 //isratest@gmail.com
-export default function Login({modalLogin, toggleLogin, closeMenu}) {
+export default function Login({ modalLogin, toggleLogin, closeMenu }) {
   const navigate = useNavigate();
   const { logIn, isAuthenticated } = useAuth();
 
@@ -19,8 +28,8 @@ export default function Login({modalLogin, toggleLogin, closeMenu}) {
     e.preventDefault();
     logIn(logInForm);
     navigate("/germany");
-    closeMenu()
-    toggleLogin() 
+    closeMenu();
+    toggleLogin();
   }
 
   function changeHandler(e) {
@@ -35,55 +44,62 @@ export default function Login({modalLogin, toggleLogin, closeMenu}) {
     showPassword: "",
   });
 
-
   function show_hidePassword(e) {
     setPassToggle({
       ...passToggle,
       showPassword: e === passToggle.showPassword ? "" : e,
     });
-}
+  }
 
   return (
     <Modal isOpen={modalLogin}>
-      <ModalHeader>Login
-      <IoCloseOutline className="fs-3 position-absolute end-0 me-2" onClick={toggleLogin} role='button'/>
-
+      <ModalHeader>
+        Login
+        <IoCloseOutline
+          className="fs-3 position-absolute end-0 me-2"
+          onClick={toggleLogin}
+          role="button"
+        />
       </ModalHeader>
       <ModalBody className=" rounded-bottom secondary">
-      <Form onSubmit={(e) => submit(e)}>
-        <div onChange={(e) => changeHandler(e)}>
-          <FormGroup>
-            <Input name="email" placeholder="email" type="email" required />
-          </FormGroup>
-          <FormGroup className="position-relative">
-            <Input
-              name="password"
-              placeholder="password placeholder"
-              type={
-                passToggle.showPassword === "password" ? "text" : "password"
-              }
-              required
-              minLength={6}
-              autoComplete=""
-            />
-            {passToggle.showPassword === "password" ? (
-              <AiOutlineEyeInvisible
-                className="position-absolute top-50 end-0 translate-middle"
-                onClick={() => show_hidePassword("password")}
+        <Form onSubmit={(e) => submit(e)}>
+          <div onChange={(e) => changeHandler(e)}>
+            <FormGroup>
+              <Input name="email" placeholder="email" type="email" required />
+            </FormGroup>
+            <FormGroup className="position-relative">
+              <Input
+                name="password"
+                placeholder="password placeholder"
+                type={
+                  passToggle.showPassword === "password" ? "text" : "password"
+                }
+                required
+                minLength={6}
+                autoComplete=""
               />
-            ) : (
-              <AiOutlineEye
-                className="position-absolute top-50 end-0 translate-middle"
-                onClick={() => show_hidePassword("password")}
-              />
-            )}
-          </FormGroup>
-        </div>
-        <ModalFooter>
-        <Button type="submit">Login</Button>
-        <Button onClick={toggleLogin}>cancel</Button>
-        </ModalFooter>
-      </Form>
+              {passToggle.showPassword === "password" ? (
+                <AiOutlineEyeInvisible
+                  className="position-absolute top-50 end-0 translate-middle"
+                  onClick={() => show_hidePassword("password")}
+                />
+              ) : (
+                <AiOutlineEye
+                  className="position-absolute top-50 end-0 translate-middle"
+                  onClick={() => show_hidePassword("password")}
+                />
+              )}
+            </FormGroup>
+          </div>
+          <ModalFooter>
+            <Button color="warning" outline type="submit">
+              Login
+            </Button>
+            <Button color="warning" outline onClick={toggleLogin}>
+              cancel
+            </Button>
+          </ModalFooter>
+        </Form>
       </ModalBody>
     </Modal>
   );

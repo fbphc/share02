@@ -55,7 +55,7 @@ function MainMap() {
 
       <div>
         Are you traveling?
-        <Button onClick={toggle}>calculate a Route</Button>
+        <Button  color="warning" outline  onClick={toggle}>calculate a Route</Button>
         <ModalSearchRoute modal={modal} toggle={toggle} />
       </div>
     </div>

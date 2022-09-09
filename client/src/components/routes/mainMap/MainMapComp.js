@@ -18,7 +18,6 @@ import noPhoto from "../../../img/noPhoto.png";
 
 function MainMapComp({ chargerFilter }) {
   const { isAuthenticated } = useAuth();
- 
 
   const center = [50.56, 9.71];
 
@@ -34,79 +33,79 @@ function MainMapComp({ chargerFilter }) {
 
   return (
     <>
-      <div className="leaflet-container">
-        <>
-          <MapContainer center={center} zoom={6}>
-            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+      <div className="mx-2 my-3 border rounded border-2">
+       {/*  <button>sadsadsa</button> */}
 
-            {isAuthenticated
-              ? locations.map((item, idx) => (
-                  <Marker
-                    position={[item.latitude, item.longitude]}
-                    key={idx + "marker"}
-                  >
-                    {/* A BIT OF BOOTSTRAP-STYLING for the POP-UP*/}
-                    <Popup>
-                      {item.imgProfile && item.imgProfile !== "no_photo" ? (
-                        <Image
-                          className="w-25 mx-auto d-block"
-                          cloudName="schoolgroupfinal"
-                          publicId={item.imgProfile}
-                        />
-                      ) : (
-                        <img
-                          src={noPhoto}
-                          alt="user"
-                          className="w-25 mx-auto d-block"
-                        />
-                      )}
-                      <p className="text-center my-1 ">
-                        <b>{item.username}</b>
-                      </p>
-                      <p className="text-center my-1">{item.typeOfCharger}</p>
+        <MapContainer center={center} zoom={5} className="leaflet-container fullscreen">
+          <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
-                      {startPoint !== null && (
-                        <Link
-                          className="d-block text-center"
-                          to="/calc_route"
-                          onClick={(e) =>
-                            getCoordinates({
-                              lat: item.latitude,
-                              lng: item.longitude,
-                            })
-                          }
-                        >
-                          FinalRouteTemp
-                        </Link>
-                      )}
+          {isAuthenticated
+            ? locations.map((item, idx) => (
+                <Marker
+                  position={[item.latitude, item.longitude]}
+                  key={idx + "marker"}
+                >
+                  {/* A BIT OF BOOTSTRAP-STYLING for the POP-UP*/}
+                  <Popup>
+                    {item.imgProfile && item.imgProfile !== "no_photo" ? (
+                      <Image
+                        className="w-25 mx-auto d-block"
+                        cloudName="schoolgroupfinal"
+                        publicId={item.imgProfile}
+                      />
+                    ) : (
+                      <img
+                        src={noPhoto}
+                        alt="user"
+                        className="w-25 mx-auto d-block"
+                      />
+                    )}
+                    <p className="text-center my-1 ">
+                      <b>{item.username}</b>
+                    </p>
+                    <p className="text-center my-1">{item.typeOfCharger}</p>
 
-                      <Link to="/userProfile" state={{ id: item.id }}>
-                        Watch {item.username} Profile
+                    {startPoint !== null && (
+                      <Link
+                        className="d-block text-center"
+                        to="/calc_route"
+                        onClick={(e) =>
+                          getCoordinates({
+                            lat: item.latitude,
+                            lng: item.longitude,
+                          })
+                        }
+                      >
+                        FinalRouteTemp
                       </Link>
-                    </Popup>
-                  </Marker>
-                ))
-              : locations.map((item, idx) => (
-                  <CircleMarker
-                    center={[item.latitude, item.longitude]}
-                    pathOptions={{
-                      fillColor: "blue",
-                      fillOpacity: 0.6,
-                      color: "lightblue",
-                    }}
-                    radius={10}
-                    key={idx + "marker"}
-                  >
-                    <Popup>
-                      <p className="text-center my-1 ">
-                        <b>{item.username}</b>
-                      </p>
-                    </Popup>
-                  </CircleMarker>
-                ))}
-            <LocationMarker />
-          </MapContainer>
-        </>
+                    )}
+
+                    <Link to="/userProfile" state={{ id: item.id }}>
+                      Watch {item.username} Profile
+                    </Link>
+                  </Popup>
+                </Marker>
+              ))
+            : locations.map((item, idx) => (
+                <CircleMarker
+                  center={[item.latitude, item.longitude]}
+                  pathOptions={{
+                    fillColor: "blue",
+                    fillOpacity: 0.6,
+                    color: "lightblue",
+                  }}
+                  radius={10}
+                  key={idx + "marker"}
+                >
+                  <Popup>
+                    <p className="text-center my-1 ">
+                      <b>{item.username}</b>
+                    </p>
+                  </Popup>
+                </CircleMarker>
+              ))}
+          <LocationMarker />
+        </MapContainer>
       </div>
     </>
   );

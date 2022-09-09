@@ -1,9 +1,9 @@
-import React, {useState } from "react";
+import React, { useState } from "react";
 import { Button, Form, FormGroup, Input } from "reactstrap";
 import emailjs from "@emailjs/browser";
 
 export default function ContactUs() {
-  const [value, setValue] = useState({})
+  const [value, setValue] = useState({});
 
   function contactHandler(e) {
     const element = e.target.name;
@@ -75,10 +75,10 @@ export default function ContactUs() {
             />
           </FormGroup>
           <div className="d-flex gap-3">
-            <Button className="dark text-dark" type="submit" value="send">
+            <Button color="warning" outline type="submit" value="send">
               send
             </Button>
-            <Button className="danger" type="reset">
+            <Button color="warning" outline type="reset">
               reset
             </Button>
           </div>

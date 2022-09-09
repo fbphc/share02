@@ -10,13 +10,15 @@ import {
   ModalHeader,
   ModalBody,
 } from "reactstrap";
-import {AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import {IoCloseOutline} from 'react-icons/io5'
+import {
+  AiOutlineEye,
+  AiOutlineEyeInvisible,
+  AiFillCheckCircle,
+} from "react-icons/ai";
+import { IoCloseOutline } from "react-icons/io5";
 import useAuth from "../../../context/authContext/useAuth";
 import { typeOfStreetDataset } from "../../../dataset/dataset.js";
 import axios from "axios";
-
-
 
 export default function Register({ modalRegister, toggleRegister, closeMenu }) {
   const { signUp } = useAuth();
@@ -170,56 +172,65 @@ export default function Register({ modalRegister, toggleRegister, closeMenu }) {
     closeMenu();
     toggleRegister();
   }
-/****** IMAGES ***** */
-const [imageSelected, setImageSelected] = useState("");
+  /****** IMAGES ***** */
+  const [imageSelected, setImageSelected] = useState("");
 
-const uploadImage = () => {
-  const formData = new FormData();
-  formData.append("file", imageSelected);
-  formData.append("upload_preset", "schoolGroup");
+  const uploadImage = () => {
+    const formData = new FormData();
+    formData.append("file", imageSelected);
+    formData.append("upload_preset", "schoolGroup");
 
-  axios
-    .post(
-      "https://api.cloudinary.com/v1_1/schoolgroupfinal/image/upload",
-      formData
-    )
-    .then((response) => setRegisterForm({...registerForm, imgProfile: response.data.url}))
-    .catch((err) => {
-      setRegisterForm({...registerForm, imgProfile: "no_Img"})
-      return console.log(err)});
-};
-
-/********************* */
+    axios
+      .post(
+        "https://api.cloudinary.com/v1_1/schoolgroupfinal/image/upload",
+        formData
+      )
+      .then((response) =>
+        setRegisterForm({ ...registerForm, imgProfile: response.data.url })
+      )
+      .catch((err) => {
+        setRegisterForm({ ...registerForm, imgProfile: "no_photo" });
+        return console.log(err);
+      });
+  };
+  console.log(registerForm);
+  /********************* */
   return (
     <>
       <Modal isOpen={modalRegister}>
-          <ModalHeader className="d-flex">
-            Register
-          <IoCloseOutline className="fs-3 position-absolute end-0 me-2" onClick={toggleRegister} role='button'/>
-          </ModalHeader>
+        <ModalHeader className="d-flex">
+          Register
+          <IoCloseOutline
+            className="fs-3 position-absolute end-0 me-2"
+            onClick={toggleRegister}
+            role="button"
+          />
+        </ModalHeader>
         <ModalBody className="secondary text-light rounded-bottom">
-          <p>required fields *</p>
           <Form onSubmit={submit}>
             <div onChange={(e) => registerFormHandler(e)}>
-            <FormGroup>
-          <Input
-            type="file"
-            onChange={(e) => setImageSelected(e.target.files[0])}
-          />
-          <Button onClick={uploadImage}>Upload Image</Button>
-        </FormGroup>
+              <FormGroup>
+                <div className="d-flex align-items-center gap-1">
+                  <Input
+                  className="h1 mr-1"
+                    type="file"
+                    onChange={(e) => setImageSelected(e.target.files[0])}
+                  />
+
+                  {registerForm.imgProfile !== "no_photo" ? (
+                    <AiFillCheckCircle className="h1 text-warning" />
+                  ) : (
+                    <AiFillCheckCircle className="h1" />
+                  )}
+                </div>
+                <Button color="warning" outline onClick={uploadImage}>
+                  Upload Image
+                </Button>
+              </FormGroup>
               <FormGroup onChange={() => setRegisterToggle(!registerToggle)}>
                 <Input required name="isOwner" type="select">
-                  <option
-                    value={false}
-                  >
-                    Car Owner
-                  </option>
-                  <option
-                    value={true}
-                  >
-                    Wall-Box Owner
-                  </option>
+                  <option value={false}>Car Owner</option>
+                  <option value={true}>Wall-Box Owner</option>
                 </Input>
               </FormGroup>
               <FormGroup>
@@ -396,12 +407,16 @@ const uploadImage = () => {
             )}
 
             <Button
+              color="warning"
+              outline
               type="submit"
               onClick={() => (registerForm ? toggleRegister : null)}
             >
               sign up
             </Button>
-            <Button onClick={toggleRegister}>cancel</Button>
+            <Button color="warning" outline onClick={toggleRegister}>
+              cancel
+            </Button>
           </Form>
           <div>
             <p>you have an account?</p>

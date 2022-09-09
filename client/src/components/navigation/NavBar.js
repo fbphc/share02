@@ -76,6 +76,7 @@ export default function NavBar() {
           <FaBars className="secondaryText h1" />
         </button>
         <Offcanvas
+        className="dark"
           isOpen={show}
           direction="end"
           toggle={function noRefCheck() {
@@ -119,11 +120,11 @@ export default function NavBar() {
               </Dropdown>
             ) : (
               <Button
-                className="bg-light text-dark"
+                className="text-dark"
                 onClick={toggleRegister}
-                role="button"
+                color="warning" outline
               >
-                Join our community
+                Join the community
               </Button>
             )}
             <RegisterModal
