@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "leaflet-routing-machine";
-import { MapContainer, TileLayer } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import RoutingComp from "../mainMap/RoutingComp";
 
 import useMap from "../../../context/mapContext/useMap.js";
@@ -11,7 +11,12 @@ function FinalRoute() {
   const navigate = useNavigate();
   const center = [50.56, 9.71];
   const { endPoint, startPoint } = useMap();
-
+  console.log(startPoint);
+  useEffect(() => {
+    if (startPoint === null) {
+      navigate(-1);
+    }
+  }, []);
   return (
     <>
       <div className="mx-2 my-3 border rounded border-2">
@@ -21,7 +26,11 @@ function FinalRoute() {
             <RoutingComp
               from={[startPoint.lat, startPoint.lng]}
               to={[endPoint.lat, endPoint.lng]}
-            />
+            >
+              <Popup>
+                <p>hello</p>
+              </Popup>
+            </RoutingComp>
           )}
         </MapContainer>
       </div>
