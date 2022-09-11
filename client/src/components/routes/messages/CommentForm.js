@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { AiTwotoneUpSquare } from "react-icons/ai";
 import { FormGroup, Input, Form, Button } from "reactstrap";
 import useComments from "../../../context/commentsContext/useComments.js"
+
 
 function CommentForm() {
   const initState = {

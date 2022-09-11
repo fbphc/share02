@@ -111,7 +111,7 @@ export default function NavBar() {
                     <Link
                       className=" text-decoration-none"
                       onClick={closeMenu}
-                      to="editProfile"
+                      to="/account"
                     >
                       Profile Settings
                     </Link>

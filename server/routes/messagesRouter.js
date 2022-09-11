@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import { getAllComments, addAComment } from "../controllers/messagesControllers.js";
+import { getAllComments,getReviews ,addAComment, addAReview } from "../controllers/messagesControllers.js";
   
   
   const messagesRouter = Router();
@@ -8,6 +8,9 @@ import { getAllComments, addAComment } from "../controllers/messagesControllers.
   
   messagesRouter.get("/getAllComments", getAllComments)
   messagesRouter.post("/addAComment", addAComment)
+  messagesRouter.post("/addAReview", addAReview)
+  messagesRouter.post("/getReviews", getReviews)
+
 
   
   

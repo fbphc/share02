@@ -30,7 +30,7 @@ function DisplayComments() {
               </div>
             )}
             <Link to="/userProfile" state={{ id: item.userId }}>
-              Watch {item.username} Profile
+              {item.username}
             </Link>
 
             <p>{item.comment}</p>

@@ -43,8 +43,8 @@ function App() {
               <Route path="/contact" element={<ContactUs />} />
               <Route path="/register" element={<Register />} />
 
-              <Route path="editProfile" element={<Profile />} />
-              <Route path="userProfile" element={<DisplayProfile />} />
+              <Route path="/account" element={<Profile />} />
+              <Route path="/userProfile" element={<DisplayProfile />} />
 
               <Route path="/germany" element={<Main />} />
               <Route path="/calc_route" element={<FinalRoute />} />

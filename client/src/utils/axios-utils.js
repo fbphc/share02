@@ -27,3 +27,6 @@ export const getAllOwners = (typeOfCharger) => clientAPI.post("/user/getAllOwner
 export const addComment = (comment) => clientAPI.post("/messages/addAComment", comment)
 
 export const allComments = () => clientAPI.get("/messages/getAllComments")
+
+export const addReview = (review) => clientAPI.post("/messages/addAReview", review)
+export const allReviews = (ownerId) => clientAPI.post("/messages/getReviews", {ownerId})

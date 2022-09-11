@@ -9,7 +9,7 @@ function LandingPage() {
         <p className="my-3 h1 text-light">EV-<span className="text-warning"><b>C</b></span>ONNECTION</p>
       </div>
       <div className="position-realtive w-75 mx-auto">
-        <img src={mapImg} alt="landing-map" className="opacity-75 w-100" />
+        <img src={mapImg} alt="landing-map" className="opacity-50 w-100" />
       </div>
     </>
   );
