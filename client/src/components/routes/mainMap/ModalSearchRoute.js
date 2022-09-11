@@ -76,8 +76,8 @@ function ModalSearchRoute({ modal, toggle }) {
   return (
     <Modal isOpen={modal} toggle={toggle} /* external={externalCloseBtn} */>
       <Form onSubmit={(e) => submit(e)}>
-        <ModalHeader>Modal title</ModalHeader>
-        <ModalBody>
+        <ModalHeader>Calcualate Route</ModalHeader>
+        <ModalBody  className="secondary text-light">
           <div onChange={(e) => routeChangeHandler(e)}>
             <FormGroup>
               <Label>From</Label>
@@ -151,7 +151,7 @@ function ModalSearchRoute({ modal, toggle }) {
             </FormGroup>
           </div>
         </ModalBody>
-        <ModalFooter>
+        <ModalFooter className="secondary text-light">
           <Button  color="warning" outline  onClick={submit} type="submit">
             calculate
           </Button>{" "}

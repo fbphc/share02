@@ -15,6 +15,7 @@ import useAuth from "../../../context/authContext/useAuth.js";
 
 import { Image } from "cloudinary-react";
 import noPhoto from "../../../img/noPhoto.png";
+import route2 from "../../../img/route2.png";
 
 function MainMapComp({ chargerFilter }) {
   const { isAuthenticated } = useAuth();
@@ -34,9 +35,13 @@ function MainMapComp({ chargerFilter }) {
   return (
     <>
       <div className="mx-2 my-3 border rounded border-2">
-       {/*  <button>sadsadsa</button> */}
+        {/*  <button>sadsadsa</button> */}
 
-        <MapContainer center={center} zoom={5} className="leaflet-container fullscreen">
+        <MapContainer
+          center={center}
+          zoom={5}
+          className="leaflet-container fullscreen"
+        >
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
           {isAuthenticated
@@ -47,42 +52,50 @@ function MainMapComp({ chargerFilter }) {
                 >
                   {/* A BIT OF BOOTSTRAP-STYLING for the POP-UP*/}
                   <Popup>
-                    {item.imgProfile && item.imgProfile !== "no_photo" ? (
-                      <Image
-                        className="w-25 mx-auto d-block"
-                        cloudName="schoolgroupfinal"
-                        publicId={item.imgProfile}
-                      />
-                    ) : (
-                      <img
-                        src={noPhoto}
-                        alt="user"
-                        className="w-25 mx-auto d-block"
-                      />
-                    )}
-                    <p className="text-center my-1 ">
-                      <b>{item.username}</b>
-                    </p>
-                    <p className="text-center my-1">{item.typeOfCharger}</p>
-
-                    {startPoint !== null && (
+                    <div>
                       <Link
-                        className="d-block text-center"
-                        to="/calc_route"
-                        onClick={(e) =>
-                          getCoordinates({
-                            lat: item.latitude,
-                            lng: item.longitude,
-                          })
-                        }
+                        to={`/userProfile/${item.id}`}
+                        state={{ id: item.id }}
                       >
-                        FinalRouteTemp
+                        {item.imgProfile && item.imgProfile !== "no_photo" ? (
+                          <Image
+                            className="w-50 mx-auto d-block"
+                            cloudName="schoolgroupfinal"
+                            publicId={item.imgProfile}
+                          />
+                        ) : (
+                          <img
+                            src={noPhoto}
+                            alt="user"
+                            className="w-75 mx-auto d-block"
+                          />
+                        )}
                       </Link>
-                    )}
 
-                    <Link to={`/userProfile/${item.id}`} state={{ id: item.id }}>
-                      Watch {item.username} Profile
-                    </Link>
+                      <p className="text-center my-1 ">
+                        <b>{item.username}</b>
+                      </p>
+                      <p className="text-center my-1">{item.typeOfCharger}</p>
+                      {startPoint !== null && (
+                        <Link
+                          className=""
+                          to="/calc_route"
+                          onClick={(e) =>
+                            getCoordinates({
+                              lat: item.latitude,
+                              lng: item.longitude,
+                            })
+                          }
+                        >
+                          <img
+                            src={route2}
+                            alt="route"
+                            className="w-50 d-block mx-auto"
+                          />
+                          {/*  <FaRoute className="h2" /> */}
+                        </Link>
+                      )}
+                    </div>
                   </Popup>
                 </Marker>
               ))

@@ -1,64 +1,68 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Button,
   FormGroup,
   Input,
-  Label,
-  /* Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  Form, */
 } from "reactstrap";
 
 import MainMapComp from "../mainMap/MainMapComp.js";
 import ModalSearchRoute from "./ModalSearchRoute.js";
+import useAuth from "../../../context/authContext/useAuth.js";
 
 function MainMap() {
+  const {isAuthenticated} = useAuth();
   const [chargerFilter, setChargerFilter] = useState({
     typeOfCharger: "all",
   });
-
+const navigate = useNavigate()
   const toggle = () => setModal(!modal);
   const [modal, setModal] = useState(false);
 
   return (
-    <div>
-      <MainMapComp chargerFilter={chargerFilter} />
-
-      <div>
-        To see wall-boxes addresses please
-        <Link to="/login"> Log-In</Link>
+    <>
+      <div className="w-75 text-light">
+        <div className="d-flex ">
+          
+          <Button color="warning" outline onClick={toggle} className="mt-3 mx-2 ">
+            Calculate Route
+          </Button>
+        </div>
+        <div className="d-flex align-items-center">
+          <p className="mx-2 my-auto h5">Filter by charger:</p>
+          <FormGroup className="my-1" >
+            {/* <Label className="mx-3 my-auto h5">Filter By Charger</Label> */}
+            <Input
+              name="typeOfCharger"
+              type="select"
+              onChange={(e) =>
+                setChargerFilter({
+                  ...chargerFilter,
+                  typeOfCharger: e.target.value,
+                })
+              }
+            >
+              <option value="all">All</option>
+              <option value="type01">type01</option>
+              <option value="type02">type02</option>
+              <option value="type03">type03</option>
+              <option value="type04">type04</option>
+            </Input>
+          </FormGroup>
+        </div>
       </div>
-      <FormGroup>
-        <Label>Filter By Charger</Label>
-        <strong className="d-flex">
-          <Input
-            required
-            name="typeOfCharger"
-            type="select"
-            onChange={(e) =>
-              setChargerFilter({
-                ...chargerFilter,
-                typeOfCharger: e.target.value,
-              })
-            }
-          >
-            <option value="all">All</option>
-            <option value="type01">type01</option>
-            <option value="type02">type02</option>
-            <option value="type03">type03</option>
-          </Input>
-        </strong>
-      </FormGroup>
+      <MainMapComp chargerFilter={chargerFilter} />
+      {!isAuthenticated &&
+      <div className="text-light lead">
+        To see wall-boxes addresses please
+        <Button onClick={()=>navigate("/login")} color="warning" outline> Log-In</Button>
+      </div>
+      }
 
       <div>
-        Are you traveling?
-        <Button  color="warning" outline  onClick={toggle}>calculate a Route</Button>
         <ModalSearchRoute modal={modal} toggle={toggle} />
       </div>
-    </div>
+    </>
   );
 }
 export default MainMap;

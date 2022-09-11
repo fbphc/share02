@@ -238,6 +238,7 @@ export default function Register({ modalRegister, toggleRegister, closeMenu }) {
                   name="username"
                   placeholder="UserName"
                   type="text"
+                  maxLength={12}
                 />
               </FormGroup>
               <div className="d-flex gap-2">
