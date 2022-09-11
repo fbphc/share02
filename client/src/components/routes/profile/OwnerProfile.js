@@ -19,7 +19,7 @@ function OwnerProfile() {
 
   return (
     <div>
-      {isAuthenticated ? (
+      {
         state.user ? (
           <div style={{ width: "60%", margin: "10rem auto" }}>
             {state.user.imgProfile && state.user.imgProfile !== "no_photo" ?
@@ -66,11 +66,7 @@ function OwnerProfile() {
             )}
           </div>
         ) : null
-      ) : (
-        <p>
-          please<Link to="/login">login</Link>
-        </p>
-      )}
+       }
     </div>
   );
 }

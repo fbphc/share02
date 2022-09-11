@@ -12,7 +12,7 @@ import AboutUs from "./components/routes/about-us/AboutUs.js";
 // import Register from "./components/routes/auth/Register.js";
 import ContactUs from "./components/routes/contact/ContactUs.js";
 import Profile from "./components/routes/profile/Profile.js";
-import OwnerProfile from "./components/routes/profile/OwnerProfile.js";
+import DisplayProfile from "./components/routes/profile/DisplayProfile.js";
 import Register from "./components/routes/auth/Register.js";
 
 // routes-maps
@@ -44,7 +44,7 @@ function App() {
               <Route path="/register" element={<Register />} />
 
               <Route path="editProfile" element={<Profile />} />
-              <Route path="userProfile" element={<OwnerProfile />} />
+              <Route path="userProfile" element={<DisplayProfile />} />
 
               <Route path="/germany" element={<Main />} />
               <Route path="/calc_route" element={<FinalRoute />} />

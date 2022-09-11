@@ -37,7 +37,7 @@ export const CommentsProvider = ({ children }) => {
     try {
       const response = await allComments();
       const sortedComments = response.data.sort((a, b)=>(+b.createdAt)- (+a.createdAt));
-      console.log(sortedComments)
+      
       dispatch({ type: "ALL_COMMENTS", payload: sortedComments });
     } catch (err) {
       console.log(err);
