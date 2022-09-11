@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-// import { Button, Modal, ModalBody, ModalFooter} from "reactstrap";
-import { AiOutlineEdit } from "react-icons/ai";
+
 import useAuth from "../../../context/authContext/useAuth.js";
 import { Link } from "react-router-dom";
 import { Image } from "cloudinary-react";
@@ -8,7 +7,7 @@ import noPhoto from "../../../img/noPhoto.png";
 
 function Profile() {
   const { isAuthenticated, getProfileInfo, state } = useAuth();
-console.log(state.user)
+
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
     getProfileInfo(user.id);

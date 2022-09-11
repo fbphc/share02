@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Form, Input, FormGroup, Button } from "reactstrap";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Image } from "cloudinary-react";
 import useComments from "../../../context/commentsContext/useComments";
+import useAuth from "../../../context/authContext/useAuth";
+
 import noPhoto from "../../../img/noPhoto.png"
 
 function Review({ ownerUser }) {
-  const { addAReview, getReviews, allReviews,state } = useComments();
+  const location = useLocation()
+  const pathUrl = location.pathname
+
+  const { addAReview, getReviews, allReviews, state } = useComments();
+  const {getProfileInfo} = useAuth() 
   const initState = {
     fromUsername: "",
     fromUserId: null,
@@ -43,6 +49,7 @@ useEffect(()=>{
   }
   return (
     <>
+    { JSON.parse(localStorage.getItem("user")).id !== +pathUrl.split("/userProfile/")[1] &&
       <Form onSubmit={submit}>
         <div onChange={changeHandler}>
           <FormGroup>
@@ -53,11 +60,12 @@ useEffect(()=>{
               type="textarea"
               placeholder="Add a Review"
               required
-            />
+              />
           </FormGroup>
         </div>
         <Button type="submit">Send</Button>
       </Form>
+      }
       {allReviews.map((item, idx) => {
         return (
           <div key={idx + "comment"}>
@@ -74,7 +82,7 @@ useEffect(()=>{
                 />
               </div>
             )}
-            <Link to="/userProfile" state={{ id: item.fromUserId }}>
+            <Link to={`/userProfile/${item.fromUserId}`} state={{id:item.fromUserId}} onClick={()=>getProfileInfo(item.fromUserId)}>
               {item.fromUsername}
             </Link>
 

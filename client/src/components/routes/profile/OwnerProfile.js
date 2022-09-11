@@ -2,20 +2,22 @@ import { useEffect, useState } from "react";
 // import { Button, Modal, ModalBody, ModalFooter} from "reactstrap";
 
 import useAuth from "../../../context/authContext/useAuth.js";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { Image } from "cloudinary-react";
 import noPhoto from "../../../img/noPhoto.png";
 import Review from "./Review.js";
 
 function OwnerProfile() {
-  const { isAuthenticated, getProfileInfo, state } = useAuth();
+  const { getProfileInfo, state } = useAuth();
   
   const location = useLocation();
+  
   useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
     const { id } = location.state;
-
+    console.log(id)
     getProfileInfo(id);
-  }, []);
+  }, [location.state.id]);
 
   return (
     <div>
@@ -67,7 +69,7 @@ function OwnerProfile() {
               </div>
             )}
           </div>
-          <Review ownerUser={state.user}/>
+         <Review ownerUser={state.user} />
         </>
       ) : null}
     </div>

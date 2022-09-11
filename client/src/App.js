@@ -44,7 +44,7 @@ function App() {
               <Route path="/register" element={<Register />} />
 
               <Route path="/account" element={<Profile />} />
-              <Route path="/userProfile" element={<DisplayProfile />} />
+              <Route path="/userProfile/:id" element={<DisplayProfile />} />
 
               <Route path="/germany" element={<Main />} />
               <Route path="/calc_route" element={<FinalRoute />} />

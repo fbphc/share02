@@ -80,7 +80,7 @@ function MainMapComp({ chargerFilter }) {
                       </Link>
                     )}
 
-                    <Link to="/userProfile" state={{ id: item.id }}>
+                    <Link to={`/userProfile/${item.id}`} state={{ id: item.id }}>
                       Watch {item.username} Profile
                     </Link>
                   </Popup>

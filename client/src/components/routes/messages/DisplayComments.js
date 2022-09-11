@@ -29,7 +29,7 @@ function DisplayComments() {
                 />
               </div>
             )}
-            <Link to="/userProfile" state={{ id: item.userId }}>
+            <Link to={`/userProfile/${item.userId}`} state={{ id: item.userId }}>
               {item.username}
             </Link>
 
