@@ -23,3 +23,7 @@ export const getProfile = (userId) =>
 export const getAllOwners = (typeOfCharger) => clientAPI.post("/user/getAllOwners", {typeOfCharger:typeOfCharger});
 
 
+
+export const addComment = (comment) => clientAPI.post("/messages/addAComment", comment)
+
+export const allComments = () => clientAPI.get("/messages/getAllComments")

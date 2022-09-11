@@ -166,6 +166,13 @@ export default function NavBar() {
               >
                 Contact us
               </Link>
+              <Link
+                className="text-dark text-decoration-none"
+                onClick={closeMenu}
+                to="board"
+              >
+                MessageBoard
+              </Link>
               {isAuthenticated ? null : (
                 <div className="" onClick={toggleLogin} role="button">
                   Login

@@ -193,7 +193,6 @@ export default function Register({ modalRegister, toggleRegister, closeMenu }) {
         return console.log(err);
       });
   };
-  console.log(registerForm);
   /********************* */
   return (
     <>

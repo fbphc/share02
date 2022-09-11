@@ -3,6 +3,7 @@ import { getAllOwners } from "../../utils/axios-utils.js";
 import mapReducer, { mapState } from "./mapReducer.js";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+
 export const MapContext = createContext(mapState);
 
 export const MapProvider = ({ children }) => {

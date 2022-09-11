@@ -13,41 +13,46 @@ import AboutUs from "./components/routes/about-us/AboutUs.js";
 import ContactUs from "./components/routes/contact/ContactUs.js";
 import Profile from "./components/routes/profile/Profile.js";
 import OwnerProfile from "./components/routes/profile/OwnerProfile.js";
-import Register from './components/routes/auth/Register.js'
+import Register from "./components/routes/auth/Register.js";
 
 // routes-maps
 import Main from "./components/routes/mainMap/Main.js";
 import FinalRoute from "./components/routes/finalMap/FinalRoute.js";
 // components
 import NavBar from "./components/navigation/NavBar.js";
+import Messages from "./components/routes/messages/MessageBoard";
 
 // Provider
 import { AuthProvider } from "./context/authContext/AuthContext.js";
 import { MapProvider } from "./context/mapContext/MapContext.js";
+import { CommentsProvider } from "./context/commentsContext/CommentsContext.js";
 
 function App() {
   return (
     <AuthProvider>
       <div className="App">
         <NavBar />
-        {/* <BrowserRouter> */}
         <MapProvider>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/aboutus" element={<AboutUs />} />
-            {/* <Route path="/login" element={<Login />} /> */}
-            <Route path="/contact" element={<ContactUs />} />
-            <Route path="/register" element={<Register />} />
-           
-            
-            <Route path="editProfile" element={<Profile />} />
-            <Route path="userProfile" element={<OwnerProfile />} />
+          <CommentsProvider>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="*" element={<HomePage />} />
 
-            <Route path="/germany" element={<Main />} />
-            <Route path="/calc_route" element={<FinalRoute />} />
-          </Routes>
+              <Route path="/aboutus" element={<AboutUs />} />
+
+              <Route path="/contact" element={<ContactUs />} />
+              <Route path="/register" element={<Register />} />
+
+              <Route path="editProfile" element={<Profile />} />
+              <Route path="userProfile" element={<OwnerProfile />} />
+
+              <Route path="/germany" element={<Main />} />
+              <Route path="/calc_route" element={<FinalRoute />} />
+
+              <Route path="/board" element={<Messages />} />
+            </Routes>
+          </CommentsProvider>
         </MapProvider>
-        {/* </BrowserRouter> */}
       </div>
     </AuthProvider>
   );

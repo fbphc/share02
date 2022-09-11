@@ -8,7 +8,7 @@ import noPhoto from "../../../img/noPhoto.png";
 
 function Profile() {
   const { isAuthenticated, getProfileInfo, state } = useAuth();
-
+console.log(state.user)
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
     getProfileInfo(user.id);
@@ -35,22 +35,22 @@ function Profile() {
             <div className="d-flex justify-content-between border-bottom border-dark">
               <p>User Name</p>
               <p>{state.user.username}</p>
-              <AiOutlineEdit />
+              {/* <AiOutlineEdit /> */}
             </div>
             <div className="d-flex justify-content-between border-bottom border-dark">
               <p>First Name</p>
               <p>{state.user.fname}</p>
-              <AiOutlineEdit />
+              {/* <AiOutlineEdit /> */}
             </div>
             <div className="d-flex justify-content-between border-bottom border-dark">
               <p>Last Name</p>
               <p>{state.user.lname}</p>
-              <AiOutlineEdit />
+              {/* <AiOutlineEdit /> */}
             </div>
             <div className="d-flex justify-content-between border-bottom border-dark">
               <p>Email</p>
               <p>{state.user.email}</p>
-              <AiOutlineEdit />
+              {/* <AiOutlineEdit /> */}
             </div>
             {state.user.isOwner && (
               <div className="d-flex justify-content-between border-bottom border-dark">
@@ -60,14 +60,14 @@ function Profile() {
                   {state.user.address.houseNr}, {state.user.address.postalcode}{" "}
                   {state.user.address.city}
                 </p>
-                <AiOutlineEdit />
+                {/* <AiOutlineEdit /> */}
               </div>
             )}
             {state.user.telNumber && (
               <div className="d-flex justify-content-between border-bottom border-dark">
                 <p>Phone Number</p>
                 <p>{state.user.telNumber}</p>
-                <AiOutlineEdit />
+                {/* <AiOutlineEdit /> */}
               </div>
             )}
           </div>

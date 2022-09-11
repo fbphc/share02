@@ -3,6 +3,7 @@ import cors from "cors";
 import "dotenv/config";
 
 import userRouter from "./routes/userRouter.js";
+import messagesRouter from "./routes/messagesRouter.js"
 /* import path from "path" */
 
 import connectDB from "./helpers/dbConnect.js"
@@ -31,9 +32,9 @@ mongoose.connection.on("error", (error)=>{
 
 
 
-/* --- User ---*/
+
 app.use("/user", userRouter)
-/* --------------- */
+app.use("/messages", messagesRouter)
 
 
 

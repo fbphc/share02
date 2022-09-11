@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import "leaflet-routing-machine";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { MapContainer, TileLayer, Popup } from "react-leaflet";
 import RoutingComp from "../mainMap/RoutingComp";
 
 import useMap from "../../../context/mapContext/useMap.js";
@@ -10,17 +10,18 @@ import { Button } from "reactstrap";
 function FinalRoute() {
   const navigate = useNavigate();
   const center = [50.56, 9.71];
-  const { endPoint, startPoint } = useMap();
+  const { endPoint, startPoint, state } = useMap();
   console.log(startPoint);
   useEffect(() => {
     if (startPoint === null) {
       navigate(-1);
     }
   }, []);
+  console.log(state)
   return (
     <>
       <div className="mx-2 my-3 border rounded border-2">
-        <MapContainer center={center} zoom={5}>
+        <MapContainer center={center} zoom={6}>
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
           {startPoint !== null && (
             <RoutingComp
