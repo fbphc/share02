@@ -120,9 +120,8 @@ export default function NavBar() {
               </Dropdown>
             ) : (
               <Button
-                className="text-dark"
+                className="text-dark danger"
                 onClick={toggleRegister}
-                color="warning" outline
               >
                 Join the community
               </Button>

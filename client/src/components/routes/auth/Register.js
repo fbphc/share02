@@ -9,6 +9,7 @@ import {
   Modal,
   ModalHeader,
   ModalBody,
+  ModalFooter,
 } from "reactstrap";
 import {
   AiOutlineEye,
@@ -211,7 +212,7 @@ export default function Register({ modalRegister, toggleRegister, closeMenu }) {
               <FormGroup>
                 <div className="d-flex align-items-center gap-1">
                   <Input
-                  className="h1 mr-1"
+                    className="h1 mr-1"
                     type="file"
                     onChange={(e) => setImageSelected(e.target.files[0])}
                   />
@@ -405,22 +406,20 @@ export default function Register({ modalRegister, toggleRegister, closeMenu }) {
                 </div>
               </>
             )}
-
-            <Button
-              color="warning"
-              outline
-              type="submit"
-              onClick={() => (registerForm ? toggleRegister : null)}
-            >
-              sign up
-            </Button>
-            <Button color="warning" outline onClick={toggleRegister}>
-              cancel
-            </Button>
+            <ModalFooter>
+              <Button
+                color="warning"
+                outline
+                type="submit"
+                onClick={() => (registerForm ? toggleRegister : null)}
+              >
+                sign up
+              </Button>
+              <Button color="warning" outline onClick={toggleRegister}>
+                cancel
+              </Button>
+            </ModalFooter>
           </Form>
-          <div>
-            <p>you have an account?</p>
-          </div>
         </ModalBody>
       </Modal>
     </>

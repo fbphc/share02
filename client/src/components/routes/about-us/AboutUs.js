@@ -1,23 +1,30 @@
-import background from "../../../img/background.png"
-import efficiency from "../../../img/efficiency.png"
-import impact from "../../../img/impact.png"
-import innovation from "../../../img/innovation.png"
-import passion from "../../../img/passion.png"
-import evcharge from "../../../img/evcharge.jpg"
-import evcharge1 from "../../../img/evcharge1.jpg"
+import background from "../../../img/background.png";
+import efficiency from "../../../img/efficiency.png";
+import impact from "../../../img/impact.png";
+import innovation from "../../../img/innovation.png";
+import passion from "../../../img/passion.png";
+import evcharge from "../../../img/evcharge.jpg";
+import evcharge1 from "../../../img/evcharge1.jpg";
+import { BsFillArrowUpCircleFill } from "react-icons/bs";
 
 export default function AboutUs() {
   return (
-    <div className="secondary pb-5">
-      
+    <div className="secondary pb-5" id="#top">
       {/*---------------------------------------------------------------------------- fix inline-style------------------------------------------------------------------------------- */}
       <div className="position-relative text-center">
-        <p className="rounded border border-0 p-1 position-absolute mt-5 start-50 translate-middle dark h1">About Us</p>
+        <p className="rounded border border-0 p-1 position-absolute mt-5 start-50 translate-middle dark h1">
+          About Us
+        </p>
         <div className="mx-auto w-100">
-          <img className='d-block w-100' src={background} alt='wall_box' style={{
-            height: "400px",
-            width: "100%"
-          }} />
+          <img
+            className="d-block w-100"
+            src={background}
+            alt="wall_box"
+            style={{
+              height: "400px",
+              width: "100%",
+            }}
+          />
         </div>
       </div>
       {/*------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ */}
@@ -53,10 +60,12 @@ export default function AboutUs() {
 
       <section className="pt-5 pb-1">
         <div className="dark mt-3 mb-4 ms-5">
-          <h3 className='pt-4 ps-4'>Who we are</h3>
+          <h3 className="pt-4 ps-4">Who we are</h3>
           <p className="p-4">
-            'Name' is a platform that facilitates the connection between EV drivers &
-            owners of wall-boxes.<br /><br />
+            'EV CONNECTION' is a platform that facilitates the connection
+            between EV drivers & owners of wall-boxes.
+            <br />
+            <br />
             EV drivers can charge their electrical vehicles on the way just by
             connecting to wall-box owners in their surroundings.
           </p>
@@ -91,9 +100,20 @@ export default function AboutUs() {
       </section>
 
       <section className="info pb-5 mb-5">
-        <h3 className="w-50 text-center mx-auto pt-3 pb-3">Join our community today!</h3>
-        <p className="w-75 text-center mx-auto">Are you always on the go? Easy find and charge your EV on the way! Connect with wall box owners everywhere.</p>
+        <h3 className="w-50 text-center mx-auto pt-3 pb-3">
+          Join our community today!
+        </h3>
+        <p className="w-75 text-center mx-auto">
+          Are you always on the go? Easy find and charge your EV on the way!
+          Connect with wall box owners everywhere.
+        </p>
       </section>
+      <a
+        href="#top"
+        className="position-fixed bottom-0 text-decoration-none start-0 p-1 rounded bg-transparent ms-5 mb-5 darkText arrowCSS"
+      >
+        <BsFillArrowUpCircleFill className="fs-1"  />
+      </a>
     </div>
-  )
+  );
 }

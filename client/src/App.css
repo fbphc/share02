@@ -1,4 +1,4 @@
-body{
+body {
   background-color: var(--secondary-color);
 }
 .leaflet-container {
@@ -6,35 +6,57 @@ body{
   height: 70vh;
   margin: 0 auto;
 }
-.leaflet-routing-container{
+.leaflet-routing-container {
   height: 10rem;
   overflow: scroll;
   background-color: rgba(255, 255, 255, 0.8);
 }
 :root {
-  --primary-color: #FFA822;
-  --secondary-color: #134E6F;
-  --danger-color: #FF6150;
-  --info-color: #1AC0C6;
-  --dark-color: #DEE0E6;
+  --primary-color: #ffa822;
+  --secondary-color: #134e6f;
+  --danger-color: #ff6150;
+  --info-color: #1ac0c6;
+  --dark-color: #dee0e6;
 }
 
 .primary {
   background-color: var(--primary-color);
-  color: var(--secondary-color)
+  color: var(--secondary-color);
 }
 .secondary {
-  background-color: var(--secondary-color)
+  background-color: var(--secondary-color);
 }
 .danger {
-  background-color: var(--danger-color)
+  background-color: var(--danger-color);
 }
 .info {
   background-color: var(--info-color);
 }
 .dark {
-  background-color: var(--dark-color)
+  background-color: var(--dark-color);
 }
-.secondaryText{
+.secondaryText {
   color: var(--secondary-color);
+}
+.darkText{
+  color: var(--dark-color);
+}
+
+/* .imageCSS{
+  border: red solid 1px;
+  margin-top: 3rem;
+  height: 50vh;
+  background-image: url(./img/mapImg.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+} */
+
+@media (min-width: 389px) and (max-width: 600px) {
+  .imageCSS {
+    padding-top: 40%;
+  }
+}
+.arrowCSS:hover{
+  color: var(--danger-color);
 }
