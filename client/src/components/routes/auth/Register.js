@@ -22,7 +22,7 @@ import { typeOfStreetDataset } from "../../../dataset/dataset.js";
 import axios from "axios";
 
 export default function Register({ modalRegister, toggleRegister, closeMenu }) {
-  const { signUp } = useAuth();
+  const { signUp, resetError } = useAuth();
   const navigate = useNavigate();
 
   // show and hide wall-box owner state
@@ -79,6 +79,7 @@ export default function Register({ modalRegister, toggleRegister, closeMenu }) {
   function addressHandler(e) {
     const element = e.target.name;
     const value = e.target.value;
+    resetError();
     setRegisterForm((prevState) => {
       return {
         ...prevState,
@@ -167,6 +168,7 @@ export default function Register({ modalRegister, toggleRegister, closeMenu }) {
     } else {
       registerForm.address.street = registerForm.address.street.trim();
     }
+
     signUp(registerForm);
 
     navigate("/germany");
@@ -239,7 +241,7 @@ export default function Register({ modalRegister, toggleRegister, closeMenu }) {
                   name="username"
                   placeholder="UserName"
                   type="text"
-                  maxLength={12}
+                  maxLength={16}
                 />
               </FormGroup>
               <div className="d-flex gap-2">
@@ -333,6 +335,8 @@ export default function Register({ modalRegister, toggleRegister, closeMenu }) {
                       <option value="type01">type01</option>
                       <option value="type02">type02</option>
                       <option value="type03">type03</option>
+                      <option value="type04">type04</option>
+
                     </Input>
                   </FormGroup>
                   <FormGroup>

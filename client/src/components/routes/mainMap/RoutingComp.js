@@ -12,7 +12,7 @@ const RoutingComp = createControlComponent(({ from, to }) => {
     lineOptions: {
       styles: [
         {
-          color: "green",
+          color: "#FFA822",
         },
       ],
     },

@@ -25,8 +25,7 @@ const registerUser = async (req, res) => {
     telNumber,
     reviewRate,
     typeOfCharger,
-    imgProfile
-
+    imgProfile,
   } = req.body;
 
   const user = await userApp.findByEmail(email);
@@ -34,17 +33,21 @@ const registerUser = async (req, res) => {
   if (user)
     return res.status(409).json({ msg: "Sorry the e-mail already exists" });
 
+    const userName = await userApp.findByUsername(username);
+
+  if (userName)
+    return res.status(409).json({ msg: "Sorry the username already exists" });
+
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
   const Id = (await userApp.find()).length + 1;
 
   try {
-   const response = await axios.get(
+    const response = await axios.get(
       `http://api.positionstack.com/v1/forward?access_key=${process.env.POS_STACK_API}&query=${address.houseNr}%20${address.street}%20${address.typeOfStreet},%20${address.city}%20DE`
-    
-      ); 
-   const addressInfo = response.data.data[0]
-  
+    );
+    const addressInfo = response.data.data[0];
+
     const newUserApp = await userApp.create({
       username,
       fname,
@@ -54,14 +57,14 @@ const registerUser = async (req, res) => {
       isOwner,
       availability,
       address,
-      addressInfo: response.data.data[0],
       telNumber,
       reviewRate,
       typeOfCharger,
+      imgProfile,
+
+      addressInfo: response.data.data[0],
       password: hashedPassword,
       id: Id,
-      imgProfile
-
     });
 
     if (newUserApp) {
@@ -81,7 +84,6 @@ const registerUser = async (req, res) => {
 };
 
 const loginUser = async (req, res) => {
- 
   const { email, password } = req.body;
 
   const user = await userApp.findByEmail(email);
@@ -91,6 +93,7 @@ const loginUser = async (req, res) => {
     });
 
   const isPasswordCorrect = await bcrypt.compare(password, user.password);
+
   if (!isPasswordCorrect) {
     return res.status(404).json({
       msg: `Your email or password are not correct !!!`,
@@ -111,18 +114,19 @@ const tokenValidator = (req, res) => {
 };
 
 const getAllOwners = (req, res) => {
-
   try {
-    if(req.body.typeOfCharger === "all"){
+    if (req.body.typeOfCharger === "all") {
       const allUsers = userApp.find({ isOwner: true }, function (err, users) {
         res.status(200).json(users);
       });
     } else {
-      const allUsers = userApp.find({ isOwner: true, typeOfCharger:req.body.typeOfCharger }, function (err, users) {
-        res.status(200).json(users);
-      });
+      const allUsers = userApp.find(
+        { isOwner: true, typeOfCharger: req.body.typeOfCharger },
+        function (err, users) {
+          res.status(200).json(users);
+        }
+      );
     }
-    
   } catch (err) {
     console.log(err.message);
   }
@@ -130,15 +134,64 @@ const getAllOwners = (req, res) => {
 
 const getInfo = async (req, res) => {
   try {
-    const getUser = userApp.find({ id: req.body.id }, function (err, user) {
-      res.status(200).json(user);
-    });
+    const getUser = await userApp.find(
+      { id: req.body.id },
+      function (err, user) {
+        res.status(200).json(user);
+      }
+    );
   } catch (err) {
     console.log(err.message);
   }
 };
 
 const updateProfile = async (req, res) => {
-  res.status(400).json("update_Profile")
-}
-export { registerUser, loginUser, tokenValidator, getAllOwners, getInfo,updateProfile };
+const {id} = req.params
+console.log(id, typeof id)
+  const {
+    username,
+    fname,
+    lname,
+    isOwner,
+    availability,
+    address,
+    telNumber,
+    typeOfCharger,
+    imgProfile,
+  } = req.body;
+
+  try {
+    userApp.findOneAndUpdate(
+      { id},
+      {
+        username,
+        fname,
+        lname,
+        isOwner,
+        availability,
+        address,
+        telNumber,
+        typeOfCharger,
+        imgProfile,
+      },
+      { new: true },
+      (err, data) => {
+        if (err) {
+          res.status(400).json(err);
+        } else {
+          res.status(200).json(data);
+        }
+      }
+    );
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+export {
+  registerUser,
+  loginUser,
+  tokenValidator,
+  getAllOwners,
+  getInfo,
+  updateProfile,
+};

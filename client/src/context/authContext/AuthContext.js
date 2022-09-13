@@ -5,11 +5,11 @@ import {
   signup,
   validateToken,
   getProfile,
-  
+  editProfile,
 } from "../../utils/axios-utils.js";
 export const AuthContext = createContext(authState);
 // added
-let userInfo = {}
+let userInfo = {};
 export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, authState);
 
@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }) => {
         username: response.data.user.username,
         id: response.data.user.id,
         token: response.data.token,
-        imgProfile: response.data.user.imgProfile
+        imgProfile: response.data.user.imgProfile,
       };
       localStorage.setItem("user", JSON.stringify(userStorage));
       return response;
@@ -33,16 +33,17 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await login(FormData);
       dispatch({ type: "AUTH_SIGNIN", payload: response.data });
-      
+
       const userStorage = {
         username: response.data.user.username,
         id: response.data.user.id,
         token: response.data.token,
-        imgProfile: response.data.user.imgProfile
+        imgProfile: response.data.user.imgProfile,
       };
       localStorage.setItem("user", JSON.stringify(userStorage));
-      
-      userInfo = response.data.user
+
+      userInfo = response.data.user;
+
       return response;
     } catch (err) {
       dispatch({ type: "SIGNIN_ERR", payload: err.message });
@@ -67,10 +68,21 @@ export const AuthProvider = ({ children }) => {
   async function getProfileInfo(userId) {
     try {
       const response = await getProfile(userId);
-
       dispatch({ type: "USER_INFO", payload: response.data[0] });
     } catch (err) {
       console.log(err);
+    }
+  }
+
+  async function editUserProfile(FormData) {
+    if (localStorage.getItem("user")) {
+      const user = JSON.parse(localStorage.getItem("user"));
+      const newId = user.id;
+      try {
+        editProfile(FormData, newId);
+      } catch (err) {
+        console.log(err);
+      }
     }
   }
 
@@ -78,8 +90,9 @@ export const AuthProvider = ({ children }) => {
     dispatch({ type: "SIGN_OUT" });
     localStorage.removeItem("user");
   }
-
-
+  const resetError = () => {
+    dispatch({ type: "CLR_ERR" });
+  };
   const value = {
     logIn,
     signUp,
@@ -88,7 +101,10 @@ export const AuthProvider = ({ children }) => {
     tokenValidator,
     getProfileInfo,
     state,
-    }
+    userInfo: state.userInfo,
+    editUserProfile,
+    resetError,
+  };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

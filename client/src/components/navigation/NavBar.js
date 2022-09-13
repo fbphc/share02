@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
   Button,
-  CardImg,
+
   Dropdown,
   DropdownItem,
   DropdownMenu,
@@ -23,6 +23,7 @@ import logosmall from "../../img/logosmall.png";
 
 
 export default function NavBar() {
+  
   const [user, setUser] = useState({});
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -48,6 +49,7 @@ export default function NavBar() {
     if (user) {
       setUser(JSON.parse(user));
       tokenValidator();
+
     } else {
       setUser({})
     }
@@ -172,7 +174,7 @@ export default function NavBar() {
               >
                 MessageBoard
               </Link>
-              {isAuthenticated ? null : (
+              {!isAuthenticated && (
                 <div className="" onClick={toggleLogin} role="button">
                   Login
                 </div>

@@ -11,7 +11,7 @@ function FinalRoute() {
   const navigate = useNavigate();
   const center = [50.56, 9.71];
   const { endPoint, startPoint, state } = useMap();
-  console.log(startPoint);
+
   useEffect(() => {
     if (startPoint === null) {
       navigate(-1);

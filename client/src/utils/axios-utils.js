@@ -19,14 +19,21 @@ export const validateToken = () => {
   }
 };
 export const getProfile = (userId) =>
-  clientAPI.post("/user/profileInfo", { "id": userId });
-export const getAllOwners = (typeOfCharger) => clientAPI.post("/user/getAllOwners", {typeOfCharger:typeOfCharger});
+  clientAPI.post("/user/profileInfo", { id: userId });
+export const getAllOwners = (typeOfCharger) =>
+  clientAPI.post("/user/getAllOwners", { typeOfCharger: typeOfCharger });
 
+export const editProfile = (editedUser, id) =>{
+  console.log(id)
+  clientAPI.put(`/user/updateProfile/${id}`, editedUser);
+}
 
+export const addComment = (comment) =>
+  clientAPI.post("/messages/addAComment", comment);
 
-export const addComment = (comment) => clientAPI.post("/messages/addAComment", comment)
+export const allComments = () => clientAPI.get("/messages/getAllComments");
 
-export const allComments = () => clientAPI.get("/messages/getAllComments")
-
-export const addReview = (review) => clientAPI.post("/messages/addAReview", review)
-export const allReviews = (ownerId) => clientAPI.post("/messages/getReviews", {ownerId})
+export const addReview = (review) =>
+  clientAPI.post("/messages/addAReview", review);
+export const allReviews = (ownerId) =>
+  clientAPI.post("/messages/getReviews", { ownerId });

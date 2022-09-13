@@ -12,8 +12,8 @@ import AboutUs from "./components/routes/about-us/AboutUs.js";
 // import Register from "./components/routes/auth/Register.js";
 import ContactUs from "./components/routes/contact/ContactUs.js";
 import Profile from "./components/routes/profile/Profile.js";
-import DisplayProfile from "./components/routes/profile/DisplayProfile.js";
-import Register from "./components/routes/auth/Register.js";
+import UserProfile from "./components/routes/profile/UserProfile.js"
+import EditProfile from "./components/routes/profile/EditProfile.js";
 
 // routes-maps
 import Main from "./components/routes/mainMap/Main.js";
@@ -41,10 +41,11 @@ function App() {
               <Route path="/aboutus" element={<AboutUs />} />
 
               <Route path="/contact" element={<ContactUs />} />
-              <Route path="/register" element={<Register />} />
+              <Route path="/editProfile" element={<EditProfile />} />
 
               <Route path="/account" element={<Profile />} />
-              <Route path="/userProfile/:id" element={<DisplayProfile />} />
+              <Route path="/userProfile/:id" element={<UserProfile />} />
+             
 
               <Route path="/germany" element={<Main />} />
               <Route path="/calc_route" element={<FinalRoute />} />

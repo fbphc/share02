@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import OwnerProfile from "./OwnerProfile";
+import OwnerProfile from "./UserProfile";
 import useAuth from '../../../context/authContext/useAuth';
 import NotAuthorized from '../error/NotAuthorized';
 function DisplayProfile() {

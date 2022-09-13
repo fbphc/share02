@@ -1,37 +1,31 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import {
-  Button,
-  FormGroup,
-  Input,
-} from "reactstrap";
+import { useNavigate } from "react-router-dom";
+import { Button, FormGroup, Input } from "reactstrap";
 
 import MainMapComp from "../mainMap/MainMapComp.js";
 import ModalSearchRoute from "./ModalSearchRoute.js";
 import useAuth from "../../../context/authContext/useAuth.js";
+import { MainButton } from "../../../components.styled/styledComponents.js";
 
 function MainMap() {
-  const {isAuthenticated} = useAuth();
+  const { isAuthenticated } = useAuth();
   const [chargerFilter, setChargerFilter] = useState({
     typeOfCharger: "all",
   });
-const navigate = useNavigate()
+  const navigate = useNavigate();
   const toggle = () => setModal(!modal);
   const [modal, setModal] = useState(false);
 
   return (
     <>
       <div className="w-75 text-light">
-        <div className="d-flex ">
-          
-          <Button color="warning" outline onClick={toggle} className="mt-3 mx-2 ">
-            Calculate Route
-          </Button>
+        <div className="mt-3 mx-2">
+          <MainButton onClick={toggle}>Calculate Route </MainButton>
         </div>
-        <div className="d-flex align-items-center">
-          <p className="mx-2 my-auto h5">Filter by charger:</p>
-          <FormGroup className="my-1" >
-            {/* <Label className="mx-3 my-auto h5">Filter By Charger</Label> */}
+
+        <div className="d-flex align-items-center mt-2">
+          <p className="mx-2 h5">Filter by charger:</p>
+          <FormGroup className="my-1 mx-1">
             <Input
               name="typeOfCharger"
               type="select"
@@ -52,12 +46,14 @@ const navigate = useNavigate()
         </div>
       </div>
       <MainMapComp chargerFilter={chargerFilter} />
-      {!isAuthenticated &&
-      <div className="text-light lead">
-        To see wall-boxes addresses please
-        <Button onClick={()=>navigate("/login")} color="warning" outline> Log-In</Button>
-      </div>
-      }
+      {!isAuthenticated && (
+        <div className="text-light lead">
+          <p className="lead d-inline mx-2">
+            To see wall-boxes addresses please
+          </p>
+          <MainButton onClick={() => navigate("/login")}> Log-In</MainButton>
+        </div>
+      )}
 
       <div>
         <ModalSearchRoute modal={modal} toggle={toggle} />

@@ -10,7 +10,7 @@ const getAllComments = async (req, res) => {
   }
 };
 const getReviews = async (req, res) => {
-  console.log(req.body)
+
   try {
     const response = await reviewModel.find({toUserId: req.body.ownerId});
     

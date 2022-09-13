@@ -21,7 +21,7 @@ userRouter.post("/login", validatorLogIn(), loginUser);
 userRouter.post("/getAllOwners", getAllOwners);
 userRouter.get("/tokenValidation", authenticateToken, tokenValidator);
 userRouter.post("/profileInfo", getInfo);
-userRouter.put("/updateProfile", updateProfile);
+userRouter.put("/updateProfile/:id", updateProfile);
 
 
 

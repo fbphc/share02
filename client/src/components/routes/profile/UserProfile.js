@@ -1,34 +1,37 @@
 import { useEffect, useState } from "react";
-// import { Button, Modal, ModalBody, ModalFooter} from "reactstrap";
 
 import useAuth from "../../../context/authContext/useAuth.js";
 import { useLocation } from "react-router-dom";
 import { Image } from "cloudinary-react";
 import noPhoto from "../../../img/noPhoto.png";
 import Review from "./Review.js";
+import NotAuthorized from "../error/NotAuthorized.js";
 
 function OwnerProfile() {
-  const { getProfileInfo, state } = useAuth();
-  
+  const { getProfileInfo, userInfo } = useAuth();
+
   const location = useLocation();
-  
+
+
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    const { id } = location.state;
-    console.log(id)
-    getProfileInfo(id);
+    if (localStorage.getItem("user")) {
+      
+      const { id } = location.state;
+      const pathEnd = location.pathname.split("/userProfile/")[1];
+      id !== null ? getProfileInfo(pathEnd) : getProfileInfo(id);
+    }
   }, [location.state.id]);
 
   return (
     <div>
-      {state.user ? (
+      {userInfo ? (
         <>
           <div style={{ width: "60%", margin: "10rem auto" }}>
-            {state.user.imgProfile && state.user.imgProfile !== "no_photo" ? (
+            {userInfo.imgProfile && userInfo.imgProfile !== "no_photo" ? (
               <div>
                 <Image
                   cloudName="schoolgroupfinal"
-                  publicId={state.user.imgProfile}
+                  publicId={userInfo.imgProfile}
                 />
               </div>
             ) : (
@@ -38,40 +41,43 @@ function OwnerProfile() {
             )}
             <div className="d-flex justify-content-between border-bottom border-dark">
               <p>User Name</p>
-              <p>{state.user.username}</p>
+              <p>{userInfo.username}</p>
             </div>
             <div className="d-flex justify-content-between border-bottom border-dark">
               <p>First Name</p>
-              <p>{state.user.fname}</p>
+              <p>{userInfo.fname}</p>
             </div>
             <div className="d-flex justify-content-between border-bottom border-dark">
               <p>Last Name</p>
-              <p>{state.user.lname}</p>
+              <p>{userInfo.lname}</p>
             </div>
             <div className="d-flex justify-content-between border-bottom border-dark">
               <p>Email</p>
-              <p>{state.user.email}</p>
+              <p>{userInfo.email}</p>
             </div>
-            {state.user.isOwner && (
+            {userInfo.isOwner && (
               <div className="d-flex justify-content-between border-bottom border-dark">
                 <p>Address</p>
                 <p>
-                  {state.user.address.street}
-                  {state.user.address.houseNr}, {state.user.address.postalcode}{" "}
-                  {state.user.address.city}
+                  {userInfo.address.street}
+                  {userInfo.address.houseNr}, {userInfo.address.postalcode}{" "}
+                  {userInfo.address.city}
                 </p>
               </div>
             )}
-            {state.user.telNumber && (
+            {userInfo.telNumber && (
               <div className="d-flex justify-content-between border-bottom border-dark">
                 <p>Phone Number</p>
-                <p>{state.user.telNumber}</p>
+                <p>{userInfo.telNumber}</p>
               </div>
             )}
           </div>
-         <Review ownerUser={state.user} />
+
+          <Review ownerUser={userInfo} />
         </>
-      ) : null}
+      ) : (
+        <NotAuthorized />
+      )}
     </div>
   );
 }
