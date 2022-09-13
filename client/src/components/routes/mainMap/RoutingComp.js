@@ -41,7 +41,7 @@ const RoutingComp = createControlComponent(({ from, to }) => {
         bounceOnAdd: false,
         icon: marker_icon,
       });
-      return marker.bindPopup("I'm waypoint " + i);
+      return marker.bindPopup("Your Destination" + i);
     },
   });
 

@@ -419,9 +419,6 @@ export default function Register({ modalRegister, toggleRegister, closeMenu }) {
               >
                 sign up
               </Button>
-              <Button color="warning" outline onClick={toggleRegister}>
-                cancel
-              </Button>
             </ModalFooter>
           </Form>
         </ModalBody>

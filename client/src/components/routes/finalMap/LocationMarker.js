@@ -3,6 +3,7 @@ import { Marker, Popup, useMapEvents, Tooltip } from "react-leaflet";
 import useMap from "../../../context/mapContext/useMap.js";
 import * as L from "leaflet";
 import redPos from "../../../../src/img/redPos.png"
+
 function LocationMarker() {
   const { getActualPosition } = useMap();
   const [position, setPosition] = useState(null);

@@ -49,9 +49,11 @@ function MainMap() {
       {!isAuthenticated && (
         <div className="text-light lead">
           <p className="lead d-inline mx-2">
-            To see wall-boxes addresses please
+            To see wall-boxes addresses please{" "}
+            <span className="danger">
+              <b>Log-In</b>
+            </span>
           </p>
-          <MainButton onClick={() => navigate("/login")}> Log-In</MainButton>
         </div>
       )}
 

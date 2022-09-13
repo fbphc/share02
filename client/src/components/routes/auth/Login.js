@@ -93,7 +93,6 @@ export default function Login({ modalLogin, toggleLogin, closeMenu }) {
           </div>
           <ModalFooter>
             <MainButton type="submit">Login</MainButton>
-            <MainButton onClick={toggleLogin}>cancel</MainButton>
           </ModalFooter>
         </Form>
       </ModalBody>

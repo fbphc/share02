@@ -27,7 +27,7 @@ body {
   background-color: var(--secondary-color);
 }
 .danger {
-  background-color: var(--danger-color);
+  color: var(--danger-color);
 }
 .info {
   background-color: var(--info-color);
