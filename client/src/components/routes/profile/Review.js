@@ -7,36 +7,43 @@ import useAuth from "../../../context/authContext/useAuth";
 
 import noPhoto from "../../../img/noPhoto.png";
 
-function Review({ ownerUser }) {
+function Review() {
   const location = useLocation();
   const pathUrl = location.pathname;
 
   const { addAReview, getReviews, allReviews, state } = useComments();
   const { getProfileInfo } = useAuth();
+
+
   const initState = {
     fromUsername: "",
     fromUserId: null,
     review: "",
-    toUsername: "",
     toUserId: null,
   };
+
+
   const [review, setReview] = useState(initState);
+
+  useEffect(() => {
+    const pathEnd = +location.pathname.split("/userProfile/")[1]
+    getReviews(pathEnd);
+  }, [state.review]);
+
   useEffect(() => {
     if (localStorage.getItem("user")) {
       const user = JSON.parse(localStorage.getItem("user"));
+      const pathEnd = +location.pathname.split("/userProfile/")[1]
       setReview({
         ...review,
         fromUserId: user.id,
         fromUsername: user.username,
         fromImgProfile: user.imgProfile,
-        toUserId: ownerUser.id,
-        toUsername: ownerUser.username,
+        toUserId: pathEnd,
       });
     }
   }, []);
-  useEffect(() => {
-    getReviews(ownerUser.id);
-  }, [state.review]);
+  
   function changeHandler(e) {
     setReview((prevState) => {
       return { ...prevState, review: e.target.value };

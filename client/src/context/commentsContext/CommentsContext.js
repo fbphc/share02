@@ -45,6 +45,7 @@ export const CommentsProvider = ({ children }) => {
 
 
   async function addAReview(review) {
+    console.log(review)
     const current = new Date();
     const reviewComplete = {
       ...review,
@@ -60,7 +61,9 @@ export const CommentsProvider = ({ children }) => {
     };
     try {
       const response = await addReview(reviewComplete);
+      /* getReviews(review.toUserId) */
       dispatch({ type: "ADD_REVIEW", payload: response.data });
+
     } catch (err) {
       console.log(err);
     }
