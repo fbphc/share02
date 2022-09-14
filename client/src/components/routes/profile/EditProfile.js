@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
-import { Button, Form, FormGroup, Input, Label } from "reactstrap";
+import { Button, Form, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 import { AiFillCheckCircle } from "react-icons/ai";
-import { useNavigate } from "react-router-dom";
 import useAuth from "../../../context/authContext/useAuth";
-import { typeOfStreetDataset } from "../../../dataset/dataset.js";
 import axios from "axios";
+import { IoCloseOutline } from "react-icons/io5";
+import {MainButton} from '../../../components.styled/styledComponents.js'
 
-function EditProfile() {
+function EditProfile({editToggle, setEditToggle}) {
   const { userInfo, editUserProfile } = useAuth();
-  const navigate = useNavigate();
 
   // show and hide wall-box owner state
   const [registerToggle, setRegisterToggle] = useState(false);
@@ -30,7 +29,6 @@ function EditProfile() {
       return { ...prevState, [element]: value };
     });
   }
-/* console.log(registerForm) */
 
 
 
@@ -72,12 +70,22 @@ function EditProfile() {
     e.preventDefault()
     
     editUserProfile(registerForm)
+    setEditToggle(false)
   }
 
 
   return (
+    <Modal isOpen={editToggle}>
+      <ModalHeader>
+      Edit Profile
+      <IoCloseOutline
+          className="fs-3 position-absolute end-0 me-2"
+          onClick={() => setEditToggle(false)}
+          role="button"
+        />
+      </ModalHeader>
+      <ModalBody className="secondary">
     <Form>
-      <p className="h1 text-light text-center">Edit Profile</p>
       <div onChange={(e) => registerFormHandler(e)}>
         <FormGroup>
           <div className="d-flex align-items-center gap-1">
@@ -88,14 +96,14 @@ function EditProfile() {
             />
 
             {registerForm.imgProfile !== "no_photo" ? (
-              <AiFillCheckCircle className="h1 text-warning" />
+              <AiFillCheckCircle className="h1" />
             ) : (
-              <AiFillCheckCircle className="h1 text-light" />
+              <AiFillCheckCircle className="h1 danger" />
             )}
           </div>
-          <Button color="warning" outline onClick={uploadImage}>
+          <MainButton color="warning" outline onClick={uploadImage}>
             Upload Image
-          </Button>
+          </MainButton>
         </FormGroup>
         {userInfo.isOwner ? (
           <FormGroup onChange={() => setRegisterToggle(!registerToggle)}>
@@ -223,11 +231,15 @@ function EditProfile() {
             </div>
           </>
         )}
-        <Button color="warning" outline onClick={submit}>
-          Edit
-        </Button>
+       <ModalFooter>
+     <MainButton onClick={submit}>
+          Save
+        </MainButton>
+        </ModalFooter>
       </div>
     </Form>
+    </ModalBody>
+    </Modal>
   );
 }
 

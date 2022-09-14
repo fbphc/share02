@@ -20,6 +20,7 @@ import { IoCloseOutline } from "react-icons/io5";
 import useAuth from "../../../context/authContext/useAuth";
 import { typeOfStreetDataset } from "../../../dataset/dataset.js";
 import axios from "axios";
+import {MainButton} from '../../../components.styled/styledComponents.js'
 
 export default function Register({ modalRegister, toggleRegister, closeMenu }) {
   const { signUp, resetError } = useAuth();
@@ -411,14 +412,12 @@ export default function Register({ modalRegister, toggleRegister, closeMenu }) {
               </>
             )}
             <ModalFooter>
-              <Button
-                color="warning"
-                outline
+              <MainButton
                 type="submit"
                 onClick={() => (registerForm ? toggleRegister : null)}
               >
                 sign up
-              </Button>
+              </MainButton>
             </ModalFooter>
           </Form>
         </ModalBody>

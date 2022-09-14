@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {
+  Button,
   Form,
   FormGroup,
   Input,
@@ -12,22 +13,29 @@ import {
 import useAuth from "../../../context/authContext/useAuth";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { IoCloseOutline } from "react-icons/io5";
-import { MainButton } from "../../../components.styled/styledComponents";
+import {MainButton} from '../../../components.styled/styledComponents.js'
 
+//isratest@gmail.com
 export default function Login({ modalLogin, toggleLogin, closeMenu }) {
   const navigate = useNavigate();
-  const { logIn, resetError } = useAuth();
+  const { logIn, isAuthenticated } = useAuth();
 
   const [logInForm, setLogInForm] = useState({
     email: "",
     password: "",
   });
 
+  function submit(e) {
+    e.preventDefault();
+    logIn(logInForm);
+    navigate("/germany");
+    closeMenu();
+    toggleLogin();
+  }
 
   function changeHandler(e) {
     const element = e.target.name;
     const value = e.target.value;
-    resetError();
     setLogInForm((prevState) => {
       return { ...prevState, [element]: value };
     });
@@ -44,13 +52,6 @@ export default function Login({ modalLogin, toggleLogin, closeMenu }) {
     });
   }
 
-  function submit(e) {
-    e.preventDefault();
-    logIn(logInForm);
-    navigate("/germany");
-    closeMenu();
-    toggleLogin();
-  }
   return (
     <Modal isOpen={modalLogin}>
       <ModalHeader>
@@ -92,7 +93,9 @@ export default function Login({ modalLogin, toggleLogin, closeMenu }) {
             </FormGroup>
           </div>
           <ModalFooter>
-            <MainButton type="submit">Login</MainButton>
+            <MainButton type="submit">
+              Login
+            </MainButton>
           </ModalFooter>
         </Form>
       </ModalBody>
