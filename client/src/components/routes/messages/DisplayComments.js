@@ -8,9 +8,10 @@ import { MessageImg } from "../../../components.styled/styledComponents"
 
 function DisplayComments() {
   const { state, getAllComments, allComments } = useComments();
-
+  
   useEffect(() => {
-    getAllComments();
+   getAllComments();
+  
   }, [state.comment]);
 
   return (

@@ -179,7 +179,8 @@ export default function Register({ modalRegister, toggleRegister, closeMenu }) {
   /****** IMAGES ***** */
   const [imageSelected, setImageSelected] = useState("");
 
-  const uploadImage = () => {
+  const uploadImage = (e) => {
+    e.preventDefault()
     const formData = new FormData();
     formData.append("file", imageSelected);
     formData.append("upload_preset", "schoolGroup");
