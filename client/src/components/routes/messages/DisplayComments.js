@@ -21,7 +21,8 @@ function DisplayComments() {
   /** */
 
   useEffect(() => {
-    getAllComments();
+   getAllComments();
+  
   }, [state.comment]);
 
   return (

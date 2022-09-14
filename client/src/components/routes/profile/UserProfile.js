@@ -73,7 +73,7 @@ function OwnerProfile() {
             )}
           </div>
 
-          <Review ownerUser={userInfo} />
+          <Review />
         </>
       ) : (
         <NotAuthorized />

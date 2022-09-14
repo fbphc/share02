@@ -33,14 +33,20 @@ const registerUser = async (req, res) => {
   if (user)
     return res.status(409).json({ msg: "Sorry the e-mail already exists" });
 
-    const userName = await userApp.findByUsername(username);
+  const userName = await userApp.findByUsername(username);
 
   if (userName)
     return res.status(409).json({ msg: "Sorry the username already exists" });
 
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
-  const Id = (await userApp.find()).length + 1;
+  //const Id = (await userApp.find()).length + 1;
+  const allUsers = await userApp.find();
+
+  const Id =
+    allUsers.reduce((a, b) => {
+      return Math.max(a, b.id);
+    }, 0) + 1;
 
   try {
     const response = await axios.get(
@@ -146,8 +152,8 @@ const getInfo = async (req, res) => {
 };
 
 const updateProfile = async (req, res) => {
-const {id} = req.params
-console.log(id, typeof id)
+  const { id } = req.params;
+  console.log(id, typeof id);
   const {
     username,
     fname,
@@ -162,7 +168,7 @@ console.log(id, typeof id)
 
   try {
     userApp.findOneAndUpdate(
-      { id},
+      { id },
       {
         username,
         fname,
