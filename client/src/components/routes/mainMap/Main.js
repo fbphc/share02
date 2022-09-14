@@ -24,9 +24,11 @@ function MainMap() {
         </div>
 
         <div className="d-flex align-items-center mt-2">
-          <p className="mx-2 h5">Filter by charger:</p>
+          <p className="mx-2 px-1 fs-6">Filter by charger:</p>
           <FormGroup className="my-1 mx-1">
             <Input
+              className="w-75"
+              size="sm"
               name="typeOfCharger"
               type="select"
               onChange={(e) =>
@@ -37,10 +39,10 @@ function MainMap() {
               }
             >
               <option value="all">All</option>
-              <option value="type01">type01</option>
-              <option value="type02">type02</option>
-              <option value="type03">type03</option>
-              <option value="type04">type04</option>
+              <option value="type01">Type 1</option>
+              <option value="type02">Type 2</option>
+              <option value="type03">CCS</option>
+              <option value="type04">CHAdeMO</option>
             </Input>
           </FormGroup>
         </div>

@@ -46,7 +46,8 @@ function EditProfile({editToggle, setEditToggle}) {
   /****** IMAGES ***** */
   const [imageSelected, setImageSelected] = useState("");
 
-  const uploadImage = () => {
+  const uploadImage = (e) => {
+    e.preventDefault()
     const formData = new FormData();
     formData.append("file", imageSelected);
     formData.append("upload_preset", "schoolGroup");
@@ -101,7 +102,7 @@ function EditProfile({editToggle, setEditToggle}) {
               <AiFillCheckCircle className="h1 danger" />
             )}
           </div>
-          <MainButton color="warning" outline onClick={uploadImage}>
+          <MainButton outline onClick={uploadImage}>
             Upload Image
           </MainButton>
         </FormGroup>
@@ -154,10 +155,10 @@ function EditProfile({editToggle, setEditToggle}) {
               <FormGroup>
                 <Label>type of charger</Label>
                 <Input name="typeOfCharger" type="select">
-                  <option value="type01">type01</option>
-                  <option value="type02">type02</option>
-                  <option value="type03">type03</option>
-                  <option value="type04">type04</option>
+                  <option value="type01">Type 1</option>
+                  <option value="type02">Type 2</option>
+                  <option value="type03">CCS</option>
+                  <option value="type04">CHAdeMO</option>
                 </Input>
               </FormGroup>
               <FormGroup>

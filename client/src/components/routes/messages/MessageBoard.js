@@ -9,7 +9,7 @@ function MessageBoard() {
   const { isAuthenticated } = useAuth();
   return (
     <>
-    <p className="h2 text-center m-5">Message Board</p>
+    <p className="h2 text-center m-5 darkText">Message Board</p>
       {isAuthenticated ? (
         <>
           <CommentForm />

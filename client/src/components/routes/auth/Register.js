@@ -333,10 +333,10 @@ export default function Register({ modalRegister, toggleRegister, closeMenu }) {
                   <FormGroup>
                     <Label>type of charger</Label>
                     <Input required name="typeOfCharger" type="select">
-                      <option value="type01">type01</option>
-                      <option value="type02">type02</option>
-                      <option value="type03">type03</option>
-                      <option value="type04">type04</option>
+                      <option value="type01">Type 1</option>
+                      <option value="type02">Type 2</option>
+                      <option value="type03">CCS</option>
+                      <option value="type04">CHAdeMO</option>
 
                     </Input>
                   </FormGroup>
