@@ -24,15 +24,15 @@ function Profile() {
       {isAuthenticated ? (
         userInfo && (
           <>
-            <div className="w-50 mx-auto my-5 d-flex">
+            <div className="w-50 mx-auto my-5">
               {userInfo.imgProfile === "no_photo" ? (
                 <div>
-                  <img className="w-75 d-block" src={noPhoto} alt="user" />
+                  <img className="w-25 d-block" src={noPhoto} alt="user"/>
                 </div>
               ) : (
-                <div>
+                <div className="d-flex justify-content-center">
                   <Image
-                    className="w-75 d-block"
+                    className="w-25 rounded-circle"
                     cloudName="schoolgroupfinal"
                     publicId={userInfo.imgProfile}
                   />
@@ -86,7 +86,7 @@ function Profile() {
       ) : (
         <NotAuthorized />
       )}
-      {editToggle && <EditProfile />}
+      {editToggle && <EditProfile editToggle={editToggle} setEditToggle={setEditToggle} />}
     </div>
   );
 }
