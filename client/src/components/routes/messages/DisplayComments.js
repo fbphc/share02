@@ -6,9 +6,10 @@ import noPhoto from "../../../img/noPhoto.png";
 
 function DisplayComments() {
   const { state, getAllComments, allComments } = useComments();
-
+  
   useEffect(() => {
-    getAllComments();
+   getAllComments();
+  
   }, [state.comment]);
 
   return (
