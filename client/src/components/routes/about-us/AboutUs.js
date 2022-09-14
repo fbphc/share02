@@ -7,27 +7,22 @@ import evcharge from "../../../img/evcharge.jpg";
 import evcharge1 from "../../../img/evcharge1.jpg";
 import { BsFillArrowUpCircleFill } from "react-icons/bs";
 
+import { ImgAbout, ImgChargers } from "../../../components.styled/styledComponents";
+
 export default function AboutUs() {
   return (
     <div className="secondary pb-5" id="#top">
-      {/*---------------------------------------------------------------------------- fix inline-style------------------------------------------------------------------------------- */}
       <div className="position-relative text-center">
         <p className="rounded border border-0 p-1 position-absolute mt-5 start-50 translate-middle dark h1">
           About Us
         </p>
         <div className="mx-auto w-100">
-          <img
-            className="d-block w-100"
+          <ImgAbout
             src={background}
             alt="wall_box"
-            style={{
-              height: "400px",
-              width: "100%",
-            }}
           />
         </div>
       </div>
-      {/*------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ */}
 
       <section className="container-fluid dark">
         <div className="row justify-content-md-center">
@@ -76,7 +71,7 @@ export default function AboutUs() {
         <div className="row justify-content-sm-center">
           <div className="col-9 col-sm-6">
             <div className="w-100 mb-1">
-              <img src={evcharge} alt="ev-charger" className="w-100" />
+              <ImgChargers src={evcharge} alt="ev-charger" />
             </div>
           </div>
         </div>
@@ -84,7 +79,7 @@ export default function AboutUs() {
           <div className="col"></div>
           <div className="col-9 col-sm-6">
             <div className="w-100">
-              <img src={evcharge1} alt="ev-charger" className="w-100" />
+              <ImgChargers src={evcharge1} alt="ev-charger" />
             </div>
           </div>
         </div>

@@ -63,8 +63,8 @@ export default function NavBar() {
   }
 
   return (
-    <div className="d-flex align-items-center justify-content-between dark">
-      <div>
+    <div className="d-flex align-items-center justify-content-between dark position-sticky fixed-top">
+      <div className="w-25 px-2">
         <img src={logosmall} className="w-25" alt="logo" />
       </div>
       <div className="d-flex align-items-center">
