@@ -20,6 +20,7 @@ export const MainMsgDivStyled = styled.div`
   background-color: #114360;
   border-radius: 1rem;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  margin-bottom: 5rem
 
 
   
@@ -86,7 +87,7 @@ export const ImgChargers = styled.img`
 
 export const PagLinkFirstStyled = styled(PaginationLink)`
  padding: 0.4rem 1rem;
- margin: 0 0.4rem;
+ margin: 0 0.2rem;
   border-radius: 0.4rem 0 0 0.4rem;
   border: 1px solid var(--danger-color);
   background-color: transparent;
