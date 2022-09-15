@@ -15,10 +15,7 @@ import {
 import { typeOfStreetDataset } from "../../../dataset/dataset.js";
 import useMap from "../../../context/mapContext/useMap.js";
 
-
-
 function ModalSearchRoute({ modal, toggle }) {
-
   const { routeCoordiantes } = useMap();
   const [routeForm, setRouteForm] = useState({
     fromCity: "",
@@ -77,7 +74,7 @@ function ModalSearchRoute({ modal, toggle }) {
     <Modal isOpen={modal} toggle={toggle} /* external={externalCloseBtn} */>
       <Form onSubmit={(e) => submit(e)}>
         <ModalHeader>Calcualate Route</ModalHeader>
-        <ModalBody  className="secondary text-light">
+        <ModalBody className="secondary text-light">
           <div onChange={(e) => routeChangeHandler(e)}>
             <FormGroup>
               <Label>From</Label>
@@ -87,6 +84,8 @@ function ModalSearchRoute({ modal, toggle }) {
                 placeholder="street"
                 type="text"
               />
+            </FormGroup>
+            <FormGroup>
               <Input required name="fromTypeOfStreet" type="select">
                 <option value="strasse">strasse</option>
                 <option value="damm">damm</option>
@@ -122,6 +121,8 @@ function ModalSearchRoute({ modal, toggle }) {
                 placeholder="street"
                 type="text"
               />
+            </FormGroup>
+            <FormGroup>
               <Input required name="toTypeOfStreet" type="select">
                 <option value="strasse">strasse</option>
                 <option value="damm">damm</option>
@@ -152,10 +153,10 @@ function ModalSearchRoute({ modal, toggle }) {
           </div>
         </ModalBody>
         <ModalFooter className="secondary text-light">
-          <Button  color="warning" outline  onClick={submit} type="submit">
+          <Button color="warning" outline onClick={submit} type="submit">
             calculate
           </Button>{" "}
-          <Button  color="warning" outline  onClick={toggle}>
+          <Button color="warning" outline onClick={toggle}>
             Cancel
           </Button>
         </ModalFooter>
