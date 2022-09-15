@@ -224,7 +224,7 @@ export default function Register({ modalRegister, toggleRegister, closeMenu }) {
                   {registerForm.imgProfile !== "no_photo" ? (
                     <AiFillCheckCircle className="h1 text-warning" />
                   ) : (
-                    <AiFillCheckCircle className="h1" />
+                    <AiFillCheckCircle className="h1 text-light" />
                   )}
                 </div>
                 <Button color="warning" outline onClick={uploadImage}>

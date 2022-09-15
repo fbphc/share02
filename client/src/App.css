@@ -21,8 +21,8 @@ body {
 }
 
 .primary {
-  background-color: var(--primary-color);
-  color: var(--secondary-color);
+  color: var(--primary-color);
+
 }
 .secondary {
   background-color: var(--secondary-color);
@@ -43,15 +43,6 @@ body {
   color: var(--dark-color);
 }
 
-/* .imageCSS{
-  border: red solid 1px;
-  margin-top: 3rem;
-  height: 50vh;
-  background-image: url(./img/mapImg.png);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-} */
 
 @media (min-width: 389px) and (max-width: 600px) {
   .imageCSS {
