@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
   Button,
-
   Dropdown,
   DropdownItem,
   DropdownMenu,
@@ -12,18 +11,20 @@ import {
   OffcanvasHeader,
 } from "reactstrap";
 import { FaBars } from "react-icons/fa";
+import { GoPlug } from "react-icons/go";
+
 import LoginModal from "../routes/auth/Login.js";
-import RegisterModal from "../routes/auth/Register.js";
+import Register from "../routes/auth/Register.js";
 
 import { Link, useLocation } from "react-router-dom";
+import { BurgerLinkStyled } from "../../components.styled/styledComponents.js";
 import useAuth from "../../context/authContext/useAuth.js";
 import { Image } from "cloudinary-react";
 import noPhoto from "../../img/noPhoto.png";
 import logosmall from "../../img/logosmall.png";
-
+import { MainButton } from "../../components.styled/styledComponents.js";
 
 export default function NavBar() {
-  
   const [user, setUser] = useState({});
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -49,9 +50,8 @@ export default function NavBar() {
     if (user) {
       setUser(JSON.parse(user));
       tokenValidator();
-
     } else {
-      setUser({})
+      setUser({});
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname, isAuthenticated]);
@@ -68,7 +68,9 @@ export default function NavBar() {
         <img src={logosmall} className="w-25" alt="logo" />
       </div>
       <div className="d-flex align-items-center">
-        {user.username && user.username !== {} ? <p className="d-inline h5 mx-3">{user.username.toUpperCase()}</p> : null}
+        {user.username && user.username !== {} ? (
+          <p className="d-inline h5 mx-3">{user.username.toUpperCase()}</p>
+        ) : null}
         <button
           className="bg-transparent border-0"
           onClick={function noRefCheck() {
@@ -78,28 +80,31 @@ export default function NavBar() {
           <FaBars className="secondaryText h1" />
         </button>
         <Offcanvas
-        className="dark"
+          className="dark"
           isOpen={show}
           direction="end"
           toggle={function noRefCheck() {
             setShow(false);
           }}
-          
         >
           <OffcanvasHeader
             toggle={function noRefCheck() {
               setShow(false);
             }}
+            className="secondary"
           >
             {isAuthenticated ? (
-              <Dropdown isOpen={dropdownOpen} toggle={toggle}>
-                <DropdownToggle nav caret className="w-50">
+              <>
+                <Link to="/account">
                   {user.imgProfile && user.imgProfile !== "no_photo" ? (
-                    <Image
-                      className="w-25 rounded-circle"
-                      cloudName="schoolgroupfinal"
-                      publicId={user.imgProfile}
-                    />
+                   
+                      <Image
+                        className="rounded-circle me-2"
+                        cloudName="schoolgroupfinal"
+                        publicId={user.imgProfile}
+                        style={{width: "50px"}}
+                      />
+                  
                   ) : (
                     <img
                       src={noPhoto}
@@ -107,28 +112,16 @@ export default function NavBar() {
                       className="rounded-circle w-25"
                     />
                   )}
-                </DropdownToggle>
-                <DropdownMenu>
-                  <DropdownItem>
-                    <Link
-                      className=" text-decoration-none"
-                      onClick={closeMenu}
-                      to="/account"
-                    >
-                      Profile Settings
-                    </Link>
-                  </DropdownItem>
-                </DropdownMenu>
-              </Dropdown>
+                  My Profile
+                </Link>
+              </>
             ) : (
-              <Button
-                className="text-dark danger"
-                onClick={toggleRegister}
-              >
+              <Button className="text-dark danger" onClick={toggleRegister}>
                 Join the community
               </Button>
             )}
-            <RegisterModal
+
+            <Register
               modalRegister={modalRegister}
               toggleRegister={toggleRegister}
               closeMenu={closeMenu}
@@ -136,60 +129,88 @@ export default function NavBar() {
           </OffcanvasHeader>
 
           <OffcanvasBody>
-            <strong className="d-flex flex-column gap-3">
-              {/* link imported from react dom class name to  */}
+            <strong className="d-flex flex-column gap-3 mt-3">
               <Link
                 className="text-dark text-decoration-none"
                 onClick={closeMenu}
                 to="/"
               >
-                Home
+                <BurgerLinkStyled>
+                  <GoPlug className="me-2" />
+                  Home
+                </BurgerLinkStyled>
               </Link>
               <Link
                 className="text-dark text-decoration-none"
                 onClick={closeMenu}
                 to="aboutus"
               >
-                About us
-              </Link>
-              <Link
-                className="text-dark text-decoration-none"
-                onClick={closeMenu}
-                to="germany"
-              >
-                Map
+                <BurgerLinkStyled>
+                  <GoPlug className="me-2" />
+                  About us
+                </BurgerLinkStyled>
               </Link>
 
               <Link
                 className="text-dark text-decoration-none"
                 onClick={closeMenu}
-                to="contact"
+                to="germany"
               >
-                Contact us
+                <BurgerLinkStyled>
+                  <GoPlug className="me-2" />
+                  Map
+                </BurgerLinkStyled>
               </Link>
+
               <Link
                 className="text-dark text-decoration-none"
                 onClick={closeMenu}
                 to="board"
               >
-                MessageBoard
+                <BurgerLinkStyled>
+                  <GoPlug className="me-2" />
+                  Messages
+                </BurgerLinkStyled>
               </Link>
-              {!isAuthenticated && (
-                <div className="" onClick={toggleLogin} role="button">
+              <Link
+                className="text-dark text-decoration-none"
+                onClick={closeMenu}
+                to="contact"
+              >
+                <BurgerLinkStyled>
+                  <GoPlug className="me-2" />
+                  Contact us
+                </BurgerLinkStyled>
+              </Link>
+              {/* <Link
+                className=" text-decoration-none"
+                onClick={closeMenu}
+                to="/account"
+              >
+                My Profile
+              </Link> */}
+              {!isAuthenticated ? (
+                <BurgerLinkStyled
+                  className="h5"
+                  onClick={toggleLogin}
+                  role="button"
+                >
                   Login
-                </div>
+                </BurgerLinkStyled>
+              ) : (
+                <BurgerLinkStyled
+                  role="button"
+                  className="h5"
+                  onClick={loggingOut}
+                >
+                  Sign Out
+                </BurgerLinkStyled>
               )}
               <LoginModal
                 modalLogin={modalLogin}
                 toggleLogin={toggleLogin}
                 closeMenu={closeMenu}
               />
-
-              {isAuthenticated && (
-                <div role="button" className="text-dark" onClick={loggingOut}>
-                  sign out
-                </div>
-              )}
             </strong>
           </OffcanvasBody>
         </Offcanvas>
