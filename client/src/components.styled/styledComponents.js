@@ -8,6 +8,7 @@ export const MsgImgDivStyled = styled.div`
       height: 5rem;
       border-radius: 50%;
       border: 5px solid var(--dark-color);
+      margin: 0 auto;
     `;
 
 
@@ -25,6 +26,16 @@ export const MainMsgDivStyled = styled.div`
 
     `
 
+export const LinkStyled = styled(Link)`
+transition: all 0.2s;
+color: var(--dark-color);
+text-align: center;
+display: block;
+text-decoration: none;
+&:hover{
+  color:var(--danger-color);
+}
+`
 
 
 export const MainButton = styled.button`
@@ -73,7 +84,8 @@ export const ImgChargers = styled.img`
 `;
 
 export const PagLinkFirstStyled = styled(PaginationLink)`
- padding: 0.4rem 0.7rem;
+ padding: 0.4rem 1rem;
+ margin: 0 0.4rem;
   border-radius: 0.4rem 0 0 0.4rem;
   border: 1px solid var(--danger-color);
   background-color: transparent;
@@ -90,7 +102,8 @@ export const PagLinkFirstStyled = styled(PaginationLink)`
 
 `
 export const PagLinkLastStyled = styled(PaginationLink)`
- padding: 0.4rem 0.7rem;
+ padding: 0.4rem 1rem;
+ margin: 0 0.2rem;
   border-radius: 0 0.4rem 0.4rem 0;
   border: 1px solid var(--danger-color);
   background-color: transparent;
@@ -107,7 +120,8 @@ export const PagLinkLastStyled = styled(PaginationLink)`
 
 `
 export const PagLinkStyledNum = styled(PaginationLink)`
- padding: 0.4rem 0.7rem;
+padding: 0.4rem 1rem;
+ margin: 0 0.4rem;
   border: 1px solid var(--danger-color);
   background-color: transparent;
   color: var(--dark-color);
@@ -144,7 +158,7 @@ export const ImageStyled = styled(Image)`
 `;
 
 
-export const ImgStyled = styled(Image)`
+export const ImgStyled = styled.img`
   width: 100%;
   height:100%;
   object-fit: contain;
