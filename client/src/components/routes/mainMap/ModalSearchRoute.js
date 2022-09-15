@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { IoCloseOutline } from "react-icons/io5";
+import { MainButton } from "../../../components.styled/styledComponents.js";
 
 import {
-  Button,
   FormGroup,
   Input,
   Label,
@@ -16,11 +15,9 @@ import {
 import { typeOfStreetDataset } from "../../../dataset/dataset.js";
 import useMap from "../../../context/mapContext/useMap.js";
 
-import {MainButton} from "../../../components.styled/styledComponents"
-
+import { IoCloseOutline } from "react-icons/io5";
 
 function ModalSearchRoute({ modal, toggle }) {
-
   const { routeCoordiantes } = useMap();
   const [routeForm, setRouteForm] = useState({
     fromCity: "",
@@ -85,7 +82,7 @@ function ModalSearchRoute({ modal, toggle }) {
           role="button"
         />
         </ModalHeader>
-        <ModalBody  className="secondary text-light">
+        <ModalBody className="secondary text-light">
           <div onChange={(e) => routeChangeHandler(e)}>
             <FormGroup>
               <Label>From</Label>
@@ -95,8 +92,8 @@ function ModalSearchRoute({ modal, toggle }) {
                 placeholder="street"
                 type="text"
               />
-              </FormGroup>
-              <FormGroup>
+            </FormGroup>
+            <FormGroup>
               <Input required name="fromTypeOfStreet" type="select">
                 <option value="strasse">strasse</option>
                 <option value="damm">damm</option>
@@ -132,8 +129,8 @@ function ModalSearchRoute({ modal, toggle }) {
                 placeholder="street"
                 type="text"
               />
-              </FormGroup>
-              <FormGroup>
+            </FormGroup>
+            <FormGroup>
               <Input required name="toTypeOfStreet" type="select">
                 <option value="strasse">strasse</option>
                 <option value="damm">damm</option>

@@ -18,7 +18,7 @@ function Profile() {
       getProfileInfo(user.id);
     }
   }, []);
-
+console.log(userInfo)
   return (
     <div className="text-light">
       {isAuthenticated ? (

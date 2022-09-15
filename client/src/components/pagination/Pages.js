@@ -1,5 +1,10 @@
 import { useState } from "react";
 import { Pagination, PaginationItem, PaginationLink } from "reactstrap";
+import {
+  PagLinkFirstStyled,
+  PagLinkStyledNum,
+  PagLinkLastStyled,
+} from "../../components.styled/styledComponents";
 import useComments from "../../context/commentsContext/useComments";
 
 export default function Pages({ numberOfPages, paginate }) {
@@ -11,52 +16,55 @@ export default function Pages({ numberOfPages, paginate }) {
     if (index >= 1 && index <= numberOfPages) {
       pageNumbers.push(index);
     }
-    return item
+    return item;
   });
-  
+
   function pageHandler(e) {
-    if (e === 0 || e === numberOfPages + 1) {
-      return e;
-    }
     setTest(e);
     paginate(e);
     window.scroll(0, 0);
   }
 
   return (
-    <div className="position-absolute bottom-0 start-50 translate-middle">
+    <div className="position-absolute start-50 translate-middle">
       <Pagination>
         <PaginationItem>
-          <PaginationLink
+          <PagLinkFirstStyled
             first
             onClick={() => pageHandler(1)}
             href=""
-          ></PaginationLink>
+          ></PagLinkFirstStyled>
         </PaginationItem>
-        <PaginationLink
-          previous
-          onClick={() => pageHandler(test - 1)}
-        ></PaginationLink>
+        <PaginationItem disabled={test <= 1}>
+          <PagLinkFirstStyled
+            previous
+            onClick={() => pageHandler(test - 1)}
+          ></PagLinkFirstStyled>
+        </PaginationItem>
         <PaginationItem className="d-flex">
-          {pageNumbers.map((page) => (
-            <PaginationLink
+          {pageNumbers.map((page, index) => (
+            
+            <PagLinkStyledNum
+            active={index === page}
               key={page}
               onClick={() => pageHandler(page)}
               href=""
             >
               {page}
-            </PaginationLink>
+            </PagLinkStyledNum>
           ))}
-          <PaginationLink
+        </PaginationItem>
+        <PaginationItem disabled={test >= numberOfPages}>
+          <PagLinkLastStyled
             next
             onClick={() => pageHandler(test + 1)}
-          ></PaginationLink>
+          ></PagLinkLastStyled>
         </PaginationItem>
         <PaginationItem>
-          <PaginationLink
+          <PagLinkLastStyled
             last
             onClick={() => pageHandler(numberOfPages)}
-          ></PaginationLink>
+          ></PagLinkLastStyled>
         </PaginationItem>
       </Pagination>
     </div>
