@@ -32,7 +32,6 @@ export default function Pages({ numberOfPages, paginate }) {
           <PagLinkFirstStyled
             first
             onClick={() => pageHandler(1)}
-            href=""
           ></PagLinkFirstStyled>
         </PaginationItem>
         <PaginationItem disabled={test <= 1}>
@@ -43,12 +42,10 @@ export default function Pages({ numberOfPages, paginate }) {
         </PaginationItem>
         <PaginationItem className="d-flex">
           {pageNumbers.map((page, index) => (
-            
             <PagLinkStyledNum
-            active={index === page}
+              active={index === page}
               key={page}
               onClick={() => pageHandler(page)}
-              href=""
             >
               {page}
             </PagLinkStyledNum>
