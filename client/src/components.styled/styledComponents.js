@@ -42,3 +42,9 @@ export const ImgChargers = styled.img`
     width: 70%
   }
 `;
+
+// export const MessageImg = styled.div`
+//   width: 400px;
+//   height: 400px;
+//   border-radius: 50%;
+// `

@@ -15,6 +15,7 @@ import {
 import { typeOfStreetDataset } from "../../../dataset/dataset.js";
 import useMap from "../../../context/mapContext/useMap.js";
 
+import {MainButton} from "../../../components.styled/styledComponents"
 
 
 function ModalSearchRoute({ modal, toggle }) {
@@ -156,12 +157,12 @@ function ModalSearchRoute({ modal, toggle }) {
           </div>
         </ModalBody>
         <ModalFooter className="secondary text-light">
-          <Button  color="warning" outline  onClick={submit} type="submit">
+          <MainButton outline  onClick={submit} type="submit">
             calculate
-          </Button>{" "}
-          <Button  color="warning" outline  onClick={toggle}>
+          </MainButton>{" "}
+          <MainButton outline  onClick={toggle}>
             Cancel
-          </Button>
+          </MainButton>
         </ModalFooter>
       </Form>
     </Modal>

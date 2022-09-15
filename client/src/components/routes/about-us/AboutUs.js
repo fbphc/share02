@@ -5,7 +5,7 @@ import innovation from "../../../img/innovation.png";
 import passion from "../../../img/passion.png";
 import evcharge from "../../../img/evcharge.jpg";
 import evcharge1 from "../../../img/evcharge1.jpg";
-import { BsFillArrowUpCircleFill } from "react-icons/bs";
+// import { BsFillArrowUpCircleFill } from "react-icons/bs";
 
 import { ImgAbout, ImgChargers } from "../../../components.styled/styledComponents";
 
@@ -57,7 +57,7 @@ export default function AboutUs() {
         <div className="dark mt-3 mb-4 ms-5">
           <h3 className="pt-4 ps-4">Who we are</h3>
           <p className="p-4">
-            'EV CONNECTION' is a platform that facilitates the connection
+            'EV-CONNECTION' is a platform that facilitates the connection
             between EV drivers & owners of wall-boxes.
             <br />
             <br />
@@ -107,7 +107,7 @@ export default function AboutUs() {
         href="#top"
         className="position-fixed bottom-0 text-decoration-none start-0 p-1 rounded bg-transparent ms-5 mb-5 darkText arrowCSS"
       >
-        <BsFillArrowUpCircleFill className="fs-1"  />
+        {/* <BsFillArrowUpCircleFill className="fs-1"  /> */}
       </a>
     </div>
   );

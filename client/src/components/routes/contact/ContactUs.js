@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { Button, Form, FormGroup, Input } from "reactstrap";
+import { Form, FormGroup, Input } from "reactstrap";
 import emailjs from "@emailjs/browser";
+
+import { MainButton } from "../../../components.styled/styledComponents";
 
 export default function ContactUs() {
   const [value, setValue] = useState({});
@@ -44,12 +46,12 @@ export default function ContactUs() {
           </p>
         </div>
         <Form
-          className="d-flex flex-column align-items-center"
+          className="d-flex flex-column align-items-center w-100"
           // ref={form}
           onSubmit={sendEmail}
           onChange={contactHandler}
         >
-          <FormGroup className="">
+          <FormGroup className="w-75">
             <Input
               type="text"
               placeholder="Full Name"
@@ -57,7 +59,7 @@ export default function ContactUs() {
               name="user_name"
             />
           </FormGroup>
-          <FormGroup className="">
+          <FormGroup className="w-75">
             <Input
               type="email"
               placeholder="Email"
@@ -65,7 +67,7 @@ export default function ContactUs() {
               name="email"
             />
           </FormGroup>
-          <FormGroup className="">
+          <FormGroup className="w-75">
             <Input
               type="textarea"
               placeholder="Your Message"
@@ -75,25 +77,25 @@ export default function ContactUs() {
             />
           </FormGroup>
           <div className="d-flex gap-3">
-            <Button color="warning" outline type="submit" value="send">
+            <MainButton outline type="submit" value="send">
               send
-            </Button>
-            <Button color="warning" outline type="reset">
+            </MainButton>
+            <MainButton outline type="reset">
               reset
-            </Button>
+            </MainButton>
           </div>
         </Form>
       </div>
-      <div className="d-flex flex-column align-items-center gap-3 p-3">
+      <div className="d-flex flex-column align-items-center gap-2 p-3">
         <p className="w-75 text-center">
           Meet our brilliant and knowledgeable support team{" "}
         </p>
-        <div className=" d-flex justify-content-center flex-wrap gap-5 ">
+        <div className=" d-flex justify-content-center flex-wrap">
           <div>
             <div className="d-flex flex-column align-items-center">
               <img
-                className="teamPicture rounded-circle w-50"
-                src="https://hackster.imgix.net/uploads/attachments/343030/koala_G4GPA7y9TY.jpg?auto=compress%2Cformat&w=200&h=200&fit=min"
+                className="teamPicture rounded-circle w-25"
+                src="https://media-exp1.licdn.com/dms/image/D4D35AQE1HotOGs040g/profile-framedphoto-shrink_400_400/0/1651757138417?e=1663758000&v=beta&t=xAyleQs-Xc2ZhsMiZZWbPDmpF68tnGRAa_qvJ8jIWjU"
                 alt=""
               />
               <p className="pt-3">Fabio Petrella</p>
@@ -102,8 +104,8 @@ export default function ContactUs() {
           <div>
             <div className="d-flex flex-column align-items-center">
               <img
-                className="teamPicture rounded-circle w-50"
-                src="https://hackster.imgix.net/uploads/attachments/343030/koala_G4GPA7y9TY.jpg?auto=compress%2Cformat&w=200&h=200&fit=min"
+                className="teamPicture rounded-circle w-25"
+                src="https://media-exp1.licdn.com/dms/image/D4E35AQF2Xa4r9w-pAQ/profile-framedphoto-shrink_400_400/0/1652795569722?e=1663682400&v=beta&t=8JMg9N6hM8Hfb6IiD1DZibzsTsYlwKLkgco4Vxpa0-w"
                 alt=""
               />
               <p className="pt-3">Isra Gonzalez</p>
@@ -112,8 +114,8 @@ export default function ContactUs() {
           <div>
             <div className="d-flex flex-column align-items-center">
               <img
-                className="teamPicture rounded-circle w-50"
-                src="https://hackster.imgix.net/uploads/attachments/343030/koala_G4GPA7y9TY.jpg?auto=compress%2Cformat&w=200&h=200&fit=min"
+                className="teamPicture rounded-circle w-25"
+                src="https://media-exp1.licdn.com/dms/image/D4E35AQGy6gx3t6g67A/profile-framedphoto-shrink_400_400/0/1656620607091?e=1663758000&v=beta&t=NJwnHRVfpEFwTpkB5o09j3u3HDJikuph7fauqzrnnO4"
                 alt=""
               />
               <p className="pt-3">William Mallak</p>
