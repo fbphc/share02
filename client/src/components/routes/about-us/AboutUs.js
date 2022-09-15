@@ -57,7 +57,7 @@ export default function AboutUs() {
         <div className="dark mt-3 mb-4 ms-5">
           <h3 className="pt-4 ps-4">Who we are</h3>
           <p className="p-4">
-            'EV CONNECTION' is a platform that facilitates the connection
+            'EV-CONNECTION' is a platform that facilitates the connection
             between EV drivers & owners of wall-boxes.
             <br />
             <br />

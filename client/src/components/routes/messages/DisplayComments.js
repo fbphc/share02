@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import useComments from "../../../context/commentsContext/useComments.js";
 import { Image } from "cloudinary-react";
@@ -18,14 +18,14 @@ function DisplayComments() {
   const indexOfFirstComment = indexOfLastComment - commentsPerPage;
   const currentComments = allComments.slice(indexOfFirstComment, indexOfLastComment)
   const numberOfPages = Math.ceil(allComments.length / commentsPerPage);
-  
+
   const paginate = pageNumber => setCurrentPage(pageNumber)
-  
+
   /** */
 
   useEffect(() => {
-   getAllComments();
-  
+    getAllComments();
+
   }, [state.comment]);
 
   return (
@@ -39,8 +39,8 @@ function DisplayComments() {
                   <img src={noPhoto} alt="user" className="w-25" />
                 </div>
               ) : (
-                  <div className="w-75" style={{
-                    border: "2px solid red"
+                <div className="w-75" style={{
+                  border: "2px solid red"
                 }}>
                   <Image
                     className="rounded-circle w-25"
