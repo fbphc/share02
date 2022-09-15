@@ -153,12 +153,12 @@ function ModalSearchRoute({ modal, toggle }) {
           </div>
         </ModalBody>
         <ModalFooter className="secondary text-light">
-          <Button color="warning" outline onClick={submit} type="submit">
+          <MainButton outline  onClick={submit} type="submit">
             calculate
-          </Button>{" "}
-          <Button color="warning" outline onClick={toggle}>
+          </MainButton>{" "}
+          <MainButton outline  onClick={toggle}>
             Cancel
-          </Button>
+          </MainButton>
         </ModalFooter>
       </Form>
     </Modal>

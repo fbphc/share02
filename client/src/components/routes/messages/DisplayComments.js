@@ -5,6 +5,8 @@ import { Image } from "cloudinary-react";
 import noPhoto from "../../../img/noPhoto.png";
 import Pages from "../../pagination/Pages.js";
 
+import { MessageImg } from "../../../components.styled/styledComponents"
+
 function DisplayComments() {
   const { state, getAllComments, allComments } = useComments();
 
@@ -16,41 +18,47 @@ function DisplayComments() {
   const indexOfFirstComment = indexOfLastComment - commentsPerPage;
   const currentComments = allComments.slice(indexOfFirstComment, indexOfLastComment)
   const numberOfPages = Math.ceil(allComments.length / commentsPerPage);
-  
+
   const paginate = pageNumber => setCurrentPage(pageNumber)
-  
+
   /** */
 
   useEffect(() => {
-   getAllComments();
-  
+    getAllComments();
+
   }, [state.comment]);
 
   return (
     <div>
       {currentComments.map((item, idx) => {
         return (
-          <div key={idx + "comment"}>
-            {item.imgProfile === "no_photo" ? (
-              <div>
-                <img src={noPhoto} alt="user" className="w-25" />
-              </div>
-            ) : (
-              <div>
-                <Image
-                  className="w-25"
-                  cloudName="schoolgroupfinal"
-                  publicId={item.imgProfile}
-                />
-              </div>
-            )}
-            <Link to={`/userProfile/${item.userId}`} state={{ id: item.userId }}>
-              {item.username}
-            </Link>
+          <div className="d-flex mt-3" key={idx + "comment"}>
+            <div>
+              {item.imgProfile === "no_photo" ? (
+                <div>
+                  <img src={noPhoto} alt="user" className="w-25" />
+                </div>
+              ) : (
+                <div className="w-75" style={{
+                  border: "2px solid red"
+                }}>
+                  <Image
+                    className="rounded-circle w-25"
+                    cloudName="schoolgroupfinal"
+                    publicId={item.imgProfile}
+                  />
+                </div>
+              )}
+              <Link to={`/userProfile/${item.userId}`} state={{ id: item.userId }}>
+                {item.username}
+              </Link>
+            </div>
 
-            <p>{item.comment}</p>
-            <p>{item.dateNow[0]}</p>
-            <p>{item.dateNow[1]}</p>
+            <div>
+              <p>{item.comment}</p>
+              <p>{item.dateNow[0]}</p>
+              <p>{item.dateNow[1]}</p>
+            </div>
           </div>
         );
       })}
