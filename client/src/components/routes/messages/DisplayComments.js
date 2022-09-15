@@ -15,6 +15,7 @@ function DisplayComments() {
   const indexOfLastComment = currentPage * commentsPerPage;
   const indexOfFirstComment = indexOfLastComment - commentsPerPage;
   const currentComments = allComments.slice(indexOfFirstComment, indexOfLastComment)
+  const numberOfPages = Math.ceil(allComments.length / commentsPerPage);
   
   const paginate = pageNumber => setCurrentPage(pageNumber)
   
@@ -53,7 +54,7 @@ function DisplayComments() {
           </div>
         );
       })}
-      <Pages commentsPerPage={commentsPerPage} totalComments={allComments.length} paginate={paginate} />
+      <Pages paginate={paginate} numberOfPages={numberOfPages} />
     </div>
   );
 }

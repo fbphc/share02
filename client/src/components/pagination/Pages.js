@@ -1,28 +1,36 @@
-import { useState } from "react";
 import { Pagination, PaginationItem, PaginationLink } from "reactstrap";
+import useComments from "../../context/commentsContext/useComments";
 
-export default function Pages({commentsPerPage, totalComments, paginate}) {
+export default function Pages({numberOfPages, paginate}) {
+  const {allComments} = useComments()
   const pageNumbers = [];
-  const numberOfPages = Math.ceil(totalComments / commentsPerPage);
   
-  for (let i = 1; i <= numberOfPages; i++) {
-  pageNumbers.push(i)  
-  }
+
+  allComments.map((item, index) => {
+    if(index >= 1 && index <= numberOfPages){
+      pageNumbers.push(index)
+    }
+  })
+
+  function pageHandler(e){
+    paginate(e)
+    window.scroll(0, 0)
+  } 
   
   return (
     <div className="d-flex justify-content-center">
 <Pagination>
   <PaginationItem>
-    <PaginationLink first onClick={() => paginate(1)} href=""></PaginationLink>
+    <PaginationLink first onClick={() => pageHandler(1)} href=""></PaginationLink>
   </PaginationItem>
       <PaginationItem className="d-flex">
-        {pageNumbers.map(page => (<PaginationLink key={page} onClick={() => paginate(page)} href=''>
+        {pageNumbers.map(page => (<PaginationLink key={page} onClick={() => pageHandler(page)} href=''>
           {page}
         </PaginationLink>) 
         )}
       </PaginationItem>
       <PaginationItem>
-    <PaginationLink last onClick={() => paginate(Math.ceil(totalComments / commentsPerPage))}></PaginationLink>
+    <PaginationLink last onClick={() => pageHandler(numberOfPages)}></PaginationLink>
   </PaginationItem>
       </Pagination>
     </div>
