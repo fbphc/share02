@@ -1,15 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {
-  Button,
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownToggle,
-  Offcanvas,
-  OffcanvasBody,
-  OffcanvasHeader,
-} from "reactstrap";
+import { Button, Offcanvas, OffcanvasBody, OffcanvasHeader } from "reactstrap";
 import { FaBars } from "react-icons/fa";
 import { GoPlug } from "react-icons/go";
 
@@ -22,14 +13,13 @@ import useAuth from "../../context/authContext/useAuth.js";
 import { Image } from "cloudinary-react";
 import noPhoto from "../../img/noPhoto.png";
 import logosmall from "../../img/logosmall.png";
+import {AiFillCar} from "react-icons/ai"
 import { MainButton } from "../../components.styled/styledComponents.js";
-
 export default function NavBar() {
+  const { tokenValidator, signOut, isAuthenticated, getProfileInfo, userInfo } =
+  useAuth();
+  const location = useLocation();
   const [user, setUser] = useState({});
-
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const toggle = () => setDropdownOpen(!dropdownOpen);
-
   const [modalLogin, setModalLogin] = useState(false);
   const toggleLogin = () => setModalLogin(!modalLogin);
 
@@ -41,21 +31,22 @@ export default function NavBar() {
     setShow(false);
   }
 
-  /* --- check the validation --- */
-  const { tokenValidator, signOut, isAuthenticated } = useAuth();
-  const location = useLocation();
+  useEffect(() => {
+    getProfileInfo(user.id);
+    setUser(userInfo);
+  }, []);
+
 
   useEffect(() => {
     const user = localStorage.getItem("user");
     if (user) {
-      setUser(JSON.parse(user));
       tokenValidator();
     } else {
       setUser({});
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname, isAuthenticated]);
-  /* ------------- */
+
+ 
 
   function loggingOut() {
     signOut();
@@ -68,9 +59,7 @@ export default function NavBar() {
         <img src={logosmall} className="w-25" alt="logo" />
       </div>
       <div className="d-flex align-items-center">
-        {user.username && user.username !== {} ? (
-          <p className="d-inline h5 mx-3">{user.username.toUpperCase()}</p>
-        ) : null}
+        {isAuthenticated && <AiFillCar className="h3 secondaryText mx-2"/>}
         <button
           className="bg-transparent border-0"
           onClick={function noRefCheck() {
@@ -94,17 +83,16 @@ export default function NavBar() {
             className="secondary"
           >
             {isAuthenticated ? (
+              
               <>
-                <Link to="/account">
+                <Link to="/account" onClick={() => setShow(false)}>
                   {user.imgProfile && user.imgProfile !== "no_photo" ? (
-                   
-                      <Image
-                        className="rounded-circle me-2"
-                        cloudName="schoolgroupfinal"
-                        publicId={user.imgProfile}
-                        style={{width: "50px"}}
-                      />
-                  
+                    <Image
+                      className="rounded-circle me-2"
+                      cloudName="schoolgroupfinal"
+                      publicId={userInfo.imgProfile}
+                      style={{ width: "50px" }}
+                    />
                   ) : (
                     <img
                       src={noPhoto}
@@ -116,9 +104,9 @@ export default function NavBar() {
                 </Link>
               </>
             ) : (
-              <Button className="text-dark danger" onClick={toggleRegister}>
+              <MainButton  onClick={toggleRegister}>
                 Join the community
-              </Button>
+              </MainButton>
             )}
 
             <Register
@@ -182,27 +170,13 @@ export default function NavBar() {
                   Contact us
                 </BurgerLinkStyled>
               </Link>
-              {/* <Link
-                className=" text-decoration-none"
-                onClick={closeMenu}
-                to="/account"
-              >
-                My Profile
-              </Link> */}
+
               {!isAuthenticated ? (
-                <BurgerLinkStyled
-                  className="h5"
-                  onClick={toggleLogin}
-                  role="button"
-                >
+                <BurgerLinkStyled onClick={toggleLogin} role="button">
                   Login
                 </BurgerLinkStyled>
               ) : (
-                <BurgerLinkStyled
-                  role="button"
-                  className="h5"
-                  onClick={loggingOut}
-                >
+                <BurgerLinkStyled role="button" onClick={loggingOut}>
                   Sign Out
                 </BurgerLinkStyled>
               )}

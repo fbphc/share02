@@ -17,8 +17,9 @@ function Profile() {
       const user = JSON.parse(localStorage.getItem("user"));
       getProfileInfo(user.id);
     }
-  }, []);
-console.log(userInfo)
+    console.log(1234, userInfo)
+  }, [editToggle]);
+
   return (
     <div className="text-light">
       {isAuthenticated ? (

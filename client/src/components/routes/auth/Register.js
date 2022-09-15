@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
-  Button,
   Form,
   FormGroup,
   Input,
@@ -20,7 +19,7 @@ import { IoCloseOutline } from "react-icons/io5";
 import useAuth from "../../../context/authContext/useAuth";
 import { typeOfStreetDataset } from "../../../dataset/dataset.js";
 import axios from "axios";
-import {MainButton} from '../../../components.styled/styledComponents.js'
+import { MainButton } from "../../../components.styled/styledComponents.js";
 
 export default function Register({ modalRegister, toggleRegister, closeMenu }) {
   const { signUp, resetError } = useAuth();
@@ -180,7 +179,7 @@ export default function Register({ modalRegister, toggleRegister, closeMenu }) {
   const [imageSelected, setImageSelected] = useState("");
 
   const uploadImage = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const formData = new FormData();
     formData.append("file", imageSelected);
     formData.append("upload_preset", "schoolGroup");
@@ -222,14 +221,12 @@ export default function Register({ modalRegister, toggleRegister, closeMenu }) {
                   />
 
                   {registerForm.imgProfile !== "no_photo" ? (
-                    <AiFillCheckCircle className="h1 text-warning" />
+                    <AiFillCheckCircle className="h1 danger" />
                   ) : (
                     <AiFillCheckCircle className="h1 text-light" />
                   )}
                 </div>
-                <Button color="warning" outline onClick={uploadImage}>
-                  Upload Image
-                </Button>
+                <MainButton onClick={uploadImage}>Upload Image</MainButton>
               </FormGroup>
               <FormGroup onChange={() => setRegisterToggle(!registerToggle)}>
                 <Input required name="isOwner" type="select">
@@ -338,7 +335,6 @@ export default function Register({ modalRegister, toggleRegister, closeMenu }) {
                       <option value="type02">Type 2</option>
                       <option value="type03">CCS</option>
                       <option value="type04">CHAdeMO</option>
-
                     </Input>
                   </FormGroup>
                   <FormGroup>

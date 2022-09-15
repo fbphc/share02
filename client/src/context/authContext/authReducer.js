@@ -57,12 +57,7 @@ export const authState = {
       userInfo: payload
     }
   }
-  case "GET_IMG": {
-    return {
-      ...state, 
-      imgProfile: payload
-    }
-  }
+ 
       default: {
         return state;
       }

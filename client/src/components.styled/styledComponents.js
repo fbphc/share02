@@ -72,8 +72,9 @@ export const MapImg = styled.img`
 // about us
 export const ImgAbout = styled.img`
   width: 100%;
-  height: 400px;
+  max-height: 40rem;
   object-fit: cover;
+  margin-bottom: 1rem;
 `;
 
 export const ImgChargers = styled.img`
@@ -153,7 +154,7 @@ display: inline-block;
 export const ImageStyled = styled(Image)`
   width: 100%;
   height:100%;
-  object-fit: contain;
+  object-fit: cover;
   border-radius: 50%;
 `;
 

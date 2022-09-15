@@ -22,7 +22,6 @@ body {
 
 .primary {
   color: var(--primary-color);
-
 }
 .secondary {
   background-color: var(--secondary-color);
@@ -39,16 +38,22 @@ body {
 .secondaryText {
   color: var(--secondary-color);
 }
-.darkText{
+.darkText {
   color: var(--dark-color);
 }
 
+.h1 {
+  font-size: clamp(var(--min), var(--val), var(--max));
+  --min: 1.8em;
+  --val: 4vw;
+  --max: 4em;
+}
 
 @media (min-width: 389px) and (max-width: 600px) {
   .imageCSS {
     padding-top: 40%;
   }
 }
-.arrowCSS:hover{
+.arrowCSS:hover {
   color: var(--danger-color);
 }

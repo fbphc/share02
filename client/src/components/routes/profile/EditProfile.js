@@ -1,10 +1,20 @@
 import { useEffect, useState } from "react";
-import { Button, Form, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
+import {
+  Button,
+  Form,
+  FormGroup,
+  Input,
+  Label,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+} from "reactstrap";
 import { AiFillCheckCircle } from "react-icons/ai";
 import useAuth from "../../../context/authContext/useAuth";
 import axios from "axios";
 import { IoCloseOutline } from "react-icons/io5";
-import { MainButton } from '../../../components.styled/styledComponents.js'
+import { MainButton } from "../../../components.styled/styledComponents.js";
 
 function EditProfile({ editToggle, setEditToggle }) {
   const { userInfo, editUserProfile } = useAuth();
@@ -15,6 +25,7 @@ function EditProfile({ editToggle, setEditToggle }) {
   // register information state
   const [registerForm, setRegisterForm] = useState({});
 
+  const [toggleImg, setToggleImg] = useState(false);
   useEffect(() => {
     if (userInfo.isOwner) {
       setRegisterForm({ ...userInfo, _id: "" });
@@ -30,12 +41,11 @@ function EditProfile({ editToggle, setEditToggle }) {
     });
   }
 
-
-
   // address changes function
   function addressHandler(e) {
     const element = e.target.name;
     const value = e.target.value;
+
     setRegisterForm((prevState) => {
       return {
         ...prevState,
@@ -47,19 +57,20 @@ function EditProfile({ editToggle, setEditToggle }) {
   const [imageSelected, setImageSelected] = useState("");
 
   const uploadImage = (e) => {
-    e.preventDefault()
+    e.preventDefault();
+
     const formData = new FormData();
     formData.append("file", imageSelected);
     formData.append("upload_preset", "schoolGroup");
-
     axios
       .post(
         "https://api.cloudinary.com/v1_1/schoolgroupfinal/image/upload",
         formData
       )
-      .then((response) =>
-        setRegisterForm({ ...registerForm, imgProfile: response.data.url })
-      )
+      .then((response) => {
+        setRegisterForm({ ...registerForm, imgProfile: response.data.url });
+        setToggleImg(true);
+      })
       .catch((err) => {
         setRegisterForm({ ...registerForm, imgProfile: "no_photo" });
         return console.log(err);
@@ -68,13 +79,24 @@ function EditProfile({ editToggle, setEditToggle }) {
   /********************* */
 
   function submit(e) {
-    e.preventDefault()
+    e.preventDefault();
 
-    editUserProfile(registerForm)
-    setEditToggle(false)
+    editUserProfile(registerForm);
+    if (localStorage.getItem("user")) {
+      let user = JSON.parse(localStorage.getItem("user"));
+      user = {
+        id: user.id,
+        token: user.token,
+        username: user.username,
+        imgProfile: registerForm.imgProfile,
+      };
+      localStorage.setItem("user", JSON.stringify(user));
+    }
+    setEditToggle(false);
   }
-
-
+  useEffect(() => {
+    setToggleImg(false);
+  }, [imageSelected]);
   return (
     <Modal isOpen={editToggle}>
       <ModalHeader>
@@ -96,10 +118,10 @@ function EditProfile({ editToggle, setEditToggle }) {
                   onChange={(e) => setImageSelected(e.target.files[0])}
                 />
 
-                {registerForm.imgProfile !== "no_photo" ? (
-                  <AiFillCheckCircle className="h1" />
-                ) : (
+                {toggleImg ? (
                   <AiFillCheckCircle className="h1 danger" />
+                ) : (
+                  <AiFillCheckCircle className="h1 text-light" />
                 )}
               </div>
               <MainButton outline onClick={uploadImage}>
@@ -116,8 +138,8 @@ function EditProfile({ editToggle, setEditToggle }) {
             ) : (
               <FormGroup onChange={() => setRegisterToggle(!registerToggle)}>
                 <Input required name="isOwner" type="select">
-                  <option value={true}>Wall-Box Owner</option>
                   <option value={false}>Car Owner</option>
+                  <option value={true}>Wall-Box Owner</option>
                 </Input>
               </FormGroup>
             )}
@@ -131,20 +153,10 @@ function EditProfile({ editToggle, setEditToggle }) {
             </FormGroup>
             <div className="d-flex gap-2">
               <FormGroup>
-                <Input
-
-                  name="fname"
-                  placeholder={userInfo.fname}
-                  type="text"
-                />
+                <Input name="fname" placeholder={userInfo.fname} type="text" />
               </FormGroup>
               <FormGroup>
-                <Input
-
-                  name="lname"
-                  placeholder={userInfo.lname}
-                  type="text"
-                />
+                <Input name="lname" placeholder={userInfo.lname} type="text" />
               </FormGroup>
             </div>
 
@@ -178,7 +190,6 @@ function EditProfile({ editToggle, setEditToggle }) {
 
                   <FormGroup>
                     <Input
-
                       name="city"
                       placeholder={userInfo.address.city}
                       type="text"
@@ -186,7 +197,6 @@ function EditProfile({ editToggle, setEditToggle }) {
                   </FormGroup>
                   <FormGroup className="">
                     <Input
-
                       name="street"
                       placeholder={userInfo.address.street}
                       type="text"
@@ -213,7 +223,6 @@ function EditProfile({ editToggle, setEditToggle }) {
                   <div className="d-flex gap-2">
                     <FormGroup className="w-25">
                       <Input
-
                         name="houseNr"
                         placeholder={userInfo.address.houseNr}
                         type="text"
@@ -221,7 +230,6 @@ function EditProfile({ editToggle, setEditToggle }) {
                     </FormGroup>
                     <FormGroup className="w-75">
                       <Input
-
                         name="postalcode"
                         placeholder={userInfo.address.postalcode}
                         type="text"
@@ -232,9 +240,7 @@ function EditProfile({ editToggle, setEditToggle }) {
               </>
             )}
             <ModalFooter>
-              <MainButton onClick={submit}>
-                Save
-              </MainButton>
+              <MainButton onClick={submit}>Save</MainButton>
             </ModalFooter>
           </div>
         </Form>
