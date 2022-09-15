@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useComments from "../../../context/commentsContext/useComments.js";
 import { Image } from "cloudinary-react";
 import noPhoto from "../../../img/noPhoto.png";
 import Pages from "../../pagination/Pages.js";
 
-import { ImageStyled, MsgImgDivStyled, ImgStyled, DisplayMainDivStyled } from "../../../components.styled/styledComponents"
+import { ImageStyled, MsgImgDivStyled, ImgStyled, MainMsgDivStyled } from "../../../components.styled/styledComponents"
 
 function DisplayComments() {
   const { state, getAllComments, allComments } = useComments();
@@ -16,20 +16,20 @@ function DisplayComments() {
 
   const indexOfLastComment = currentPage * commentsPerPage;
   const indexOfFirstComment = indexOfLastComment - commentsPerPage;
-  const currentComments = allComments.slice(indexOfFirstComment, indexOfLastComment)
+  const currentComments = allComments.slice(
+    indexOfFirstComment,
+    indexOfLastComment
+  );
   const numberOfPages = Math.ceil(allComments.length / commentsPerPage);
 
-  const paginate = pageNumber => setCurrentPage(pageNumber)
-
-  /** */
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   useEffect(() => {
     getAllComments();
-
   }, [state.comment]);
 
   return (
-    <DisplayMainDivStyled>
+    <MainMsgDivStyled>
       {currentComments.map((item, idx) => {
         return (
           <div className="d-flex mt-3 border border-top-0 border-start-0 border-end-0 pb-3" key={idx + "comment"}>
@@ -47,7 +47,10 @@ function DisplayComments() {
                   />
                 </MsgImgDivStyled>
               )}
-              <Link to={`/userProfile/${item.userId}`} state={{ id: item.userId }}>
+              <Link
+                to={`/userProfile/${item.userId}`}
+                state={{ id: item.userId }}
+              >
                 {item.username}
               </Link>
             </div>
@@ -61,7 +64,7 @@ function DisplayComments() {
         );
       })}
       <Pages paginate={paginate} numberOfPages={numberOfPages} />
-    </DisplayMainDivStyled>
+    </MainMsgDivStyled>
   );
 }
 

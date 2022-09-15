@@ -1,7 +1,15 @@
 import styled from "styled-components";
 import { Image } from "cloudinary-react";
 
-export const DisplayMainDivStyled = styled.div`
+export const MsgImgDivStyled = styled.div`
+      width: 5rem;
+      height: 5rem;
+      border-radius: 50%;
+      border: 5px solid var(--dark-color);
+    `;
+
+
+export const MainMsgDivStyled = styled.div`
   width: 90%;
   margin: 1rem auto;
   color: var(--dark-color);
@@ -68,12 +76,6 @@ export const ImageStyled = styled(Image)`
   border-radius: 50%;
 `;
 
-export const MsgImgDivStyled = styled.div`
-  width: 5rem;
-  height: 5rem;
-  border-radius: 50%;
-  border: 5px solid var(--dark-color);
-`;
 
 export const ImgStyled = styled(Image)`
   width: 100%;
