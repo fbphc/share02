@@ -13,11 +13,18 @@ import useAuth from "../../context/authContext/useAuth.js";
 import { Image } from "cloudinary-react";
 import noPhoto from "../../img/noPhoto.png";
 import logosmall from "../../img/logosmall.png";
-import {AiFillCar} from "react-icons/ai"
+import { AiFillCar } from "react-icons/ai";
 import { MainButton } from "../../components.styled/styledComponents.js";
+import {
+  ImageStyled,
+  ImgStyled,
+  BurgerImgDivStyled,
+  LinkStyled
+} from "../../components.styled/styledComponents.js";
+
 export default function NavBar() {
-  const { tokenValidator, signOut, isAuthenticated, getProfileInfo, userInfo } =
-  useAuth();
+  const { tokenValidator, signOut, isAuthenticated, getProfileInfo, userInfo, state} =
+    useAuth();
   const location = useLocation();
   const [user, setUser] = useState({});
   const [modalLogin, setModalLogin] = useState(false);
@@ -31,22 +38,17 @@ export default function NavBar() {
     setShow(false);
   }
 
-  useEffect(() => {
-    getProfileInfo(user.id);
-    setUser(userInfo);
-  }, []);
-
-
+  
   useEffect(() => {
     const user = localStorage.getItem("user");
     if (user) {
+      const parsedUser = JSON.parse(user)
       tokenValidator();
+      setUser(parsedUser)
     } else {
       setUser({});
     }
-  }, [location.pathname, isAuthenticated]);
-
- 
+  }, [location.pathname, isAuthenticated, show]);
 
   function loggingOut() {
     signOut();
@@ -59,7 +61,7 @@ export default function NavBar() {
         <img src={logosmall} className="w-25" alt="logo" />
       </div>
       <div className="d-flex align-items-center">
-        {isAuthenticated && <AiFillCar className="h3 secondaryText mx-2"/>}
+        {isAuthenticated && <AiFillCar className="h3 secondaryText mx-2" />}
         <button
           className="bg-transparent border-0"
           onClick={function noRefCheck() {
@@ -82,29 +84,36 @@ export default function NavBar() {
             }}
             className="secondary"
           >
-            {isAuthenticated ? (
-              
+            {isAuthenticated  ? (
               <>
-                <Link to="/account" onClick={() => setShow(false)}>
+
+                <LinkStyled to="/account" onClick={() => setShow(false)} className="d-flex align-items-center">
                   {user.imgProfile && user.imgProfile !== "no_photo" ? (
-                    <Image
-                      className="rounded-circle me-2"
-                      cloudName="schoolgroupfinal"
-                      publicId={userInfo.imgProfile}
-                      style={{ width: "50px" }}
-                    />
+                    <>
+                      <BurgerImgDivStyled>
+                        <ImageStyled
+
+                          cloudName="schoolgroupfinal"
+                          publicId={user.imgProfile}
+                        />
+                      </BurgerImgDivStyled>
+                    </>
                   ) : (
-                    <img
-                      src={noPhoto}
-                      alt="user"
-                      className="rounded-circle w-25"
-                    />
+                    <>
+                      <BurgerImgDivStyled>
+                        <ImgStyled
+                          src={noPhoto}
+                          alt="user"
+                        />
+                      </BurgerImgDivStyled>
+                    </>
                   )}
-                  My Profile
-                </Link>
+                  <p className="d-block mx-2">My Profile</p>
+                  
+                </LinkStyled>
               </>
             ) : (
-              <MainButton  onClick={toggleRegister}>
+              <MainButton onClick={toggleRegister}>
                 Join the community
               </MainButton>
             )}

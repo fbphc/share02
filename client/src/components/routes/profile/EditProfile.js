@@ -26,6 +26,7 @@ function EditProfile({ editToggle, setEditToggle }) {
   const [registerForm, setRegisterForm] = useState({});
 
   const [toggleImg, setToggleImg] = useState(false);
+
   useEffect(() => {
     if (userInfo.isOwner) {
       setRegisterForm({ ...userInfo, _id: "" });
@@ -87,7 +88,7 @@ function EditProfile({ editToggle, setEditToggle }) {
       user = {
         id: user.id,
         token: user.token,
-        username: user.username,
+        username: registerForm.username,
         imgProfile: registerForm.imgProfile,
       };
       localStorage.setItem("user", JSON.stringify(user));
