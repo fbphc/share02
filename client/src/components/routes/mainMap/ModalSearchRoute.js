@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { IoCloseOutline } from "react-icons/io5";
 
 import {
   Button,
@@ -77,7 +78,13 @@ function ModalSearchRoute({ modal, toggle }) {
   return (
     <Modal isOpen={modal} toggle={toggle} /* external={externalCloseBtn} */>
       <Form onSubmit={(e) => submit(e)}>
-        <ModalHeader>Calcualate Route</ModalHeader>
+        <ModalHeader>Calcualate Route
+        <IoCloseOutline
+          className="fs-3 position-absolute end-0 me-2"
+          onClick={toggle}
+          role="button"
+        />
+        </ModalHeader>
         <ModalBody  className="secondary text-light">
           <div onChange={(e) => routeChangeHandler(e)}>
             <FormGroup>
@@ -159,9 +166,6 @@ function ModalSearchRoute({ modal, toggle }) {
         <ModalFooter className="secondary text-light">
           <MainButton outline  onClick={submit} type="submit">
             calculate
-          </MainButton>{" "}
-          <MainButton outline  onClick={toggle}>
-            Cancel
           </MainButton>
         </ModalFooter>
       </Form>
