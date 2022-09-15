@@ -1,4 +1,19 @@
 import styled from "styled-components";
+import { Image } from "cloudinary-react";
+
+export const DisplayMainDivStyled = styled.div`
+  width: 90%;
+  margin: 1rem auto;
+  color: var(--dark-color);
+  padding: 1rem 2rem;
+  background-color: #114360;
+  border-radius: 1rem;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+
+  
+
+    `
 
 export const MainButton = styled.button`
   padding: 0.4rem 0.5rem;
@@ -17,6 +32,9 @@ export const MainButton = styled.button`
   }
 `;
 
+
+
+// images
 // home page
 export const MapImg = styled.img`
   @media (max-width: 1100px) {
@@ -43,8 +61,23 @@ export const ImgChargers = styled.img`
   }
 `;
 
-// export const MessageImg = styled.div`
-//   width: 400px;
-//   height: 400px;
-//   border-radius: 50%;
-// `
+export const ImageStyled = styled(Image)`
+  width: 100%;
+  height:100%;
+  object-fit: contain;
+  border-radius: 50%;
+`;
+
+export const MsgImgDivStyled = styled.div`
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  border: 5px solid var(--dark-color);
+`;
+
+export const ImgStyled = styled(Image)`
+  width: 100%;
+  height:100%;
+  object-fit: contain;
+  border-radius: 50%;
+`;
