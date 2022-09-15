@@ -5,13 +5,14 @@ import { Image } from "cloudinary-react";
 import noPhoto from "../../../img/noPhoto.png";
 import Pages from "../../pagination/Pages.js";
 
-import { MessageImg } from "../../../components.styled/styledComponents";
+import { ImageStyled, MsgImgDivStyled, ImgStyled, DisplayMainDivStyled } from "../../../components.styled/styledComponents"
 
 function DisplayComments() {
   const { state, getAllComments, allComments } = useComments();
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [commentsPerPage] = useState(2);
+  /** */
+  const [currentPage, setCurrentPage] = useState(1)
+  const [commentsPerPage] = useState(5)
 
   const indexOfLastComment = currentPage * commentsPerPage;
   const indexOfFirstComment = indexOfLastComment - commentsPerPage;
@@ -28,28 +29,23 @@ function DisplayComments() {
   }, [state.comment]);
 
   return (
-    <div>
+    <DisplayMainDivStyled>
       {currentComments.map((item, idx) => {
         return (
-          <div className="d-flex mt-3" key={idx + "comment"}>
-            <div>
+          <div className="d-flex mt-3 border border-top-0 border-start-0 border-end-0 pb-3" key={idx + "comment"}>
+            <div className="my-2">
               {item.imgProfile === "no_photo" ? (
-                <div>
-                  <img src={noPhoto} alt="user" className="w-25" />
-                </div>
+                <MsgImgDivStyled>
+                  <ImgStyled src={noPhoto} alt="user" />
+                </MsgImgDivStyled>
               ) : (
-                <div
-                  className="w-75"
-                  style={{
-                    border: "2px solid red",
-                  }}
-                >
-                  <Image
-                    className="rounded-circle w-25"
+                <MsgImgDivStyled>
+                  <ImageStyled
+                    // className="rounded-circle img-thumbnail"
                     cloudName="schoolgroupfinal"
                     publicId={item.imgProfile}
                   />
-                </div>
+                </MsgImgDivStyled>
               )}
               <Link
                 to={`/userProfile/${item.userId}`}
@@ -59,16 +55,16 @@ function DisplayComments() {
               </Link>
             </div>
 
-            <div>
-              <p>{item.comment}</p>
-              <p>{item.dateNow[0]}</p>
-              <p>{item.dateNow[1]}</p>
+            <div className="mx-4">
+              <p className="mb-3"><b>Date: </b> {item.dateNow[0]} {/* {item.dateNow[1]} */}</p>
+              <p className="my-0"><b>Message: </b> </p>
+              <p className="my-0">{item.comment}</p>
             </div>
           </div>
         );
       })}
-      <Pages paginate={paginate} numberOfPages={numberOfPages}/>
-    </div>
+      <Pages paginate={paginate} numberOfPages={numberOfPages} />
+    </DisplayMainDivStyled>
   );
 }
 
