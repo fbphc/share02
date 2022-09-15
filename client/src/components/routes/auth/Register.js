@@ -210,7 +210,7 @@ export default function Register({ modalRegister, toggleRegister, closeMenu }) {
             role="button"
           />
         </ModalHeader>
-        <ModalBody className="secondary text-light rounded-bottom">
+        <ModalBody className="secondary rounded-bottom">
           <Form onSubmit={submit}>
             <div onChange={(e) => registerFormHandler(e)}>
               <FormGroup>

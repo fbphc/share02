@@ -3,10 +3,24 @@ import { Link } from "react-router-dom";
 import useComments from "../../../context/commentsContext/useComments.js";
 import { Image } from "cloudinary-react";
 import noPhoto from "../../../img/noPhoto.png";
+import Pages from "../../pagination/Pages.js";
 
 function DisplayComments() {
   const { state, getAllComments, allComments } = useComments();
+
+  /** */
+  const [currentPage, setCurrentPage] = useState(1)
+  const [commentsPerPage] = useState(2)
+
+  const indexOfLastComment = currentPage * commentsPerPage;
+  const indexOfFirstComment = indexOfLastComment - commentsPerPage;
+  const currentComments = allComments.slice(indexOfFirstComment, indexOfLastComment)
+  const numberOfPages = Math.ceil(allComments.length / commentsPerPage);
   
+  const paginate = pageNumber => setCurrentPage(pageNumber)
+  
+  /** */
+
   useEffect(() => {
    getAllComments();
   
@@ -14,7 +28,7 @@ function DisplayComments() {
 
   return (
     <div>
-      {allComments.map((item, idx) => {
+      {currentComments.map((item, idx) => {
         return (
           <div key={idx + "comment"}>
             {item.imgProfile === "no_photo" ? (
@@ -40,6 +54,7 @@ function DisplayComments() {
           </div>
         );
       })}
+      <Pages paginate={paginate} numberOfPages={numberOfPages} />
     </div>
   );
 }
