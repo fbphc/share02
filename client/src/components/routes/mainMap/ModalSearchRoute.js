@@ -94,7 +94,7 @@ function ModalSearchRoute({ modal, toggle }) {
               />
             </FormGroup>
             <FormGroup>
-              <Input required name="fromTypeOfStreet" type="select">
+              <Input required name="fromTypeOfStreet" type="select" bsSize="13">
                 <option value="strasse">strasse</option>
                 <option value="damm">damm</option>
                 <option value="alle">alle</option>
@@ -131,7 +131,7 @@ function ModalSearchRoute({ modal, toggle }) {
               />
             </FormGroup>
             <FormGroup>
-              <Input required name="toTypeOfStreet" type="select">
+              <Input required name="toTypeOfStreet" type="select" bsSize="13">
                 <option value="strasse">strasse</option>
                 <option value="damm">damm</option>
                 <option value="alle">alle</option>

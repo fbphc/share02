@@ -215,21 +215,21 @@ export default function Register({ modalRegister, toggleRegister, closeMenu }) {
               <FormGroup>
                 <div className="d-flex align-items-center gap-1">
                   <Input
-                    className="h1 mr-1"
+                    className="h2 mr-1"
                     type="file"
                     onChange={(e) => setImageSelected(e.target.files[0])}
                   />
 
                   {registerForm.imgProfile !== "no_photo" ? (
-                    <AiFillCheckCircle className="h1 danger" />
+                    <AiFillCheckCircle className="h2 danger" />
                   ) : (
-                    <AiFillCheckCircle className="h1 text-light" />
+                    <AiFillCheckCircle className="h2 text-light" />
                   )}
                 </div>
                 <MainButton onClick={uploadImage}>Upload Image</MainButton>
               </FormGroup>
               <FormGroup onChange={() => setRegisterToggle(!registerToggle)}>
-                <Input required name="isOwner" type="select">
+                <Input required name="isOwner" type="select" bsSize="2">
                   <option value={false}>Car Owner</option>
                   <option value={true}>Wall-Box Owner</option>
                 </Input>
@@ -330,7 +330,7 @@ export default function Register({ modalRegister, toggleRegister, closeMenu }) {
                 <div onChange={(e) => registerFormHandler(e)}>
                   <FormGroup>
                     <Label>type of charger</Label>
-                    <Input required name="typeOfCharger" type="select">
+                    <Input required name="typeOfCharger" type="select" bsSize="4">
                       <option value="type01">Type 1</option>
                       <option value="type02">Type 2</option>
                       <option value="type03">CCS</option>
@@ -339,7 +339,7 @@ export default function Register({ modalRegister, toggleRegister, closeMenu }) {
                   </FormGroup>
                   <FormGroup>
                     <Label>availability</Label>
-                    <Input required name="availability" type="select">
+                    <Input required name="availability" type="select" bsSize="3">
                       <option value="whole_week">Whole Week</option>
                       <option value="not_weekend">Not on the Weekend</option>
                       <option value="night_avaiable">Night Availability</option>
@@ -370,7 +370,7 @@ export default function Register({ modalRegister, toggleRegister, closeMenu }) {
                     />
                   </FormGroup>
                   <FormGroup className="">
-                    <Input required name="type" type="select">
+                    <Input required name="type" type="select" bsSize="13">
                       <option value="strasse">strasse</option>
                       <option value="damm">damm</option>
                       <option value="alle">alle</option>

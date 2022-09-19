@@ -67,7 +67,6 @@ const registerUser = async (req, res) => {
       reviewRate,
       typeOfCharger,
       imgProfile,
-
       addressInfo: response.data.data[0],
       password: hashedPassword,
       id: Id,

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Button, Offcanvas, OffcanvasBody, OffcanvasHeader } from "reactstrap";
+import {  Offcanvas, OffcanvasBody, OffcanvasHeader } from "reactstrap";
 import { FaBars } from "react-icons/fa";
 import { GoPlug } from "react-icons/go";
 
@@ -10,7 +10,6 @@ import Register from "../routes/auth/Register.js";
 import { Link, useLocation } from "react-router-dom";
 import { BurgerLinkStyled } from "../../components.styled/styledComponents.js";
 import useAuth from "../../context/authContext/useAuth.js";
-import { Image } from "cloudinary-react";
 import noPhoto from "../../img/noPhoto.png";
 import logosmall from "../../img/logosmall.png";
 import { AiFillCar } from "react-icons/ai";
@@ -68,7 +67,7 @@ export default function NavBar() {
             setShow(true);
           }}
         >
-          <FaBars className="secondaryText h1" />
+          <FaBars className="secondaryText h2" />
         </button>
         <Offcanvas
           className="dark"

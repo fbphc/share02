@@ -30,7 +30,7 @@ export const CommentsProvider = ({ children }) => {
       console.log(err);
     }
   }
- 
+  
   async function getAllComments() {
     try {
       const response = await allComments();
@@ -42,10 +42,9 @@ export const CommentsProvider = ({ children }) => {
       console.log(err);
     }
   }
-
-
+  
+  
   async function addAReview(review) {
-    console.log(review)
     const current = new Date();
     const reviewComplete = {
       ...review,
@@ -75,6 +74,7 @@ export const CommentsProvider = ({ children }) => {
         (a, b) => +b.createdAt - +a.createdAt
       );
       
+      console.log(response)
       dispatch({ type: "ALL_REVIEWS", payload: sortedComments });
     } catch (err) {
       console.log(err);
