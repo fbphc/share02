@@ -31,7 +31,7 @@ export const LinkStyled = styled(Link)`
   transition: all 0.2s;
   color: var(--dark-color);
   text-align: center;
-  display: block;
+  // display: block;
   text-decoration: none;
   &:hover {
     color: var(--danger-color);
@@ -99,6 +99,10 @@ export const PagLinkFirstStyled = styled(PaginationLink)`
   &:active {
     transform: scale(1.1);
   }
+  &:focus {
+    background-color: transparent;
+    color: var(--dark-color);
+  }
 `;
 export const PagLinkLastStyled = styled(PaginationLink)`
   padding: 0.4rem 1rem;
@@ -116,6 +120,10 @@ export const PagLinkLastStyled = styled(PaginationLink)`
   &:active {
     transform: scale(1.1);
   }
+  &:focus {
+    background-color: transparent;
+    color: var(--dark-color);
+  }
 `;
 export const PagLinkStyledNum = styled(PaginationLink)`
   padding: 0.4rem 1rem;
@@ -131,6 +139,10 @@ export const PagLinkStyledNum = styled(PaginationLink)`
   }
   &:active {
     transform: scale(1.1);
+  }
+  &:focus {
+    background-color: transparent;
+    color: var(--dark-color);
   }
 `;
 

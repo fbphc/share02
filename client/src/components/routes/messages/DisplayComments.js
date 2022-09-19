@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import useComments from "../../../context/commentsContext/useComments.js";
 import noPhoto from "../../../img/noPhoto.png";
 import Pages from "../../pagination/Pages.js";
