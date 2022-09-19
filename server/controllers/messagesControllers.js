@@ -19,12 +19,27 @@ const getReviews = async (req, res) => {
   const response = await reviewModel
     .find({ toUserId: req.body.ownerId })
     .populate("author");
-  console.log("review",response);
+  console.log("",response);
   response.forEach((item) => {
+
+    if (item.author) {
       item.fromImgProfile = item.author[0].imgProfile;
-      item.fromUsername = item.author[0].username;    
+      item.fromUsername = item.author[0].username;
+    }
   });
   try {
+    /* response.map((review) => {
+      let imgProfile = "";
+      let username = "";
+      users.map((user) => {
+        if (review.fromUserId === user.id) {
+          imgProfile = user.imgProfile;
+          username = user.username;
+        }
+      });
+      review.fromUsername = username;
+      return (review.fromImgProfile = imgProfile);
+    }); */
     res.status(200).json(response);
   } catch (err) {
     res.status(400).json(err);
@@ -65,12 +80,14 @@ const addAComment = async (req, res) => {
 };
 const addAReview = async (req, res) => {
   const {
+    /*  fromUsername, */
     fromUserId,
     review,
     toUsername,
     toUserId,
     createdAt,
     dateNow,
+    /* fromImgProfile, */
   } = req.body;
   const allReviews = await reviewModel.find();
   const reviewIdNew =
@@ -82,17 +99,16 @@ const addAReview = async (req, res) => {
   try {
     const newReviewComment = await reviewModel.create({
       reviewId: reviewIdNew,
-     username: author[0].username,
-      imgProfile: author[0].imgProfile,
+      fromUsername: author[0].username,
+      fromImgProfile: author[0].imgProfile,
       fromUserId,
-      author,
       review,
       toUsername,
       toUserId,
       createdAt,
       dateNow,
     });
-console.log("newReviewComment", newReviewComment)
+
     res.status(200).json(newReviewComment);
   } catch (err) {
     res.status(400).json(err);
