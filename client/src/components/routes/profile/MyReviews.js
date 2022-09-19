@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Form, Input, FormGroup, Button } from "reactstrap";
-import { Link, useLocation } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Image } from "cloudinary-react";
 import useComments from "../../../context/commentsContext/useComments";
 import useAuth from "../../../context/authContext/useAuth";
@@ -9,7 +8,8 @@ import noPhoto from "../../../img/noPhoto.png";
 
 function MyReviews({userInfo}) {
   
-  const { getReviews, allReviews} = useComments();
+    const { getReviews, allReviews} = useComments();
+    const { getProfileInfo } = useAuth();
   useEffect(() => {
     if (localStorage.getItem("user")) {
       getReviews(userInfo.id);
@@ -35,7 +35,13 @@ function MyReviews({userInfo}) {
                 />
               </div>
             )}
-
+<Link
+                to={`/userProfile/${item.fromUserId}`}
+                state={{ id: item.fromUserId }}
+                onClick={() => getProfileInfo(item.fromUserId)}
+              >
+                {item.fromUsername}
+              </Link>
             <p>{item.review}</p>
             <p>{item.dateNow[0]}</p>
             <p>{item.dateNow[1]}</p>
