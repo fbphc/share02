@@ -1,23 +1,23 @@
 import { useEffect, useState } from "react";
 
 import useAuth from "../../../context/authContext/useAuth.js";
-import { Link } from "react-router-dom";
+import { MainButton } from "../../../components.styled/styledComponents.js";
 import { Image } from "cloudinary-react";
 import noPhoto from "../../../img/noPhoto.png";
 import NotAuthorized from "../error/NotAuthorized.js";
 import EditProfile from "../profile/EditProfile.js";
-import { Button } from "reactstrap";
+import MyReviews from "./MyReviews.js";
 
 function Profile() {
   const { isAuthenticated, getProfileInfo, userInfo } = useAuth();
   const [editToggle, setEditToggle] = useState(false);
+  const [reviewToggle,setReviewToggle] = useState(false)
 
   useEffect(() => {
     if (localStorage.getItem("user")) {
       const user = JSON.parse(localStorage.getItem("user"));
       getProfileInfo(user.id);
     }
-    console.log(1234, userInfo)
   }, [editToggle]);
 
   return (
@@ -28,7 +28,7 @@ function Profile() {
             <div className="w-50 mx-auto my-5">
               {userInfo.imgProfile === "no_photo" ? (
                 <div>
-                  <img className="w-25 d-block" src={noPhoto} alt="user"/>
+                  <img className="w-25 d-block" src={noPhoto} alt="user" />
                 </div>
               ) : (
                 <div className="d-flex justify-content-center">
@@ -74,20 +74,33 @@ function Profile() {
                 </div>
               )}
             </div>
-            <Button
-              className="mx-auto d-block my-3"
-              onClick={() =>
-                editToggle ? setEditToggle(false) : setEditToggle(true)
-              }
-            >
-              Edit Profile
-            </Button>
+            <div className="mx-auto w-25 d-flex justify-content-between">
+              <MainButton
+                onClick={() =>
+                  editToggle ? setEditToggle(false) : setEditToggle(true)
+                }
+              >
+                Edit Profile
+              </MainButton>
+              <MainButton
+                onClick={() =>
+                  reviewToggle ? setReviewToggle(false) : setReviewToggle(true)
+                }
+              >
+                My reviews
+              </MainButton>
+            </div>
           </>
         )
       ) : (
         <NotAuthorized />
       )}
-      {editToggle && <EditProfile editToggle={editToggle} setEditToggle={setEditToggle} />}
+      {editToggle && (
+        <EditProfile editToggle={editToggle} setEditToggle={setEditToggle} />
+      )}
+      { reviewToggle && <MyReviews userInfo={userInfo}/>
+
+      }
     </div>
   );
 }

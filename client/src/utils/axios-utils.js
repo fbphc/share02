@@ -23,7 +23,8 @@ export const getProfile = (userId) =>
 export const getAllOwners = (typeOfCharger) =>
   clientAPI.post("/user/getAllOwners", { typeOfCharger: typeOfCharger });
 
-export const editProfile = (editedUser, id) => clientAPI.put(`/user/updateProfile/${id}`, editedUser);
+export const editProfile = (editedUser, id) =>
+  clientAPI.put(`/user/updateProfile/${id}`, editedUser);
 
 export const addComment = (comment) =>
   clientAPI.post("/messages/addAComment", comment);

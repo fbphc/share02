@@ -160,6 +160,7 @@ export const ImageStyled = styled(Image)`
   height: 100%;
   object-fit: cover;
   border-radius: 50%;
+  padding:0.2rem;
 `;
 
 export const ImgStyled = styled.img`

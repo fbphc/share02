@@ -1,7 +1,11 @@
 import mongoose from "mongoose";
+import boardComment from "./boardComment.js"
+
+const {Schema}= mongoose;
 
 const userAppSchema = new mongoose.Schema(
   {
+    
     username: { type: String, required: true },
     fname: { type: String, required: true },
     lname: { type: String, required: true },
@@ -28,6 +32,9 @@ const userAppSchema = new mongoose.Schema(
     telNumber: { type: String },
     reviewRate: { type: Object },
     typeOfCharger: { type: String },
+    comments: {type: Array},
+    reviews: {type:Array}
+
   },
   { timestamps: true }
 );
