@@ -4,15 +4,16 @@ import useAuth from "../../../context/authContext/useAuth.js";
 import { MainButton } from "../../../components.styled/styledComponents.js";
 import { Image } from "cloudinary-react";
 import noPhoto from "../../../img/noPhoto.png";
-import NotAuthorized from "../error/NotAuthorized.js";
+import NotAuthorized from "../../error/NotAuthorized.js";
 import EditProfile from "../profile/EditProfile.js";
 import MyReviews from "./MyReviews.js";
+import DirectMessages from "../../directMessages/DirectMessages.js";
 
 function Profile() {
   const { isAuthenticated, getProfileInfo, userInfo } = useAuth();
   const [editToggle, setEditToggle] = useState(false);
-  const [reviewToggle,setReviewToggle] = useState(false)
-
+  const [reviewToggle, setReviewToggle] = useState(false);
+  const [msgToggle, setMsgToggle] = useState(false);
   useEffect(() => {
     if (localStorage.getItem("user")) {
       const user = JSON.parse(localStorage.getItem("user"));
@@ -20,8 +21,21 @@ function Profile() {
     }
   }, [editToggle]);
 
+  function mainToggle(e) {
+    e.preventDefault();
+    const value = e.target.value;
+
+    if (value === "messages") {
+      setReviewToggle(false);
+      setMsgToggle(true);
+    }
+    if (value === "reviews") {
+      setReviewToggle(true);
+      setMsgToggle(false);
+    }
+  }
   return (
-    <div className="text-light">
+    <div className="darkText">
       {isAuthenticated ? (
         userInfo && (
           <>
@@ -74,7 +88,7 @@ function Profile() {
                 </div>
               )}
             </div>
-            <div className="mx-auto w-25 d-flex justify-content-between">
+            <div className="mx-auto w-50 d-flex justify-content-around gap-1">
               <MainButton
                 onClick={() =>
                   editToggle ? setEditToggle(false) : setEditToggle(true)
@@ -82,13 +96,17 @@ function Profile() {
               >
                 Edit Profile
               </MainButton>
-              <MainButton
-                onClick={() =>
-                  reviewToggle ? setReviewToggle(false) : setReviewToggle(true)
-                }
-              >
-                My reviews
-              </MainButton>
+            {reviewToggle ? <MainButton onClick={()=>setReviewToggle(false)} value="reviews">
+                Hide Reviews
+              </MainButton> : <MainButton onClick={mainToggle} value="reviews">
+                Show Reviews
+              </MainButton>}
+              {msgToggle ? <MainButton onClick={()=>setMsgToggle(false)} value="messages">
+                Hide Messages
+              </ MainButton> : <MainButton onClick={mainToggle} value="messages">
+               Show Messages
+              </MainButton>}
+              
             </div>
           </>
         )
@@ -98,9 +116,8 @@ function Profile() {
       {editToggle && (
         <EditProfile editToggle={editToggle} setEditToggle={setEditToggle} />
       )}
-      { reviewToggle && <MyReviews userInfo={userInfo}/>
-
-      }
+      {reviewToggle && <MyReviews userInfo={userInfo} />}
+      {msgToggle && <DirectMessages />}
     </div>
   );
 }

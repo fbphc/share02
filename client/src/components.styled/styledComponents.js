@@ -3,6 +3,23 @@ import { Image } from "cloudinary-react";
 import { PaginationLink } from "reactstrap";
 import { Link } from "react-router-dom";
 
+
+export const ParDisplayStyled = styled.p`
+display: inline;
+margin-right: 0.6rem;
+font-size: 1.4rem;
+transition: all 0.3s;
+color: var(--dark-color);
+text-decoration: none;
+&:hover{
+  color: var(--danger-color);
+  cursor: pointer;
+}
+&${props => !props.active} {
+  text-decoration: 2px solid underline var(--danger-color);
+}
+`
+
 export const MsgImgDivStyled = styled.div`
   width: 5rem;
   height: 5rem;
