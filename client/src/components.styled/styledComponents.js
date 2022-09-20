@@ -3,6 +3,32 @@ import { Image } from "cloudinary-react";
 import { PaginationLink } from "reactstrap";
 import { Link } from "react-router-dom";
 
+export const ProfileContainerStyled = styled.div`
+  display: flex;
+  width: 75%;
+  text-align: center;
+  margin: 2.5rem auto;
+  padding: 2.5rem;
+
+  border: 2px solid red;
+  @media (max-width: 750px) {
+    flex-direction: column;
+  }
+`;
+
+export const ProfileImgDivStyled = styled.div`
+  width: 10rem;
+  height: 10rem;
+  border: 5px solid var(--dark-color);
+  border-radius: 50%;
+  margin-top: 2.2rem;
+  ${'' /* @media (max-width: 750px) {
+    justify-content: center;
+    align-items: center;
+  } */}
+`;
+
+
 export const MsgImgDivStyled = styled.div`
   width: 5rem;
   height: 5rem;
@@ -156,5 +182,5 @@ export const ImgStyled = styled.img`
   object-fit: cover;
   border-radius: 50%;
   padding:0.2rem;
-  
 `;
+

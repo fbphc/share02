@@ -7,6 +7,8 @@ import noPhoto from "../../../img/noPhoto.png";
 import Review from "./Review.js";
 import NotAuthorized from "../error/NotAuthorized.js";
 
+import { ImageStyled, ImgStyled, ProfileContainerStyled, ProfileImgDivStyled } from "../../../components.styled/styledComponents"
+
 function OwnerProfile() {
   const { getProfileInfo, userInfo } = useAuth();
 
@@ -15,7 +17,7 @@ function OwnerProfile() {
 
   useEffect(() => {
     if (localStorage.getItem("user")) {
-      
+
       const { id } = location.state;
       const pathEnd = location.pathname.split("/userProfile/")[1];
       id !== null ? getProfileInfo(pathEnd) : getProfileInfo(id);
@@ -26,52 +28,58 @@ function OwnerProfile() {
     <div>
       {userInfo ? (
         <>
-          <div style={{ width: "60%", margin: "10rem auto" }}>
+          <ProfileContainerStyled>
             {userInfo.imgProfile && userInfo.imgProfile !== "no_photo" ? (
-              <div>
-                <Image
-                  cloudName="schoolgroupfinal"
-                  publicId={userInfo.imgProfile}
-                />
+              <div className="">
+                <ProfileImgDivStyled>
+                  <ImageStyled
+                    cloudName="schoolgroupfinal"
+                    publicId={userInfo.imgProfile}
+                  />
+                </ProfileImgDivStyled>
               </div>
             ) : (
               <div>
-                <img src={noPhoto} alt="user" />
+                <ProfileImgDivStyled>
+                  <ImgStyled src={noPhoto} alt="user" />
+                </ProfileImgDivStyled>
               </div>
             )}
-            <div className="d-flex justify-content-between border-bottom border-dark">
-              <p>User Name</p>
-              <p>{userInfo.username}</p>
-            </div>
-            <div className="d-flex justify-content-between border-bottom border-dark">
-              <p>First Name</p>
-              <p>{userInfo.fname}</p>
-            </div>
-            <div className="d-flex justify-content-between border-bottom border-dark">
-              <p>Last Name</p>
-              <p>{userInfo.lname}</p>
-            </div>
-            <div className="d-flex justify-content-between border-bottom border-dark">
-              <p>Email</p>
-              <p>{userInfo.email}</p>
-            </div>
-            {userInfo.isOwner && (
-              <div className="d-flex justify-content-between border-bottom border-dark">
-                <p>Address</p>
-                <p>
-                  {userInfo.address.street}
-                  {userInfo.address.houseNr}, {userInfo.address.postalcode}{" "}
-                  {userInfo.address.city}
-                </p>
+            <div className="ms-5 w-100" style={{border: "2px solid red"}}>
+              <div className="d-flex justify-content-between border-bottom border-light darkText ms-5">
+                <p>User Name:</p>
+                <p>{userInfo.username}</p>
               </div>
-            )}
-            {userInfo.telNumber && (
-              <div className="d-flex justify-content-between border-bottom border-dark">
-                <p>Phone Number</p>
-                <p>{userInfo.telNumber}</p>
+              <div className="d-flex justify-content-between border-bottom border-light darkText ms-5">
+                <p>First Name:</p>
+                <p>{userInfo.fname}</p>
               </div>
-            )}
-          </div>
+              <div className="d-flex justify-content-between border-bottom border-light darkText ms-5">
+                <p>Last Name:</p>
+                <p>{userInfo.lname}</p>
+              </div>
+              <div className="d-flex justify-content-between border-bottom border-light darkText ms-5">
+                <p>Email:</p>
+                <p>{userInfo.email}</p>
+              </div>
+              {userInfo.isOwner && (
+                <div className="d-flex justify-content-between border-bottom border-light darkText ms-5">
+                  <p>Address:</p>
+                  <p>
+                    {userInfo.address.street}
+                    {userInfo.address.houseNr}, {userInfo.address.postalcode}{" "}
+                    <br></br>{userInfo.address.city}
+                  </p>
+                </div>
+              )}
+              {userInfo.telNumber && (
+                <div className="d-flex justify-content-between border-bottom border-dark">
+                  <p>Phone Number</p>
+                  <p>{userInfo.telNumber}</p>
+                </div>
+              )}
+            </div>
+          </ProfileContainerStyled>
 
           <Review />
         </>

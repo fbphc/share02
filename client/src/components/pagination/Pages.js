@@ -7,12 +7,12 @@ import {
 } from "../../components.styled/styledComponents";
 import useComments from "../../context/commentsContext/useComments";
 
-export default function Pages({ numberOfPages, paginate }) {
+export default function Pages({ numberOfPages, paginate, pages }) {
   const [test, setTest] = useState(1);
-  const { allComments } = useComments();
+  // const { allComments } = useComments();
   const pageNumbers = [];
 
-  allComments.map((item, index) => {
+  pages.map((item, index) => {
     if (index >= 1 && index <= numberOfPages) {
       pageNumbers.push(index);
     }

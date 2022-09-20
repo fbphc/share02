@@ -78,7 +78,7 @@ function DisplayComments() {
           );
         })}
       </MainMsgDivStyled>
-      <Pages paginate={paginate} numberOfPages={numberOfPages} />
+      <Pages paginate={paginate} numberOfPages={numberOfPages} pages={allComments} />
     </>
   );
 }

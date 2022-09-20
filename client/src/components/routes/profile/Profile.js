@@ -8,6 +8,7 @@ import NotAuthorized from "../error/NotAuthorized.js";
 import EditProfile from "../profile/EditProfile.js";
 import { Button } from "reactstrap";
 
+
 function Profile() {
   const { isAuthenticated, getProfileInfo, userInfo } = useAuth();
   const [editToggle, setEditToggle] = useState(false);
