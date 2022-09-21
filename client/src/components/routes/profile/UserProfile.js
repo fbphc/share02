@@ -5,25 +5,19 @@ import { useLocation } from "react-router-dom";
 import { Image } from "cloudinary-react";
 import noPhoto from "../../../img/noPhoto.png";
 import Review from "./Review.js";
-import NotAuthorized from "../error/NotAuthorized.js";
+import NotAuthorized from "../../error/NotAuthorized.js";
+import MessagesForm from "../../directMessages/MessagesForm.js";
 
-import {
-  ImageStyled,
-  ImgStyled,
-  ProfileContainerStyled,
-  ProfileImgDivStyled,
-  ProfileDataStyled
-} from "../../../components.styled/styledComponents"
+import { ProfileImgDivStyled, ImageStyled, ImgStyled, ProfileDataStyled, ProfileContainerStyled } from "../../../components.styled/styledComponents"
+
 
 function OwnerProfile() {
   const { getProfileInfo, userInfo } = useAuth();
 
   const location = useLocation();
 
-
   useEffect(() => {
     if (localStorage.getItem("user")) {
-
       const { id } = location.state;
       const pathEnd = location.pathname.split("/userProfile/")[1];
       id !== null ? getProfileInfo(pathEnd) : getProfileInfo(id);
@@ -84,6 +78,7 @@ function OwnerProfile() {
                   <p>{userInfo.telNumber}</p>
                 </div>
               )}
+              <MessagesForm />
             </ProfileDataStyled>
           </ProfileContainerStyled>
 

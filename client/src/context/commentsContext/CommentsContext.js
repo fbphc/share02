@@ -68,15 +68,12 @@ export const CommentsProvider = ({ children }) => {
     }
   }
   async function getReviews(ownerId) {
-    console.log(ownerId)
+
     try {
       const response = await allReviews(ownerId);
-      console.log(response)
-      
       const sortedComments = response.data.sort(
         (a, b) => (+b.createdAt) - (+a.createdAt)
       );
-      
       dispatch({ type: "ALL_REVIEWS", payload: sortedComments });
     } catch (err) {
       console.log(err);

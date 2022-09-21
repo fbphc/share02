@@ -82,7 +82,7 @@ function ModalSearchRoute({ modal, toggle }) {
           role="button"
         />
         </ModalHeader>
-        <ModalBody className="secondary text-light">
+        <ModalBody className="secondary darkText">
           <div onChange={(e) => routeChangeHandler(e)}>
             <FormGroup>
               <Label>From</Label>
@@ -160,8 +160,8 @@ function ModalSearchRoute({ modal, toggle }) {
             </FormGroup>
           </div>
         </ModalBody>
-        <ModalFooter className="secondary text-light">
-          <MainButton outline  onClick={submit} type="submit">
+        <ModalFooter className="secondary darkText">
+          <MainButton onClick={submit} type="submit">
             calculate
           </MainButton>
         </ModalFooter>
