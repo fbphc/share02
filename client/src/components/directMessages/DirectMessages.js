@@ -1,5 +1,5 @@
 import React from "react";
-import Displaymessages from "./Displaymessages.js";
+import Displaymessages from "./DisplayMessages.js";
 
 function DirectMessages() {
   return (
