@@ -8,8 +8,8 @@ import {
 import useComments from "../../context/commentsContext/useComments";
 
 export default function Pages({ numberOfPages, paginate, pages }) {
-  const [test, setTest] = useState(1);
-  // const { allComments } = useComments();
+  const [prevNextPage, setPrevNextPage] = useState(1);
+  const { allComments } = useComments();
   const pageNumbers = [];
 
   pages.map((item, index) => {
@@ -20,7 +20,7 @@ export default function Pages({ numberOfPages, paginate, pages }) {
   });
 
   function pageHandler(e) {
-    setTest(e);
+    setPrevNextPage(e);
     paginate(e);
     window.scroll(0, 0);
   }
@@ -28,37 +28,37 @@ export default function Pages({ numberOfPages, paginate, pages }) {
   return (
     <div className="position-absolute start-50 translate-middle">
       <Pagination>
-        <PaginationItem>
+        <PaginationItem disabled={prevNextPage <= 1}>
           <PagLinkFirstStyled
+          className="bg-transparent text-light"
             first
             onClick={() => pageHandler(1)}
           ></PagLinkFirstStyled>
         </PaginationItem>
-        <PaginationItem disabled={test <= 1}>
+        <PaginationItem disabled={prevNextPage <= 1}>
           <PagLinkFirstStyled
+            className="bg-transparent text-light"
             previous
-            onClick={() => pageHandler(test - 1)}
+            onClick={() => pageHandler(prevNextPage - 1)}
           ></PagLinkFirstStyled>
         </PaginationItem>
         <PaginationItem className="d-flex">
-          {pageNumbers.map((page, index) => (
-            <PagLinkStyledNum
-              active={index === page}
-              key={page}
-              onClick={() => pageHandler(page)}
-            >
+          {pageNumbers.map((page) => (
+            <PagLinkStyledNum key={page} onClick={() => pageHandler(page)}>
               {page}
             </PagLinkStyledNum>
           ))}
         </PaginationItem>
-        <PaginationItem disabled={test >= numberOfPages}>
+        <PaginationItem disabled={prevNextPage >= numberOfPages}>
           <PagLinkLastStyled
+            className="bg-transparent text-light"
             next
-            onClick={() => pageHandler(test + 1)}
+            onClick={() => pageHandler(prevNextPage + 1)}
           ></PagLinkLastStyled>
         </PaginationItem>
-        <PaginationItem>
+        <PaginationItem disabled={prevNextPage >= numberOfPages}>
           <PagLinkLastStyled
+          className="bg-transparent text-light"
             last
             onClick={() => pageHandler(numberOfPages)}
           ></PagLinkLastStyled>

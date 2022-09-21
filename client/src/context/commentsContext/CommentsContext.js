@@ -30,7 +30,7 @@ export const CommentsProvider = ({ children }) => {
       console.log(err);
     }
   }
- 
+  
   async function getAllComments() {
     try {
       const response = await allComments();
@@ -42,10 +42,9 @@ export const CommentsProvider = ({ children }) => {
       console.log(err);
     }
   }
-
-
+  
+  
   async function addAReview(review) {
-    console.log(review)
     const current = new Date();
     const reviewComplete = {
       ...review,
@@ -61,7 +60,7 @@ export const CommentsProvider = ({ children }) => {
     };
     try {
       const response = await addReview(reviewComplete);
-      /* getReviews(review.toUserId) */
+      
       dispatch({ type: "ADD_REVIEW", payload: response.data });
 
     } catch (err) {
@@ -69,10 +68,13 @@ export const CommentsProvider = ({ children }) => {
     }
   }
   async function getReviews(ownerId) {
+    console.log(ownerId)
     try {
       const response = await allReviews(ownerId);
+      console.log(response)
+      
       const sortedComments = response.data.sort(
-        (a, b) => +b.createdAt - +a.createdAt
+        (a, b) => (+b.createdAt) - (+a.createdAt)
       );
       
       dispatch({ type: "ALL_REVIEWS", payload: sortedComments });

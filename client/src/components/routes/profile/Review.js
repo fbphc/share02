@@ -1,13 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { Form, Input, FormGroup, Button } from "reactstrap";
-import { Link, useLocation } from "react-router-dom";
-import { Image } from "cloudinary-react";
+import { Form, Input, FormGroup } from "reactstrap";
+import { useLocation } from "react-router-dom";
 import useComments from "../../../context/commentsContext/useComments";
 import useAuth from "../../../context/authContext/useAuth";
+import Pages from "../../pagination/Pages";
 
 import noPhoto from "../../../img/noPhoto.png";
 
-import { MainButton, ImageStyled } from "../../../components.styled/styledComponents"
+import { Row, Col } from "reactstrap";
+
+import {
+  MainButton,
+  ImageStyled,
+  MainMsgDivStyled,
+  MsgImgDivStyled,
+  ImgStyled,
+  LinkStyled
+} from "../../../components.styled/styledComponents"
 
 function Review() {
   const location = useLocation();
@@ -26,6 +35,21 @@ function Review() {
 
 
   const [review, setReview] = useState(initState);
+
+  /** */
+  const [currentPage, setCurrentPage] = useState(1);
+  const [commentsPerPage] = useState(3);
+
+  const indexOfLastComment = currentPage * commentsPerPage;
+  const indexOfFirstComment = indexOfLastComment - commentsPerPage;
+  const currentReviews = allReviews.slice(
+    indexOfFirstComment,
+    indexOfLastComment
+  );
+
+  const numberOfPages = Math.ceil(allReviews.length / commentsPerPage);
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  /** */
 
   useEffect(() => {
     const pathEnd = +location.pathname.split("/userProfile/")[1]
@@ -50,6 +74,7 @@ function Review() {
     setReview((prevState) => {
       return { ...prevState, review: e.target.value };
     });
+    
   }
   function submit(e) {
     e.preventDefault();
@@ -72,42 +97,59 @@ function Review() {
                 />
               </FormGroup>
             </div>
-            <MainButton type="submit">Send</MainButton>
+            <div className="text-center mt-4">
+              <MainButton type="submit">Send</MainButton>
+            </div>
           </Form>
         )}
-      {allReviews.map((item, idx) => {
+      {currentReviews.map((item, idx) => {
         return (
-          <div key={idx + "comment"}>
+          <>
+            <MainMsgDivStyled className="my-3">
+              <Row
+                className="d-flex mt-1 border border-top-0 border-start-0 border-end-0 pb-1"
+                key={idx + "comment"}
+              >
+                <Col className="my-2 col-3 col-xs-6 me-3 text-center">
+                  {item.fromImgProfile === "no_photo" ? (
+                    <MsgImgDivStyled>
+                      <ImgStyled src={noPhoto} alt="user" />
+                    </MsgImgDivStyled>
+                  ) : (
+                    <MsgImgDivStyled>
+                      <ImageStyled
+                        cloudName="schoolgroupfinal"
+                        publicId={item.fromImgProfile}
+                      />
+                    </MsgImgDivStyled>
+                  )}
 
-            {item.fromImgProfile === "no_photo" ? (
-              <div>
-                <img src={noPhoto} alt="user" className="w-25" />
-              </div>
-            ) : (
-              <div>
-                <ImageStyled
-                  className="w-25"
-                  cloudName="schoolgroupfinal"
-                  publicId={item.fromImgProfile}
-                />
-              </div>
-            )}
+                  <LinkStyled
+                    to={`/userProfile/${item.fromUserId}`}
+                    state={{ id: item.fromUserId }}
+                    onClick={() => getProfileInfo(item.fromUserId)}
+                  >
+                    {item.fromUsername}
+                  </LinkStyled>
+                </Col>
 
-            <Link
-              to={`/userProfile/${item.fromUserId}`}
-              state={{ id: item.fromUserId }}
-              onClick={() => getProfileInfo(item.fromUserId)}
-            >
-              {item.fromUsername}
-            </Link>
-
-            <p>{item.review}</p>
-            <p>{item.dateNow[0]}</p>
-            <p>{item.dateNow[1]}</p>
-
-          </div>
+                <Col className="mx-4">
+                  <p className="mb-3">
+                    <b>Date: </b> {item.dateNow[0]} {/* {item.dateNow[1]} */}
+                  </p>
+                  <p className="my-0">
+                    <b>Message: </b>{" "}
+                  </p>
+                  <p className="my-0">{item.review}</p>
+                </Col>
+              </Row>
+            </MainMsgDivStyled>
+          </>
         );
       })}
+      <div className="mt-5">
+        <Pages paginate={paginate} numberOfPages={numberOfPages} pages={allReviews} />
+      </div>
     </div>
   );
 }

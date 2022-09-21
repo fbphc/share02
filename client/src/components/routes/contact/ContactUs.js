@@ -105,7 +105,7 @@ export default function ContactUs() {
             <div className="d-flex flex-column align-items-center">
               <img
                 className="teamPicture rounded-circle w-25"
-                src="https://media-exp1.licdn.com/dms/image/D4E35AQF2Xa4r9w-pAQ/profile-framedphoto-shrink_400_400/0/1652795569722?e=1663682400&v=beta&t=8JMg9N6hM8Hfb6IiD1DZibzsTsYlwKLkgco4Vxpa0-w"
+                src="https://media-exp1.licdn.com/dms/image/D4E35AQF2Xa4r9w-pAQ/profile-framedphoto-shrink_400_400/0/1652795569722?e=1664316000&v=beta&t=PUV2XdBtLctASFI9Xq9ZZzQXh6yRBWN5PM0DqB_VAZk"
                 alt=""
               />
               <p className="pt-3">Isra Gonzalez</p>

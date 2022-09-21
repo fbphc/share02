@@ -114,15 +114,15 @@ function EditProfile({ editToggle, setEditToggle }) {
             <FormGroup>
               <div className="d-flex align-items-center gap-1">
                 <Input
-                  className="h1 mr-1"
+                  className="h2 mr-1"
                   type="file"
                   onChange={(e) => setImageSelected(e.target.files[0])}
                 />
 
                 {toggleImg ? (
-                  <AiFillCheckCircle className="h1 danger" />
+                  <AiFillCheckCircle className="h2 danger" />
                 ) : (
-                  <AiFillCheckCircle className="h1 text-light" />
+                  <AiFillCheckCircle className="h2 text-light" />
                 )}
               </div>
               <MainButton outline onClick={uploadImage}>
@@ -131,14 +131,14 @@ function EditProfile({ editToggle, setEditToggle }) {
             </FormGroup>
             {userInfo.isOwner ? (
               <FormGroup onChange={() => setRegisterToggle(!registerToggle)}>
-                <Input name="isOwner" type="select">
+                <Input name="isOwner" type="select" bsSize="2">
                   <option value={true}>Wall-Box Owner</option>
                   <option value={false}>Car Owner</option>
                 </Input>
               </FormGroup>
             ) : (
               <FormGroup onChange={() => setRegisterToggle(!registerToggle)}>
-                <Input required name="isOwner" type="select">
+                <Input required name="isOwner" type="select" bsSize="2">
                   <option value={false}>Car Owner</option>
                   <option value={true}>Wall-Box Owner</option>
                 </Input>
@@ -166,7 +166,7 @@ function EditProfile({ editToggle, setEditToggle }) {
                 <div onChange={(e) => registerFormHandler(e)}>
                   <FormGroup>
                     <Label>type of charger</Label>
-                    <Input name="typeOfCharger" type="select">
+                    <Input name="typeOfCharger" type="select" bsSize="large">
                       <option value="type01">Type 1</option>
                       <option value="type02">Type 2</option>
                       <option value="type03">CCS</option>
@@ -175,7 +175,7 @@ function EditProfile({ editToggle, setEditToggle }) {
                   </FormGroup>
                   <FormGroup>
                     <Label>availability</Label>
-                    <Input name="availability" type="select">
+                    <Input name="availability" type="select" bsSize="3">
                       <option value="whole_week">Whole Week</option>
                       <option value="not_weekend">Not on the Weekend</option>
                       <option value="night_avaiable">Night Availability</option>
@@ -204,7 +204,7 @@ function EditProfile({ editToggle, setEditToggle }) {
                     />
                   </FormGroup>
                   <FormGroup className="">
-                    <Input name="type" type="select">
+                    <Input name="type" type="select" bsSize="13">
                       <option value="strasse">strasse</option>
                       <option value="damm">damm</option>
                       <option value="alle">alle</option>

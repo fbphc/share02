@@ -7,7 +7,13 @@ import noPhoto from "../../../img/noPhoto.png";
 import Review from "./Review.js";
 import NotAuthorized from "../error/NotAuthorized.js";
 
-import { ImageStyled, ImgStyled, ProfileContainerStyled, ProfileImgDivStyled } from "../../../components.styled/styledComponents"
+import {
+  ImageStyled,
+  ImgStyled,
+  ProfileContainerStyled,
+  ProfileImgDivStyled,
+  ProfileDataStyled
+} from "../../../components.styled/styledComponents"
 
 function OwnerProfile() {
   const { getProfileInfo, userInfo } = useAuth();
@@ -30,7 +36,7 @@ function OwnerProfile() {
         <>
           <ProfileContainerStyled>
             {userInfo.imgProfile && userInfo.imgProfile !== "no_photo" ? (
-              <div className="">
+              <div>
                 <ProfileImgDivStyled>
                   <ImageStyled
                     cloudName="schoolgroupfinal"
@@ -45,25 +51,25 @@ function OwnerProfile() {
                 </ProfileImgDivStyled>
               </div>
             )}
-            <div className="ms-5 w-100" style={{border: "2px solid red"}}>
-              <div className="d-flex justify-content-between border-bottom border-light darkText ms-5">
+            <ProfileDataStyled>
+              <div className="d-flex justify-content-between border-bottom border-light darkText">
                 <p>User Name:</p>
                 <p>{userInfo.username}</p>
               </div>
-              <div className="d-flex justify-content-between border-bottom border-light darkText ms-5">
+              <div className="d-flex justify-content-between border-bottom border-light darkText">
                 <p>First Name:</p>
                 <p>{userInfo.fname}</p>
               </div>
-              <div className="d-flex justify-content-between border-bottom border-light darkText ms-5">
+              <div className="d-flex justify-content-between border-bottom border-light darkText">
                 <p>Last Name:</p>
                 <p>{userInfo.lname}</p>
               </div>
-              <div className="d-flex justify-content-between border-bottom border-light darkText ms-5">
+              <div className="d-flex justify-content-between border-bottom border-light darkText">
                 <p>Email:</p>
                 <p>{userInfo.email}</p>
               </div>
               {userInfo.isOwner && (
-                <div className="d-flex justify-content-between border-bottom border-light darkText ms-5">
+                <div className="d-flex justify-content-between border-bottom border-light darkText">
                   <p>Address:</p>
                   <p>
                     {userInfo.address.street}
@@ -78,7 +84,7 @@ function OwnerProfile() {
                   <p>{userInfo.telNumber}</p>
                 </div>
               )}
-            </div>
+            </ProfileDataStyled>
           </ProfileContainerStyled>
 
           <Review />
