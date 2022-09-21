@@ -6,16 +6,16 @@ import useAuth from "../../../context/authContext/useAuth";
 
 import noPhoto from "../../../img/noPhoto.png";
 
-function MyReviews({userInfo}) {
-  
-    const { getReviews, allReviews} = useComments();
-    const { getProfileInfo } = useAuth();
+function MyReviews({ userInfo }) {
+
+  const { getReviews, allReviews } = useComments();
+  const { getProfileInfo } = useAuth();
   useEffect(() => {
     if (localStorage.getItem("user")) {
       getReviews(userInfo.id);
     }
   }, []);
-  
+
 
   return (
     <>
@@ -35,13 +35,13 @@ function MyReviews({userInfo}) {
                 />
               </div>
             )}
-<Link
-                to={`/userProfile/${item.fromUserId}`}
-                state={{ id: item.fromUserId }}
-                onClick={() => getProfileInfo(item.fromUserId)}
-              >
-                {item.fromUsername}
-              </Link>
+            <Link
+              to={`/userProfile/${item.fromUserId}`}
+              state={{ id: item.fromUserId }}
+              onClick={() => getProfileInfo(item.fromUserId)}
+            >
+              {item.fromUsername}
+            </Link>
             <p>{item.review}</p>
             <p>{item.dateNow[0]}</p>
             <p>{item.dateNow[1]}</p>

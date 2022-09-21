@@ -9,6 +9,7 @@ import EditProfile from "../profile/EditProfile.js";
 import MyReviews from "./MyReviews.js";
 import DirectMessages from "../../directMessages/DirectMessages.js";
 
+
 function Profile() {
   const { isAuthenticated, getProfileInfo, userInfo } = useAuth();
   const [editToggle, setEditToggle] = useState(false);
