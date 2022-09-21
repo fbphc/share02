@@ -30,13 +30,6 @@ export default function Pages({ numberOfPages, paginate, pages }) {
       <Pagination>
         <PaginationItem disabled={prevNextPage <= 1}>
           <PagLinkFirstStyled
-          className="bg-transparent text-light"
-            first
-            onClick={() => pageHandler(1)}
-          ></PagLinkFirstStyled>
-        </PaginationItem>
-        <PaginationItem disabled={prevNextPage <= 1}>
-          <PagLinkFirstStyled
             className="bg-transparent text-light"
             previous
             onClick={() => pageHandler(prevNextPage - 1)}
@@ -57,11 +50,6 @@ export default function Pages({ numberOfPages, paginate, pages }) {
           ></PagLinkLastStyled>
         </PaginationItem>
         <PaginationItem disabled={prevNextPage >= numberOfPages}>
-          <PagLinkLastStyled
-          className="bg-transparent text-light"
-            last
-            onClick={() => pageHandler(numberOfPages)}
-          ></PagLinkLastStyled>
         </PaginationItem>
       </Pagination>
     </div>

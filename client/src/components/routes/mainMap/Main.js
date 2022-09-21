@@ -43,7 +43,7 @@ function MainMap() {
               <option value="type01">Type 1</option>
               <option value="type02">Type 2</option>
               <option value="type03">CCS</option>
-              <option value="type04">CHAdeMO</option>
+              <option value="type03">CHAdeMO</option>
             </Input>
           </FormGroup>
         </div>
