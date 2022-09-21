@@ -1,13 +1,43 @@
 import { createContext, useReducer } from "react";
 import commentsReducer, { commentsState } from "./commentsReducer";
 
-import { addComment, allComments, addReview, allReviews } from "../../utils/axios-utils.js";
+import {
+  addComment,
+  allComments,
+  addReview,
+  allReviews,
+  addDirectMsg,
+  getUserDirectMsgs,
+} from "../../utils/axios-utils.js";
 
 export const CommentsContext = createContext(commentsState);
 
 export const CommentsProvider = ({ children }) => {
   const [state, dispatch] = useReducer(commentsReducer, commentsState);
 
+  /*** ADD SOMETHING */
+  async function addADirectMsg(msgObj) {
+    const current = new Date();
+    const msgObjComplete = {
+      ...msgObj,
+      createdAt: Date.now(),
+      dateNow: [
+        `${current.getDate()}/${
+          current.getMonth() + 1
+        }/${current.getFullYear()}`,
+        `${current.getHours()}:${
+          current.getMinutes() + 1
+        }:${current.getSeconds()}`,
+      ],
+    };
+    try {
+      const response = await addDirectMsg(msgObjComplete);
+      dispatch({ type: "ADD_DI_MSG", payload: response.data });
+      console.log(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  }
   async function addAComment(comment) {
     const current = new Date();
     const commentComplete = {
@@ -30,20 +60,6 @@ export const CommentsProvider = ({ children }) => {
       console.log(err);
     }
   }
-  
-  async function getAllComments() {
-    try {
-      const response = await allComments();
-      const sortedComments = response.data.sort(
-        (a, b) => +b.createdAt - +a.createdAt
-      );
-      dispatch({ type: "ALL_COMMENTS", payload: sortedComments });
-    } catch (err) {
-      console.log(err);
-    }
-  }
-  
-  
   async function addAReview(review) {
     const current = new Date();
     const reviewComplete = {
@@ -60,26 +76,48 @@ export const CommentsProvider = ({ children }) => {
     };
     try {
       const response = await addReview(reviewComplete);
-      
-      dispatch({ type: "ADD_REVIEW", payload: response.data });
 
+      dispatch({ type: "ADD_REVIEW", payload: response.data });
     } catch (err) {
       console.log(err);
     }
   }
-  async function getReviews(ownerId) {
 
+  /*****GET SOMETHING */
+  //getUserDirectMsgs
+  async function getDirectMsgs(msgsObj) {
+    try {
+      const response = await getUserDirectMsgs(msgsObj);
+      dispatch({ type: "ALL_DI_MSGS", payload: response.data });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async function getAllComments() {
+    try {
+      const response = await allComments();
+      const sortedComments = response.data.sort(
+        (a, b) => +b.createdAt - +a.createdAt
+      );
+      dispatch({ type: "ALL_COMMENTS", payload: sortedComments });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async function getReviews(ownerId) {
     try {
       const response = await allReviews(ownerId);
       const sortedComments = response.data.sort(
-        (a, b) => (+b.createdAt) - (+a.createdAt)
+        (a, b) => +b.createdAt - +a.createdAt
       );
       dispatch({ type: "ALL_REVIEWS", payload: sortedComments });
     } catch (err) {
       console.log(err);
     }
   }
-  
+
   const value = {
     addAComment,
     getAllComments,
@@ -87,7 +125,11 @@ export const CommentsProvider = ({ children }) => {
     allComments: state.allComments,
     addAReview,
     allReviews: state.allReviews,
-    getReviews
+    getReviews,
+    addADirectMsg,
+    directMsg: state.directMsg,
+    getDirectMsgs,
+    allDirectMsgs: state.allDirectMsgs
   };
 
   return (

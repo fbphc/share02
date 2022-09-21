@@ -43,7 +43,7 @@ export default function Pages({ numberOfPages, paginate, pages }) {
           ></PagLinkFirstStyled>
         </PaginationItem>
         <PaginationItem className="d-flex">
-          {pageNumbers.map((page) => (
+          {pageNumbers.map((page, idx) => (
             <PagLinkStyledNum key={page} onClick={() => pageHandler(page)}>
               {page}
             </PagLinkStyledNum>

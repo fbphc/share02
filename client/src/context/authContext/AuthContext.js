@@ -7,10 +7,12 @@ import {
   getProfile,
   editProfile,
 } from "../../utils/axios-utils.js";
+import { useNavigate } from "react-router-dom";
 export const AuthContext = createContext(authState);
 // added
 let userInfo = {};
 export const AuthProvider = ({ children }) => {
+  const navigate = useNavigate()
   const [state, dispatch] = useReducer(authReducer, authState);
 
   async function signUp(FormData) {
@@ -55,6 +57,7 @@ export const AuthProvider = ({ children }) => {
       if (response.data.message) {
         dispatch({ type: "SIGN_OUT" });
         localStorage.removeItem("user");
+        navigate("/")
       } else {
         dispatch({
           type: "AUTH_VALID",

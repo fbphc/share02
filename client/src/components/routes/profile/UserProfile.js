@@ -12,7 +12,7 @@ import { ProfileImgDivStyled, ImageStyled, ImgStyled, ProfileDataStyled, Profile
 
 
 function OwnerProfile() {
-  const { getProfileInfo, userInfo } = useAuth();
+  const { getProfileInfo, userInfo, isAuthenticated } = useAuth();
 
   const location = useLocation();
 
@@ -25,8 +25,10 @@ function OwnerProfile() {
   }, [location.state.id]);
 
   return (
+    <>
+    {isAuthenticated ?
     <div>
-      {userInfo ? (
+     
         <>
           <ProfileContainerStyled>
             {userInfo.imgProfile && userInfo.imgProfile !== "no_photo" ? (
@@ -78,16 +80,17 @@ function OwnerProfile() {
                   <p>{userInfo.telNumber}</p>
                 </div>
               )}
-              <MessagesForm />
+              <MessagesForm username={userInfo.username}/>
             </ProfileDataStyled>
           </ProfileContainerStyled>
 
           <Review />
         </>
-      ) : (
-        <NotAuthorized />
-      )}
-    </div>
+      
+      
+    </div> : <NotAuthorized/>}
+    </>
+    
   );
 }
 export default OwnerProfile;

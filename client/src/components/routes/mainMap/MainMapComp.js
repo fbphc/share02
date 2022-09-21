@@ -16,6 +16,7 @@ import useAuth from "../../../context/authContext/useAuth.js";
 import { Image } from "cloudinary-react";
 import noPhoto from "../../../img/noPhoto.png";
 import route2 from "../../../img/route2.png";
+import { FaRoute } from "react-icons/fa";
 
 function MainMapComp({ chargerFilter }) {
   const { isAuthenticated } = useAuth();
@@ -87,12 +88,16 @@ function MainMapComp({ chargerFilter }) {
                             })
                           }
                         >
+                          {/* <div style={{width: "1.2rem", height: "1.2rem", bottom: "5%", fontSize:"2rem"}} className="position-relative">
+
+                          <FaRoute className="position-absolute"/>
+                          </div> */}
+                         
                           <img
                             src={route2}
                             alt="route"
                             className="w-50 d-block mx-auto"
                           />
-                          {/*  <FaRoute className="h2" /> */}
                         </Link>
                       )}
                     </div>

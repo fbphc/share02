@@ -1,11 +1,32 @@
 import boardComment from "../models/boardComment.js";
 import reviewModel from "../models/reviewModel.js";
 import userApp from "../models/userApp.js";
+import directMessage from "../models/directMessage.js";
 
+const getDirectMsgs = async (req, res) => {
+  const { userId, selector } = req.body;
+  console.log(selector)
+  //inbox,new,sent
+  try {
+    const allMsgs = await directMessage.find().populate("receiver").populate("sender");
+    
+    const allUserMsgs = allMsgs.filter((item)=>item.sender[0].id === userId || item.receiver[0].id === userId)
+   let msgsArray = [];
+    if(selector === "inbox") msgsArray = allUserMsgs.filter((item)=> item.receiver[0].id === userId)
+    //if(selector === "new")  // if sel = new -> filter inbox return items.isNew = false
+    if(selector === "sent") msgsArray = allUserMsgs.filter((item)=> item.sender[0].id === userId)
+   
+   
+    
+ 
+    res.status(200).json(msgsArray);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+};
 const getAllComments = async (req, res) => {
   try {
     const response = await boardComment.find().populate("author");
-    console.log(response[0])
     response.map((item) => {
       item.imgProfile = item.author[0].imgProfile;
       item.username = item.author[0].username;
@@ -32,6 +53,33 @@ const getReviews = async (req, res) => {
   }
 };
 
+const addADirectMsg = async (req, res) => {
+  try {
+    const { directMsg, senderId, receiverId, createdAt, dateNow } = req.body;
+    const allDirectMsgs = await directMessage.find();
+
+    const directMsgId =
+      allDirectMsgs.reduce((a, b) => {
+        return Math.max(a, b.directMsgId);
+      }, 0) + 1;
+    const sender = await userApp.find({ id: senderId });
+    const receiver = await userApp.find({ id: receiverId });
+
+    const newDirectMessage = await directMessage.create({
+      senderName: sender[0].username,
+      sender: sender[0]._id.toString(),
+      receiverName: receiver[0].username,
+      receiver: receiver[0]._id.toString(),
+      directMsg,
+      directMsgId,
+      createdAt,
+      dateNow,
+    });
+    res.json(newDirectMessage);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+};
 const addAComment = async (req, res) => {
   try {
     const { comment, userId, createdAt, dateNow } = req.body;
@@ -92,4 +140,11 @@ const addAReview = async (req, res) => {
   }
 };
 
-export { getAllComments, addAComment, addAReview, getReviews };
+export {
+  getAllComments,
+  addAComment,
+  addAReview,
+  getReviews,
+  addADirectMsg,
+  getDirectMsgs,
+};

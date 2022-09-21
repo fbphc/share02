@@ -21,7 +21,6 @@ function Profile() {
       getProfileInfo(user.id);
     }
   }, [editToggle]);
-
   function mainToggle(e) {
     e.preventDefault();
     const value = e.target.value;
@@ -32,7 +31,6 @@ function Profile() {
     }
     if (value === "reviews") {
       setReviewToggle(true);
-      setMsgToggle(false);
     }
   }
   return (
@@ -102,7 +100,7 @@ function Profile() {
               </MainButton> : <MainButton onClick={mainToggle} value="reviews">
                 Show Reviews
               </MainButton>}
-              {msgToggle ? <MainButton onClick={()=>setMsgToggle(false)} value="messages">
+              {msgToggle ? <MainButton onClick={()=>{setMsgToggle(false);function noRefCheck(){}}} value="messages">
                 Hide Messages
               </ MainButton> : <MainButton onClick={mainToggle} value="messages">
                Show Messages

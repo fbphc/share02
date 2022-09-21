@@ -40,7 +40,7 @@ const registerUser = async (req, res) => {
 
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
-  //const Id = (await userApp.find()).length + 1;
+
   const allUsers = await userApp.find();
 
   const Id =
@@ -152,7 +152,6 @@ const getInfo = async (req, res) => {
 
 const updateProfile = async (req, res) => {
   const { id } = req.params;
-  console.log(id, typeof id);
   const {
     username,
     fname,
