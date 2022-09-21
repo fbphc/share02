@@ -35,7 +35,6 @@ function MainMapComp({ chargerFilter }) {
   return (
     <>
       <div className="mx-2 my-3 border rounded border-2">
-        {/*  <button>sadsadsa</button> */}
 
         <MapContainer
           center={center}

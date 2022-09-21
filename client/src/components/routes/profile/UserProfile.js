@@ -7,6 +7,10 @@ import noPhoto from "../../../img/noPhoto.png";
 import Review from "./Review.js";
 import NotAuthorized from "../../error/NotAuthorized.js";
 import MessagesForm from "../../directMessages/MessagesForm.js";
+
+import { ProfileImgDivStyled, ImageStyled, ImgStyled, ProfileDataStyled, ProfileContainerStyled } from "../../../components.styled/styledComponents"
+
+
 function OwnerProfile() {
   const { getProfileInfo, userInfo } = useAuth();
 
@@ -24,53 +28,60 @@ function OwnerProfile() {
     <div>
       {userInfo ? (
         <>
-          <div style={{ width: "60%", margin: "10rem auto" }}>
+          <ProfileContainerStyled>
             {userInfo.imgProfile && userInfo.imgProfile !== "no_photo" ? (
               <div>
-                <Image
-                  cloudName="schoolgroupfinal"
-                  publicId={userInfo.imgProfile}
-                />
+                <ProfileImgDivStyled>
+                  <ImageStyled
+                    cloudName="schoolgroupfinal"
+                    publicId={userInfo.imgProfile}
+                  />
+                </ProfileImgDivStyled>
               </div>
             ) : (
               <div>
-                <img src={noPhoto} alt="user" />
+                <ProfileImgDivStyled>
+                  <ImgStyled src={noPhoto} alt="user" />
+                </ProfileImgDivStyled>
               </div>
             )}
-            <div className="d-flex justify-content-between border-bottom border-dark">
-              <p>User Name</p>
-              <p>{userInfo.username}</p>
-            </div>
-            <div className="d-flex justify-content-between border-bottom border-dark">
-              <p>First Name</p>
-              <p>{userInfo.fname}</p>
-            </div>
-            <div className="d-flex justify-content-between border-bottom border-dark">
-              <p>Last Name</p>
-              <p>{userInfo.lname}</p>
-            </div>
-            <div className="d-flex justify-content-between border-bottom border-dark">
-              <p>Email</p>
-              <p>{userInfo.email}</p>
-            </div>
-            {userInfo.isOwner && (
-              <div className="d-flex justify-content-between border-bottom border-dark">
-                <p>Address</p>
-                <p>
-                  {userInfo.address.street}
-                  {userInfo.address.houseNr}, {userInfo.address.postalcode}{" "}
-                  {userInfo.address.city}
-                </p>
+            <ProfileDataStyled>
+              <div className="d-flex justify-content-between border-bottom border-light darkText">
+                <p>User Name:</p>
+                <p>{userInfo.username}</p>
               </div>
-            )}
-            {userInfo.telNumber && (
-              <div className="d-flex justify-content-between border-bottom border-dark">
-                <p>Phone Number</p>
-                <p>{userInfo.telNumber}</p>
+              <div className="d-flex justify-content-between border-bottom border-light darkText">
+                <p>First Name:</p>
+                <p>{userInfo.fname}</p>
               </div>
-            )}
-            <MessagesForm />
-          </div>
+              <div className="d-flex justify-content-between border-bottom border-light darkText">
+                <p>Last Name:</p>
+                <p>{userInfo.lname}</p>
+              </div>
+              <div className="d-flex justify-content-between border-bottom border-light darkText">
+                <p>Email:</p>
+                <p>{userInfo.email}</p>
+              </div>
+              {userInfo.isOwner && (
+                <div className="d-flex justify-content-between border-bottom border-light darkText">
+                  <p>Address:</p>
+                  <p>
+                    {userInfo.address.street}
+                    {userInfo.address.houseNr}, {userInfo.address.postalcode}
+                    <br></br>{userInfo.address.city}
+                  </p>
+                </div>
+              )}
+              {userInfo.telNumber && (
+                <div className="d-flex justify-content-between border-bottom border-dark">
+                  <p>Phone Number</p>
+                  <p>{userInfo.telNumber}</p>
+                </div>
+              )}
+              <MessagesForm />
+            </ProfileDataStyled>
+          </ProfileContainerStyled>
+
           <Review />
         </>
       ) : (

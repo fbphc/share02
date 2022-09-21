@@ -3,7 +3,6 @@ import { Image } from "cloudinary-react";
 import { PaginationLink } from "reactstrap";
 import { Link } from "react-router-dom";
 
-
 export const ParDisplayStyled = styled.p`
 display: inline;
 margin-right: 0.6rem;
@@ -20,18 +19,42 @@ text-decoration: none;
 }
 `
 
+export const ProfileContainerStyled = styled.div`
+  display: flex;
+  width: 75%;
+  text-align: center;
+  margin: 2.5rem auto;
+  padding: 0 0 0 2.5rem;
+  @media (max-width: 800px) {
+    display: block;
+    padding: 0;
+  }
+`;
+export const ProfileImgDivStyled = styled.div`
+  width: 10rem;
+  height: 10rem;
+  border: 5px solid var(--dark-color);
+  border-radius: 50%;
+  margin-top: 2.2rem;
+  @media (max-width: 800px) {
+    margin: 1rem auto;   
+  }
+`;
+export const ProfileDataStyled = styled.div`
+  width: 100%;
+  margin-left: 2.5rem;
+  @media (max-width: 800px) {
+    margin: 2.5rem auto 0 auto;
+  }
+`
+
+
 export const MsgImgDivStyled = styled.div`
   width: 5rem;
   height: 5rem;
   border-radius: 50%;
   border: 5px solid var(--dark-color);
   margin: 0 auto;
-`;
-export const BurgerImgDivStyled = styled.div`
-  width: 3rem;
-  height: 3rem;
-  border-radius: 50%;
-  border: 2px solid var(--dark-color);
 `;
 export const MainMsgDivStyled = styled.div`
   width: 90%;
@@ -43,13 +66,20 @@ export const MainMsgDivStyled = styled.div`
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   margin-bottom: 5rem;
 `;
+export const BurgerImgDivStyled = styled.div`
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  border: 2px solid var(--dark-color);
+`;
 
 export const LinkStyled = styled(Link)`
   transition: all 0.2s;
   color: var(--dark-color);
   text-align: center;
-  // display: block;
+  display: block;
   text-decoration: none;
+  margin-top: 0.5rem;
   &:hover {
     color: var(--danger-color);
   }
@@ -186,5 +216,5 @@ export const ImgStyled = styled.img`
   object-fit: cover;
   border-radius: 50%;
   padding:0.2rem;
-  
 `;
+

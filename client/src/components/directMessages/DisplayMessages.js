@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { ParDisplayStyled } from "../../components.styled/styledComponents.js";
 import TableMsg from "./TableMsg.js";
 
-function Displaymessages() {
+function DisplayMessages() {
   const [activeClicked, setActiveClicked] = useState({
     all: true,
     new: false,
@@ -33,4 +33,4 @@ function Displaymessages() {
   );
 }
 
-export default Displaymessages;
+export default DisplayMessages;

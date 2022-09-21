@@ -7,12 +7,12 @@ import {
 } from "../../components.styled/styledComponents";
 import useComments from "../../context/commentsContext/useComments";
 
-export default function Pages({ numberOfPages, paginate }) {
+export default function Pages({ numberOfPages, paginate, pages }) {
   const [prevNextPage, setPrevNextPage] = useState(1);
   const { allComments } = useComments();
   const pageNumbers = [];
 
-  allComments.map((item, index) => {
+  pages.map((item, index) => {
     if (index >= 1 && index <= numberOfPages) {
       pageNumbers.push(index);
     }
@@ -28,13 +28,6 @@ export default function Pages({ numberOfPages, paginate }) {
   return (
     <div className="position-absolute start-50 translate-middle">
       <Pagination>
-        <PaginationItem disabled={prevNextPage <= 1}>
-          <PagLinkFirstStyled
-          className="bg-transparent text-light"
-            first
-            onClick={() => pageHandler(1)}
-          ></PagLinkFirstStyled>
-        </PaginationItem>
         <PaginationItem disabled={prevNextPage <= 1}>
           <PagLinkFirstStyled
             className="bg-transparent text-light"
@@ -54,13 +47,6 @@ export default function Pages({ numberOfPages, paginate }) {
             className="bg-transparent text-light"
             next
             onClick={() => pageHandler(prevNextPage + 1)}
-          ></PagLinkLastStyled>
-        </PaginationItem>
-        <PaginationItem disabled={prevNextPage >= numberOfPages}>
-          <PagLinkLastStyled
-          className="bg-transparent text-light"
-            last
-            onClick={() => pageHandler(numberOfPages)}
           ></PagLinkLastStyled>
         </PaginationItem>
       </Pagination>

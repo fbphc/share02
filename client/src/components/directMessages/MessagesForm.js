@@ -29,7 +29,7 @@ function MessagesForm() {
       {JSON.parse(localStorage.getItem("user")).id !==
         +pathUrl.split("/userProfile/")[1] && (
         <MainButton color="danger" className="mt-3" onClick={toggle}>
-          Send a Message
+          Contact User
         </MainButton>
       )}
       <Modal isOpen={modal} toggle={toggle}>
