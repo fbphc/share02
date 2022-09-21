@@ -4,7 +4,7 @@ import { MainButton } from "../../components.styled/styledComponents";
 import { useLocation } from "react-router-dom";
 
 function MessagesForm() {
-  const initState = {message:"", fromUser: "", toUser:""}
+  const initState = {message:""}
   const location = useLocation();
   const pathUrl = location.pathname;
   
@@ -29,7 +29,7 @@ function MessagesForm() {
       {JSON.parse(localStorage.getItem("user")).id !==
         +pathUrl.split("/userProfile/")[1] && (
         <MainButton color="danger" className="mt-3" onClick={toggle}>
-          Send a Message
+          Contact the User
         </MainButton>
       )}
       <Modal isOpen={modal} toggle={toggle}>
