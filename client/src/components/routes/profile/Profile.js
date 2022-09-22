@@ -9,7 +9,6 @@ import EditProfile from "../profile/EditProfile.js";
 import MyReviews from "./MyReviews.js";
 import DirectMessages from "../../directMessages/DirectMessages.js";
 
-
 function Profile() {
   const { isAuthenticated, getProfileInfo, userInfo } = useAuth();
   const [editToggle, setEditToggle] = useState(false);
@@ -70,14 +69,24 @@ function Profile() {
                   <p>{userInfo.email}</p>
                 </div>
                 {userInfo.isOwner && (
-                  <div className="d-flex justify-content-between border-bottom border-dark">
-                    <p>Address</p>
-                    <p>
-                      {userInfo.address.street}
-                      {userInfo.address.houseNr}, {userInfo.address.postalcode}{" "}
-                      {userInfo.address.city}
-                    </p>
-                  </div>
+                  <>
+                    <div className="d-flex justify-content-between border-bottom border-dark">
+                      <p>Address</p>
+                      <p>
+                        {userInfo.address.street}
+                        {userInfo.address.houseNr},{" "}
+                        {userInfo.address.postalcode} {userInfo.address.city}
+                      </p>
+                    </div>
+                    <div className="d-flex justify-content-between border-bottom border-dark">
+                      <p>Typo of Charger</p>
+                      <p>{userInfo.typeOfCharger}</p>
+                    </div>
+                    <div className="d-flex justify-content-between border-bottom border-dark">
+                      <p>Availability</p>
+                      <p>{userInfo.availability}</p>
+                    </div>
+                  </>
                 )}
               </div>
               {userInfo.telNumber && (
@@ -95,17 +104,33 @@ function Profile() {
               >
                 Edit Profile
               </MainButton>
-            {reviewToggle ? <MainButton onClick={()=>setReviewToggle(false)} value="reviews">
-                Hide Reviews
-              </MainButton> : <MainButton onClick={mainToggle} value="reviews">
-                Show Reviews
-              </MainButton>}
-              {msgToggle ? <MainButton onClick={()=>{setMsgToggle(false);function noRefCheck(){}}} value="messages">
-                Hide Messages
-              </ MainButton> : <MainButton onClick={mainToggle} value="messages">
-               Show Messages
-              </MainButton>}
-              
+              {reviewToggle ? (
+                <MainButton
+                  onClick={() => setReviewToggle(false)}
+                  value="reviews"
+                >
+                  Hide Reviews
+                </MainButton>
+              ) : (
+                <MainButton onClick={mainToggle} value="reviews">
+                  Show Reviews
+                </MainButton>
+              )}
+              {msgToggle ? (
+                <MainButton
+                  onClick={() => {
+                    setMsgToggle(false);
+                    function noRefCheck() {}
+                  }}
+                  value="messages"
+                >
+                  Hide Messages
+                </MainButton>
+              ) : (
+                <MainButton onClick={mainToggle} value="messages">
+                  Show Messages
+                </MainButton>
+              )}
             </div>
           </>
         )
