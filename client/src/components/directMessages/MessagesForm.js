@@ -14,7 +14,7 @@ import NotAuthorized from "../error/NotAuthorized";
 import useComments from "../../context/commentsContext/useComments.js";
 import { Fade } from "reactstrap";
 
-function MessagesForm({username}) {
+function MessagesForm({userInfo}) {
   const location = useLocation();
   const pathUrl = location.pathname;
   const { addADirectMsg } = useComments();
@@ -51,6 +51,7 @@ function MessagesForm({username}) {
     addADirectMsg(message);
     toggle();
   }
+
   return (
     <div>
       {localStorage.getItem("user") ? (
@@ -64,7 +65,7 @@ function MessagesForm({username}) {
         <NotAuthorized />
       )}
       <Modal isOpen={modal} toggle={toggle}>
-        <ModalHeader className="mx-2" toggle={toggle}>To: <span className="secondaryText">{username}</span></ModalHeader>
+        <ModalHeader className="mx-2" toggle={toggle}>To: <span className="secondaryText">{userInfo.username}</span></ModalHeader>
         <ModalBody className="secondary darkText">
           <Form>
             <FormGroup>

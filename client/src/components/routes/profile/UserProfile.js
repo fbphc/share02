@@ -23,6 +23,7 @@ function OwnerProfile() {
     }
   }, [location.state.id]);
 
+  console.log(userInfo)
   return (
     <>
     {isAuthenticated ?
@@ -38,14 +39,14 @@ function OwnerProfile() {
                     publicId={userInfo.imgProfile}
                   />
                 </ProfileImgDivStyled>
-                <MessagesForm />
+                <MessagesForm userInfo={userInfo}/>
               </div>
             ) : (
               <div>
                 <ProfileImgDivStyled>
                   <ImgStyled src={noPhoto} alt="user" />
                 </ProfileImgDivStyled>
-                <MessagesForm />
+                <MessagesForm userInfo={userInfo}/>
               </div>
             )}
             <ProfileDataStyled>

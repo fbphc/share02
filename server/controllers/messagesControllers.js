@@ -93,20 +93,21 @@ const addADirectMsg = async (req, res) => {
     dateNow,
   });
 
-  if (sender[0].conversation.length === 0) {
-    newConv();
-  } else {
-    sender[0].conversation.map((item) => {
-      console.log("item",item.receiverObjID.toString())
-      if ((item.receiverObjID).toString() === (receiver[0]._id).toString()) {
-        //const newReceiverObjID = item.receiverObjID;
-        return notNewConv(item);
-      } else {
-        return newConv();
-      }
-    });
-  }
+  let toString;
+  const conv = sender[0].conversation.map((item) => {
+    if (item.receiverObjID.toString() === receiver[0]._id.toString()) {
+      return (toString = receiver[0]._id);
+    }
+  });
 
+  if (sender[0].conversation.length === 0 || toString === undefined) {
+    newConv();
+    return toString = undefined
+  } else {
+    notNewConv();
+    return toString = undefined
+  }
+  //1664189743623
   async function newConv() {
     const xxx = await userApp.findOneAndUpdate(
       { id: senderId },
@@ -125,20 +126,16 @@ const addADirectMsg = async (req, res) => {
     );
   }
 
-
-  async function notNewConv(item) {
-    console.log(item)
-
-    const xxx = await userApp.findOne({id: senderId}, {conversation:true})
-    console.log("my conver", xxx)
-/*     const xxx = await userApp.findOneAndUpdate({ id: senderId }, {
-    
-        conversation: {
-
-        
+  async function notNewConv() {
+    const yyy = await userApp.findOneAndUpdate(
+      { "conversation.receiverObjID": toString },
+      {
+        $set: {
+          "conversation.$.updatedOn": Date.now(),
+        },
       }
-    }) */
-  } 
+    );
+  }
 };
 
 /*  async function notNewConv(newReceiverObjID) {
