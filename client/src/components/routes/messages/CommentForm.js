@@ -16,7 +16,7 @@ function CommentForm() {
   useEffect(() => {
     if (localStorage.getItem("user")) {
       const user = JSON.parse(localStorage.getItem("user"));
-     
+
       setComment({
         ...comment,
         username: user.username,
@@ -24,18 +24,17 @@ function CommentForm() {
       });
     }
   }, []);
-  
+
 
   function changeHandler(e) {
     setComment((prevState) => {
       return { ...prevState, comment: e.target.value };
     });
-    
   }
   function submit(e) {
     e.preventDefault();
     addAComment(comment);
-
+    e.target.reset();
   }
 
   return (

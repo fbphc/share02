@@ -5,7 +5,7 @@ const { Schema } = mongoose;
 const directMessageSchema = new mongoose.Schema(
   {
     directMsg: { type: String, required: true },
-    directMsgId: {type: Number, required: true},
+    /* directMsgId: {type: Number, required: true}, */
     createdAt: { type: String },
     dateNow: { type: Array },
     sender: [{ type: Schema.Types.ObjectId, ref: "userApp" }],
@@ -14,6 +14,6 @@ const directMessageSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const directMessage = mongoose.model(" directMessage", directMessageSchema);
+const myMsgs = mongoose.model("myMsgs", directMessageSchema);
 
-export default directMessage;
+export default myMsgs;

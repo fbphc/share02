@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import useAuth from "../../../context/authContext/useAuth.js";
 import { useLocation } from "react-router-dom";
-import { Image } from "cloudinary-react";
 import noPhoto from "../../../img/noPhoto.png";
 import Review from "./Review.js";
 import NotAuthorized from "../../error/NotAuthorized.js";
@@ -39,12 +38,14 @@ function OwnerProfile() {
                     publicId={userInfo.imgProfile}
                   />
                 </ProfileImgDivStyled>
+                <MessagesForm />
               </div>
             ) : (
               <div>
                 <ProfileImgDivStyled>
                   <ImgStyled src={noPhoto} alt="user" />
                 </ProfileImgDivStyled>
+                <MessagesForm />
               </div>
             )}
             <ProfileDataStyled>
@@ -80,7 +81,6 @@ function OwnerProfile() {
                   <p>{userInfo.telNumber}</p>
                 </div>
               )}
-              <MessagesForm username={userInfo.username}/>
             </ProfileDataStyled>
           </ProfileContainerStyled>
 

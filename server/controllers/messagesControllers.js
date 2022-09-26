@@ -1,7 +1,7 @@
 import boardComment from "../models/boardComment.js";
 import reviewModel from "../models/reviewModel.js";
 import userApp from "../models/userApp.js";
-import directMessage from "../models/directMessage.js";
+import myMsgs from "../models/directMessage.js";
 
 const getConversations = async (req, res) => {
   // us id 19
@@ -73,34 +73,34 @@ const getReviews = async (req, res) => {
 
 const addADirectMsg = async (req, res) => {
   const { directMsg, senderId, receiverId, createdAt, dateNow } = req.body;
-  const allDirectMsgs = await directMessage.find();
+  /* const allDirectMsgs = await directMessage.find();
 
   const directMsgId =
     allDirectMsgs.reduce((a, b) => {
       return Math.max(a, b.directMsgId);
-    }, 0) + 1;
+    }, 0) + 1; */
   const sender = await userApp.find({ id: senderId });
   const receiver = await userApp.find({ id: receiverId });
 
-  const newDirectMessage = await directMessage.create({
+  const newDirectMessage = await myMsgs.create({
     senderName: sender[0].username,
     sender: sender[0]._id.toString(),
     receiverName: receiver[0].username,
     receiver: receiver[0]._id.toString(),
     directMsg,
-    directMsgId,
+    /* directMsgId, */
     createdAt,
     dateNow,
   });
 
   if (sender[0].conversation.length === 0) {
-    newConv()
+    newConv();
   } else {
     sender[0].conversation.map((item) => {
-      console.log(item)
-      if (item.receiverObjID.toString() === receiver[0]._id.toString()) {
-        const newReceiverObjID = item.receiverObjID.toString();
-       return notNewConv(newReceiverObjID);
+      console.log("item",item.receiverObjID.toString())
+      if ((item.receiverObjID).toString() === (receiver[0]._id).toString()) {
+        //const newReceiverObjID = item.receiverObjID;
+        return notNewConv(item);
       } else {
         return newConv();
       }
@@ -117,16 +117,33 @@ const addADirectMsg = async (req, res) => {
             receiverName: receiver[0].username,
             updatedOn: Date.now(),
             createdAt,
-            dateNow, 
+            dateNow,
           },
         },
       },
       { new: true }
     );
   }
-  async function notNewConv(newReceiverObjID) {
-    const xxx = await userApp.updateOne(
-      { id: senderId, newReceiverObjID: receiver[0]._id },
+
+
+  async function notNewConv(item) {
+    console.log(item)
+
+    const xxx = await userApp.findOne({id: senderId}, {conversation:true})
+    console.log("my conver", xxx)
+/*     const xxx = await userApp.findOneAndUpdate({ id: senderId }, {
+    
+        conversation: {
+
+        
+      }
+    }) */
+  } 
+};
+
+/*  async function notNewConv(newReceiverObjID) {
+    const xxx = await userApp.findOneAndUpdate(
+      { id: senderId, receiverObjID: newReceiverObjID },
       {
         $set: {
           conversation: {
@@ -136,7 +153,7 @@ const addADirectMsg = async (req, res) => {
             createdAt: createdAt,
             dateNowv: dateNow,
           }
-        }, 
+        },
       },
       { new: true }
     );
@@ -147,7 +164,7 @@ const addADirectMsg = async (req, res) => {
   } catch (err) {
     res.status(400).json(err);
   }
-};
+}; */
 const addAComment = async (req, res) => {
   try {
     const { comment, userId, createdAt, dateNow } = req.body;

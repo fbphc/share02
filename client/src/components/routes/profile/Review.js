@@ -77,6 +77,7 @@ function Review() {
   function submit(e) {
     e.preventDefault();
     addAReview(review);
+    e.target.reset();
   }
   return (
     <div className="w-75 mx-auto">
@@ -107,7 +108,6 @@ function Review() {
           <MainMsgDivStyled className="my-3" key={idx + ""}>
             <Row
               className="d-flex mt-1 border border-top-0 border-start-0 border-end-0 pb-1"
-              key={idx + "comment"}
             >
               <Col className="my-2 col-3 col-xs-6 me-3 text-center">
                 {item.fromImgProfile === "no_photo" ? (
@@ -131,10 +131,9 @@ function Review() {
                   {item.fromUsername}
                 </LinkStyled>
               </Col>
-
               <Col className="mx-4">
                 <p className="mb-3">
-                  <b>Date: </b> {item.dateNow[0]} {/* {item.dateNow[1]} */}
+                  <b>Date: </b> {item.dateNow[0]} 
                 </p>
                 <p className="my-0">
                   <b>Message: </b>{" "}

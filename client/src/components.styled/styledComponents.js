@@ -21,10 +21,10 @@ text-decoration: none;
 
 export const ProfileContainerStyled = styled.div`
   display: flex;
-  width: 75%;
+  width: 60%;
   text-align: center;
   margin: 2.5rem auto;
-  padding: 0 0 0 2.5rem;
+  ${'' /* padding: 0 0 0 2.5rem; */}
   @media (max-width: 800px) {
     display: block;
     padding: 0;
@@ -40,14 +40,21 @@ export const ProfileImgDivStyled = styled.div`
     margin: 1rem auto;   
   }
 `;
+export const PopupImgDivStyled = styled.div`
+  width: 5rem;
+  height: 5rem;
+  border: 5px solid var(--dark-color);
+  border-radius: 50%;
+  margin: 1.5rem auto 0;
+`
 export const ProfileDataStyled = styled.div`
   width: 100%;
   margin-left: 2.5rem;
+  padding-top: 2.5rem;
   @media (max-width: 800px) {
-    margin: 2.5rem auto 0 auto;
+    margin: 0 auto;
   }
 `
-
 
 export const MsgImgDivStyled = styled.div`
   width: 5rem;
@@ -104,7 +111,7 @@ export const MainButton = styled.button`
 
 // images
 // home page
-export const MapImg = styled.img`
+export const MapImgStyled = styled.img`
   @media (max-width: 1100px) {
     margin-top: 10%;
     margin-bottom: 15%;
@@ -116,14 +123,14 @@ export const MapImg = styled.img`
 `;
 
 // about us
-export const ImgAbout = styled.img`
+export const ImgAboutStyled = styled.img`
   width: 100%;
   max-height: 40rem;
   object-fit: cover;
   margin-bottom: 1rem;
 `;
 
-export const ImgChargers = styled.img`
+export const ImgChargersStyled = styled.img`
   width: 100%;
   @media (min-width: 900px) {
     width: 70%;
