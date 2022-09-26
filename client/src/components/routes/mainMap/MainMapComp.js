@@ -14,10 +14,9 @@ import useMap from "../../../context/mapContext/useMap.js";
 import useAuth from "../../../context/authContext/useAuth.js";
 
 import noPhoto from "../../../img/noPhoto.png";
-import { FaRoute } from "react-icons/fa";
 import route2 from "../../../img/route2.png";
 
-import { ImageStyled, ProfileImgDivStyled, ImgStyled } from "../../../components.styled/styledComponents"
+import { ImageStyled, ImgStyled, PopupImgDivStyled } from "../../../components.styled/styledComponents"
 
 function MainMapComp({ chargerFilter }) {
   const { isAuthenticated } = useAuth();
@@ -36,7 +35,7 @@ function MainMapComp({ chargerFilter }) {
 
   return (
     <>
-      <div className="mx-2 my-3 border rounded border-2">
+      <div className="border rounded border-2">
         <MapContainer
           center={center}
           zoom={5}
@@ -51,7 +50,7 @@ function MainMapComp({ chargerFilter }) {
               >
                 {/* A BIT OF BOOTSTRAP-STYLING for the POP-UP*/}
                 <Popup>
-                  <ProfileImgDivStyled>
+                  <PopupImgDivStyled>
                     <Link
                       to={`/userProfile/${item.id}`}
                       state={{ id: item.id }}
@@ -68,8 +67,8 @@ function MainMapComp({ chargerFilter }) {
                         />
                       )}
                     </Link>
-                  </ProfileImgDivStyled>
-                  <div className="text-center mx-auto h5 mb-5 pb-5">
+                  </PopupImgDivStyled>
+                  <div className="text-center mx-auto h5">
                     <p>
                       <b>{item.username}</b>
                     </p>
@@ -84,13 +83,10 @@ function MainMapComp({ chargerFilter }) {
                           })
                         }
                       >
-                        {/* <ImgStyled
+                        <ImgStyled
                           src={route2}
                           alt="route"
-                        /> */}
-                        <div className="position-relative m-4 pb-1 mx-4">
-                          <FaRoute className="mx-2 position-absolute top-25 start-25 display-1" />
-                        </div>
+                        />
                       </Link>
                     )}
                   </div>
@@ -109,7 +105,7 @@ function MainMapComp({ chargerFilter }) {
                 key={idx + "marker"}
               >
                 <Popup>
-                  <p className="text-center my-1 ">
+                  <p className="text-center">
                     <b>{item.username}</b>
                   </p>
                 </Popup>

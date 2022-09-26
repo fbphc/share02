@@ -79,6 +79,7 @@ function Review() {
   function submit(e) {
     e.preventDefault();
     addAReview(review);
+    e.target.reset();
   }
   return (
     <div className="w-75 mx-auto">
