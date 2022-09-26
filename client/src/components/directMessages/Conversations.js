@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import useComments from "../../context/commentsContext/useComments";
 
 function TableMsg({ activeClicked }) {
-  const { getDirectMsgs, allDirectMsgs } = useComments();
+  const { /* getDirectMsgs, allDirectMsgs */getAllConversations, allConversations } = useComments();
+  const [conversations, setConversations] = useState([]);
 
-  useEffect(() => {
+  const [toggle, setToggle] = useState(false);
+/*   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
     let msgsObj = {};
     if (activeClicked.inbox) {
@@ -15,20 +17,22 @@ function TableMsg({ activeClicked }) {
       msgsObj = { userId: user.id, selector: "sent" };
     }
     getDirectMsgs(msgsObj);
-  }, [activeClicked]);
+  }, [activeClicked]); */
+useEffect(()=>{
+  if(localStorage.getItem("user")){
+    const user = JSON.parse(localStorage.getItem("user"));
 
-  console.log("allDirectMsgs", allDirectMsgs);
+    getAllConversations({userId: user.id})
+  }
+  
+},[])
+console.log(allConversations) 
   return (
     <>
-      {allDirectMsgs.length === 0 ? (
-        <p>Not inbox</p>
-      ) : (
-        allDirectMsgs.map((item, idx) => (
-          <p className="text-light" key={idx + ""}>
-            {item.directMsg}
-          </p>
-        ))
-      )}
+     
+      <div>
+        Conversations
+      </div>
     </>
   );
 }

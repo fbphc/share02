@@ -30,6 +30,8 @@ function Profile() {
     }
     if (value === "reviews") {
       setReviewToggle(true);
+      setMsgToggle(false);
+
     }
   }
   return (
@@ -120,7 +122,6 @@ function Profile() {
                 <MainButton
                   onClick={() => {
                     setMsgToggle(false);
-                    function noRefCheck() {}
                   }}
                   value="messages"
                 >

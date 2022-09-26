@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { ParDisplayStyled } from "../../components.styled/styledComponents.js";
-import TableMsg from "./TableMsg.js";
+import TableMsg from "./Conversations.js";
 import {Fade} from "reactstrap"
 
 function DirectMessages() {

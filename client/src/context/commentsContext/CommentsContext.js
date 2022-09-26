@@ -7,7 +7,8 @@ import {
   addReview,
   allReviews,
   addDirectMsg,
-  getUserDirectMsgs,
+  /* getUserDirectMsgs, */
+  getConversations
 } from "../../utils/axios-utils.js";
 
 export const CommentsContext = createContext(commentsState);
@@ -85,15 +86,23 @@ export const CommentsProvider = ({ children }) => {
 
   /*****GET SOMETHING */
   //getUserDirectMsgs
-  async function getDirectMsgs(msgsObj) {
+  async function getAllConversations(convObj) {
+    try {
+      const response = await getConversations(convObj); //
+      dispatch({ type: "ALL_CONVERSATIONS", payload: response.data });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  /* async function getDirectMsgs(msgsObj) {
     try {
       const response = await getUserDirectMsgs(msgsObj);
       dispatch({ type: "ALL_DI_MSGS", payload: response.data });
     } catch (err) {
       console.log(err);
     }
-  }
-
+  } */
   async function getAllComments() {
     try {
       const response = await allComments();
@@ -128,8 +137,10 @@ export const CommentsProvider = ({ children }) => {
     getReviews,
     addADirectMsg,
     directMsg: state.directMsg,
-    getDirectMsgs,
-    allDirectMsgs: state.allDirectMsgs
+    /* getDirectMsgs, */
+    /* allDirectMsgs: state.allDirectMsgs, */
+    getAllConversations,
+    allConversations: state.allConversations,
   };
 
   return (

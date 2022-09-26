@@ -39,5 +39,8 @@ export const allReviews = (ownerId) =>
 export const addDirectMsg = (msgObj) =>
   clientAPI.post("/messages/addADirectMsg", msgObj);
 
-export const getUserDirectMsgs = (msgsObj) =>
-  clientAPI.post("/messages/getDirectMsgs", msgsObj);
+/* export const getUserDirectMsgs = (msgsObj) =>
+  clientAPI.post("/messages/getDirectMsgs", msgsObj); */
+
+  export const getConversations = (convObj) =>
+  clientAPI.post("/messages/getConversations", convObj);

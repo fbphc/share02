@@ -3,27 +3,45 @@ import reviewModel from "../models/reviewModel.js";
 import userApp from "../models/userApp.js";
 import directMessage from "../models/directMessage.js";
 
-const getDirectMsgs = async (req, res) => {
-  const { userId, selector } = req.body;
-  console.log(selector)
-  //inbox,new,sent
+const getConversations = async (req, res) => {
+  // us id 19
+  const { userId } = req.body;
+
+  const userProfile = await userApp.find({ id: userId });
+  const userConv = userProfile[0].conversation;
+  console.log(userConv);
   try {
-    const allMsgs = await directMessage.find().populate("receiver").populate("sender");
-    
-    const allUserMsgs = allMsgs.filter((item)=>item.sender[0].id === userId || item.receiver[0].id === userId)
-   let msgsArray = [];
-    if(selector === "inbox") msgsArray = allUserMsgs.filter((item)=> item.receiver[0].id === userId)
-    //if(selector === "new")  // if sel = new -> filter inbox return items.isNew = false
-    if(selector === "sent") msgsArray = allUserMsgs.filter((item)=> item.sender[0].id === userId)
-   
-   
-    
- 
-    res.status(200).json(msgsArray);
+    res.status(200).json(userConv);
   } catch (err) {
     res.status(400).json(err);
   }
 };
+
+/* const getDirectMsgs = async (req, res) => {
+  const { userId, selector } = req.body;
+  console.log(selector);
+  //inbox,new,sent
+  try {
+    const allMsgs = await directMessage
+      .find()
+      .populate("receiver")
+      .populate("sender");
+
+    const allUserMsgs = allMsgs.filter(
+      (item) => item.sender[0].id === userId || item.receiver[0].id === userId
+    );
+    let msgsArray = [];
+    if (selector === "inbox")
+      msgsArray = allUserMsgs.filter((item) => item.receiver[0].id === userId);
+    //if(selector === "new")  // if sel = new -> filter inbox return items.isNew = false
+    if (selector === "sent")
+      msgsArray = allUserMsgs.filter((item) => item.sender[0].id === userId);
+
+    res.status(200).json(msgsArray);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+}; */
 const getAllComments = async (req, res) => {
   try {
     const response = await boardComment.find().populate("author");
@@ -54,27 +72,77 @@ const getReviews = async (req, res) => {
 };
 
 const addADirectMsg = async (req, res) => {
-  try {
-    const { directMsg, senderId, receiverId, createdAt, dateNow } = req.body;
-    const allDirectMsgs = await directMessage.find();
+  const { directMsg, senderId, receiverId, createdAt, dateNow } = req.body;
+  const allDirectMsgs = await directMessage.find();
 
-    const directMsgId =
-      allDirectMsgs.reduce((a, b) => {
-        return Math.max(a, b.directMsgId);
-      }, 0) + 1;
-    const sender = await userApp.find({ id: senderId });
-    const receiver = await userApp.find({ id: receiverId });
+  const directMsgId =
+    allDirectMsgs.reduce((a, b) => {
+      return Math.max(a, b.directMsgId);
+    }, 0) + 1;
+  const sender = await userApp.find({ id: senderId });
+  const receiver = await userApp.find({ id: receiverId });
 
-    const newDirectMessage = await directMessage.create({
-      senderName: sender[0].username,
-      sender: sender[0]._id.toString(),
-      receiverName: receiver[0].username,
-      receiver: receiver[0]._id.toString(),
-      directMsg,
-      directMsgId,
-      createdAt,
-      dateNow,
+  const newDirectMessage = await directMessage.create({
+    senderName: sender[0].username,
+    sender: sender[0]._id.toString(),
+    receiverName: receiver[0].username,
+    receiver: receiver[0]._id.toString(),
+    directMsg,
+    directMsgId,
+    createdAt,
+    dateNow,
+  });
+
+  if (sender[0].conversation.length === 0) {
+    newConv()
+  } else {
+    sender[0].conversation.map((item) => {
+      console.log(item)
+      if (item.receiverObjID.toString() === receiver[0]._id.toString()) {
+        const newReceiverObjID = item.receiverObjID.toString();
+       return notNewConv(newReceiverObjID);
+      } else {
+        return newConv();
+      }
     });
+  }
+
+  async function newConv() {
+    const xxx = await userApp.findOneAndUpdate(
+      { id: senderId },
+      {
+        $push: {
+          conversation: {
+            receiverObjID: receiver[0]._id,
+            receiverName: receiver[0].username,
+            updatedOn: Date.now(),
+            createdAt,
+            dateNow, 
+          },
+        },
+      },
+      { new: true }
+    );
+  }
+  async function notNewConv(newReceiverObjID) {
+    const xxx = await userApp.updateOne(
+      { id: senderId, newReceiverObjID: receiver[0]._id },
+      {
+        $set: {
+          conversation: {
+            receiverObjID: receiver[0]._id,
+            receiverName: receiver[0].username,
+            updatedOn:  Date.now(),
+            createdAt: createdAt,
+            dateNowv: dateNow,
+          }
+        }, 
+      },
+      { new: true }
+    );
+  }
+
+  try {
     res.json(newDirectMessage);
   } catch (err) {
     res.status(400).json(err);
@@ -146,5 +214,6 @@ export {
   addAReview,
   getReviews,
   addADirectMsg,
-  getDirectMsgs,
+  /* getDirectMsgs, */
+  getConversations,
 };
