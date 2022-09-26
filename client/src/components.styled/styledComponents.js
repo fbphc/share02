@@ -40,6 +40,13 @@ export const ProfileImgDivStyled = styled.div`
     margin: 1rem auto;   
   }
 `;
+export const PopupImgDivStyled = styled.div`
+  width: 5rem;
+  height: 5rem;
+  border: 5px solid var(--dark-color);
+  border-radius: 50%;
+  margin: 1.5rem auto 0;
+`
 export const ProfileDataStyled = styled.div`
   width: 100%;
   margin-left: 2.5rem;

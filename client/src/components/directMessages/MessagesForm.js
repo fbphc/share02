@@ -21,8 +21,9 @@ function MessagesForm() {
     }));
   }
   
-  function submit(){
-    console.log(message)
+  function submit(e){
+    console.log(message);
+    
   }
   return (
     <div>

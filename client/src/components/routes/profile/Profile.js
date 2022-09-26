@@ -7,7 +7,7 @@ import EditProfile from "../profile/EditProfile.js";
 import MyReviews from "./MyReviews.js";
 import DirectMessages from "../../directMessages/DirectMessages.js";
 
-import { MainButton, ImageStyled, ProfileImgDivStyled } from "../../../components.styled/styledComponents.js";
+import { MainButton, ImageStyled, ProfileImgDivStyled, ImgStyled } from "../../../components.styled/styledComponents.js";
 
 function Profile() {
   const { isAuthenticated, getProfileInfo, userInfo } = useAuth();
@@ -39,11 +39,11 @@ function Profile() {
       {isAuthenticated ? (
         userInfo && (
           <>
-            <div className="w-50 mx-auto my-5">
+            <div className="mx-auto mb-3 px-2 w-75">
               {userInfo.imgProfile === "no_photo" ? (
-                <div>
-                  <img className="w-25 d-block" src={noPhoto} alt="user" />
-                </div>
+                <ProfileImgDivStyled className="mx-auto mb-3">
+                  <ImgStyled src={noPhoto} alt="user" />
+                </ProfileImgDivStyled>
               ) : (
                 <ProfileImgDivStyled className="mx-auto mb-3">
                   <ImageStyled
@@ -53,24 +53,24 @@ function Profile() {
                 </ProfileImgDivStyled>
               )}
               <div>
-                <div className="d-flex justify-content-between border-bottom border-dark">
+                <div className="d-flex justify-content-between border-bottom border-light">
                   <p>User Name</p>
                   <p>{userInfo.username}</p>
                 </div>
-                <div className="d-flex justify-content-between border-bottom border-dark">
+                <div className="d-flex justify-content-between border-bottom border-light">
                   <p>First Name</p>
                   <p>{userInfo.fname}</p>
                 </div>
-                <div className="d-flex justify-content-between border-bottom border-dark">
+                <div className="d-flex justify-content-between border-bottom border-light">
                   <p>Last Name</p>
                   <p>{userInfo.lname}</p>
                 </div>
-                <div className="d-flex justify-content-between border-bottom border-dark">
+                <div className="d-flex justify-content-between border-bottom border-light">
                   <p>Email</p>
                   <p>{userInfo.email}</p>
                 </div>
                 {userInfo.isOwner && (
-                  <div className="d-flex justify-content-between border-bottom border-dark">
+                  <div className="d-flex justify-content-between border-bottom border-light">
                     <p>Address</p>
                     <p>
                       {userInfo.address.street}
@@ -105,7 +105,6 @@ function Profile() {
               </ MainButton> : <MainButton onClick={mainToggle} value="messages">
                 Show Messages
               </MainButton>}
-
             </div>
           </>
         )
