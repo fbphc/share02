@@ -7,6 +7,8 @@ import useMap from "../../../context/mapContext/useMap.js";
 import { useNavigate } from "react-router-dom";
 import { Button } from "reactstrap";
 
+import { MainButton } from "../../../components.styled/styledComponents"
+
 function FinalRoute() {
   const navigate = useNavigate();
   const center = [50.56, 9.71];
@@ -36,14 +38,14 @@ function FinalRoute() {
         </MapContainer>
       </div>
       <div className="d-flex">
-        <Button
+        <MainButton
           color="warning"
           outline
           onClick={() => navigate("/germany")}
           className="mx-auto w-25"
         >
           Back
-        </Button>
+        </MainButton>
       </div>
     </>
   );

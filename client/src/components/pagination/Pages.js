@@ -49,6 +49,8 @@ export default function Pages({ numberOfPages, paginate, pages }) {
             onClick={() => pageHandler(prevNextPage + 1)}
           ></PagLinkLastStyled>
         </PaginationItem>
+        <PaginationItem disabled={prevNextPage >= numberOfPages}>
+        </PaginationItem>
       </Pagination>
     </div>
   );

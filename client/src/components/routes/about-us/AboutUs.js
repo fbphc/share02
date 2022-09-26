@@ -6,7 +6,7 @@ import passion from "../../../img/passion.png";
 import evcharge from "../../../img/evcharge.jpg";
 import evcharge1 from "../../../img/evcharge1.jpg";
 
-import { ImgAbout, ImgChargers } from "../../../components.styled/styledComponents";
+import { ImgAboutStyled, ImgChargersStyled } from "../../../components.styled/styledComponents";
 
 export default function AboutUs() {
   return (
@@ -16,7 +16,7 @@ export default function AboutUs() {
           About Us
         </p>
         <div className="mx-auto w-100">
-          <ImgAbout
+          <ImgAboutStyled
             src={background}
             alt="wall_box"
           />
@@ -70,7 +70,7 @@ export default function AboutUs() {
         <div className="row justify-content-sm-center">
           <div className="col-9 col-sm-6">
             <div className="w-100 mb-1">
-              <ImgChargers src={evcharge} alt="ev-charger" />
+              <ImgChargersStyled src={evcharge} alt="ev-charger" />
             </div>
           </div>
         </div>
@@ -78,7 +78,7 @@ export default function AboutUs() {
           <div className="col"></div>
           <div className="col-9 col-sm-6">
             <div className="w-100">
-              <ImgChargers src={evcharge1} alt="ev-charger" />
+              <ImgChargersStyled src={evcharge1} alt="ev-charger" />
             </div>
           </div>
         </div>

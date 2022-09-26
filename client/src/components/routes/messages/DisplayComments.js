@@ -50,7 +50,6 @@ function DisplayComments() {
                 ) : (
                   <MsgImgDivStyled>
                     <ImageStyled
-                      // className="rounded-circle img-thumbnail"
                       cloudName="schoolgroupfinal"
                       publicId={item.imgProfile}
                     />

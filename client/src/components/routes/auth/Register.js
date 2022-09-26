@@ -49,7 +49,7 @@ export default function Register({ modalRegister, toggleRegister, closeMenu }) {
     isOwner: false,
     availability: "whole_week",
     telNumber: "",
-    typeOfCharger: "type01",
+    typeOfCharger: "Type 1",
     address: initAddress,
     addressInfo: {},
     imgProfile: "no_photo",
@@ -331,10 +331,10 @@ export default function Register({ modalRegister, toggleRegister, closeMenu }) {
                   <FormGroup>
                     <Label>type of charger</Label>
                     <Input required name="typeOfCharger" type="select" bsSize="4">
-                      <option value="type01">Type 1</option>
-                      <option value="type02">Type 2</option>
-                      <option value="type03">CCS</option>
-                      <option value="type04">CHAdeMO</option>
+                      <option value="Type 1">Type 1</option>
+                      <option value="Type 2">Type 2</option>
+                      <option value="CCS">CCS</option>
+                      <option value="CHAdeMO">CHAdeMO</option>
                     </Input>
                   </FormGroup>
                   <FormGroup>

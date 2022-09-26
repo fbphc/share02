@@ -107,7 +107,7 @@ export default function NavBar() {
                       </BurgerImgDivStyled>
                     </>
                   )}
-                  <p className="d-block mx-2">My Profile</p>
+                  <p className="d-block mx-3 mt-2">My Profile</p>
                   
                 </LinkStyled>
               </>
