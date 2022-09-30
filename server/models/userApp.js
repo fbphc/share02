@@ -33,7 +33,7 @@ const userAppSchema = new mongoose.Schema(
     typeOfCharger: { type: String },
     comments: { type: Array },
     reviews: { type: Array },
-    conversation: { type: Array },
+    activeConversation: { type: Array },
   },
   { timestamps: true }
 );

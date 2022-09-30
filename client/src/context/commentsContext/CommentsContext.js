@@ -34,7 +34,7 @@ export const CommentsProvider = ({ children }) => {
     try {
       const response = await addDirectMsg(msgObjComplete);
       dispatch({ type: "ADD_DI_MSG", payload: response.data });
-      console.log(response.data);
+      
     } catch (err) {
       console.log(err);
     }
