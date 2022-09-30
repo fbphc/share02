@@ -30,7 +30,7 @@ function MainMap() {
               className="w-75"
               name="typeOfCharger"
               type="select"
-              bsSize="5"
+              bsSize="sm"
               onChange={(e) =>
                 setChargerFilter({
                   ...chargerFilter,
