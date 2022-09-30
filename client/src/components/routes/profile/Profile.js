@@ -20,7 +20,6 @@ function Profile() {
       getProfileInfo(user.id);
     }
   }, [editToggle]);
-
   function mainToggle(e) {
     e.preventDefault();
     const value = e.target.value;
@@ -32,6 +31,7 @@ function Profile() {
     if (value === "reviews") {
       setReviewToggle(true);
       setMsgToggle(false);
+
     }
   }
   return (

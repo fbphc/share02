@@ -168,9 +168,8 @@ export default function Register({ modalRegister, toggleRegister, closeMenu }) {
     } else {
       registerForm.address.street = registerForm.address.street.trim();
     }
-
+    
     signUp(registerForm);
-
     navigate("/germany");
     closeMenu();
     toggleRegister();

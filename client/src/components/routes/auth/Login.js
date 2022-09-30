@@ -25,14 +25,7 @@ export default function Login({ modalLogin, toggleLogin, closeMenu }) {
     password: "",
   });
 
-  function submit(e) {
-    e.preventDefault();
-    logIn(logInForm);
-    navigate("/germany");
-    closeMenu();
-    toggleLogin();
-  }
-
+ 
   function changeHandler(e) {
     const element = e.target.name;
     const value = e.target.value;
@@ -50,6 +43,14 @@ export default function Login({ modalLogin, toggleLogin, closeMenu }) {
       ...passToggle,
       showPassword: e === passToggle.showPassword ? "" : e,
     });
+  }
+  
+  function submit(e) {
+    e.preventDefault();
+    logIn(logInForm);
+    navigate("/germany");
+    closeMenu();
+    toggleLogin();
   }
 
   return (

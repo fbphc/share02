@@ -11,7 +11,7 @@ import { ProfileImgDivStyled, ImageStyled, ImgStyled, ProfileDataStyled, Profile
 
 
 function OwnerProfile() {
-  const { getProfileInfo, userInfo } = useAuth();
+  const { getProfileInfo, userInfo, isAuthenticated } = useAuth();
 
   const location = useLocation();
 
@@ -23,9 +23,12 @@ function OwnerProfile() {
     }
   }, [location.state.id]);
 
+  console.log(userInfo)
   return (
+    <>
+    {isAuthenticated ?
     <div>
-      {userInfo ? (
+     
         <>
           <ProfileContainerStyled>
             {userInfo.imgProfile && userInfo.imgProfile !== "no_photo" ? (
@@ -36,13 +39,14 @@ function OwnerProfile() {
                     publicId={userInfo.imgProfile}
                   />
                 </ProfileImgDivStyled>
-                <MessagesForm />
+                <MessagesForm userInfo={userInfo}/>
               </div>
             ) : (
               <div>
                 <ProfileImgDivStyled>
                   <ImgStyled src={noPhoto} alt="user" />
                 </ProfileImgDivStyled>
+                <MessagesForm userInfo={userInfo}/>
               </div>
             )}
             <ProfileDataStyled>
@@ -83,10 +87,11 @@ function OwnerProfile() {
 
           <Review />
         </>
-      ) : (
-        <NotAuthorized />
-      )}
-    </div>
+      
+      
+    </div> : <NotAuthorized/>}
+    </>
+    
   );
 }
 export default OwnerProfile;

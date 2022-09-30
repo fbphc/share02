@@ -15,6 +15,7 @@ import useAuth from "../../../context/authContext/useAuth.js";
 
 import noPhoto from "../../../img/noPhoto.png";
 import route2 from "../../../img/route2.png";
+import { FaRoute } from "react-icons/fa";
 
 import { ImageStyled, ImgStyled, PopupImgDivStyled } from "../../../components.styled/styledComponents"
 
