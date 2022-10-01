@@ -4,19 +4,18 @@ import { PaginationLink } from "reactstrap";
 import { Link } from "react-router-dom";
 
 export const ParDisplayStyled = styled.p`
-display: inline;
-margin-right: 0.6rem;
+text-align: center;
 font-size: 1.4rem;
 transition: all 0.3s;
 color: var(--dark-color);
-text-decoration: none;
+border: 1px solid var(--danger-color);
+border-radius: 2rem;
+margin: 0.4rem 0;
 &:hover{
-  color: var(--danger-color);
+  background-color: var(--secondarybla-color);
   cursor: pointer;
 }
-&${props => !props.active} {
-  text-decoration: 2px solid underline var(--danger-color);
-}
+
 `
 
 export const ProfileContainerStyled = styled.div`
@@ -47,6 +46,7 @@ export const PopupImgDivStyled = styled.div`
   border-radius: 50%;
   margin: 1.5rem auto 0;
 `
+
 export const ProfileDataStyled = styled.div`
   width: 100%;
   margin-left: 2.5rem;
@@ -59,6 +59,13 @@ export const ProfileDataStyled = styled.div`
 export const MsgImgDivStyled = styled.div`
   width: 5rem;
   height: 5rem;
+  border-radius: 50%;
+  border: 5px solid var(--dark-color);
+  margin: 0 auto;
+`;
+export const DiMsgImgDivStyled = styled.div`
+  width: 3rem;
+  height: 3rem;
   border-radius: 50%;
   border: 5px solid var(--dark-color);
   margin: 0 auto;
@@ -84,7 +91,7 @@ export const LinkStyled = styled(Link)`
   transition: all 0.2s;
   color: var(--dark-color);
   text-align: center;
-  display: block;
+  /* display: block; */
   text-decoration: none;
   margin-top: 0.5rem;
   &:hover {

@@ -1,24 +1,23 @@
 import boardComment from "../models/boardComment.js";
 import reviewModel from "../models/reviewModel.js";
 import userApp from "../models/userApp.js";
-import myMsgs from "../models/directMessage.js";
+import myConversation from "../models/directMessage.js";
 
 const getConversations = async (req, res) => {
   const { userId } = req.body;
 
-  /*   const userProfile = await userApp.findOne({ id: userId });
-  const userConv = userProfile.conversation;
-console.log(userConv) */
-  const user = await userApp.findOne({ id: userId}, ( err, doc)=> {
-    if(err) return res.status(400).json(err);
-    else {
-      console.log(doc.username)
-      const sortedConv = doc.activeConversation.sort((a,b)=>b.updatedAt-a.updatedAt)
-      
-      res.status(200).json(sortedConv)
-    }
-  }).clone();
+  const user = await userApp
+    .findOne({ id: userId }, (err, doc) => {
+      if (err) return res.status(400).json(err);
+      else {
+        const sortedConv = doc.activeConversation.sort(
+          (a, b) => b.updatedAt - a.updatedAt
+        );
 
+        res.status(200).json(sortedConv);
+      }
+    })
+    .clone();
 };
 
 const getAllComments = async (req, res) => {
@@ -50,19 +49,47 @@ const getReviews = async (req, res) => {
   }
 };
 
+async function getDirectMsgs(req, res) {
+  const { conversationId } = req.body;
+
+  try {
+    const conversation = await myConversation.findOne({ _id: conversationId });
+    const sortedConv = conversation.messagesArray.sort(
+      (a, b) => b.creationTime - a.creationTime
+    );
+
+    const users = await userApp.find({
+      id: { $in: [conversation.senderId, conversation.receiverId] },
+    });
+    const response = {
+      sortedConv,
+      firId: users[0].id,
+      firName: users[0].username,
+      firImgProfile: users[0].imgProfile,
+      secId: users[1].id,
+      secName: users[1].username,
+      secImgProfile: users[1].imgProfile,
+    };
+    console.log(response);
+    res
+      .status(200)
+      .json(response);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+}
 
 async function addADirectMsg(req, res) {
   const { directMsg, senderId, receiverId, createdAt, dateNow } = req.body;
 
-  console.log("my data", directMsg, senderId, receiverId, createdAt, dateNow);
+  /*   console.log("my data", directMsg, senderId, receiverId, createdAt, dateNow); */
 
-  // Here making search either any conversation already exists between both users?
-  const receiverName = await userApp.findOne({id: receiverId})
-  const senderName = await userApp.findOne({id: senderId})
+  const receiverName = await userApp.findOne({ id: receiverId });
+  const senderName = await userApp.findOne({ id: senderId });
 
-console.log("userNAme", receiverName .username)
+  /* console.log("userNAme", receiverName.username); */
   try {
-    myMsgs.find(
+    myConversation.find(
       {
         $or: [
           { senderId, receiverId },
@@ -73,7 +100,7 @@ console.log("userNAme", receiverName .username)
         if (err) return console.log("error", err);
         else {
           if (doc.length === 0) {
-            const newMessages = new myMsgs({
+            const newMessages = new myConversation({
               createdAt,
               senderId,
               receiverId,
@@ -100,7 +127,8 @@ console.log("userNAme", receiverName .username)
                       senderId,
                       receiverId,
                       receiverName: receiverName.username,
-                      senderName: senderName.username
+                      senderName: senderName.username,
+                      dateNow,
                     },
                   },
                 },
@@ -113,8 +141,8 @@ console.log("userNAme", receiverName .username)
           }
           // if there was an ongoing conversation between both users
           else {
-            console.log("a conversation already with id", doc[0]._id);
-            myMsgs.findByIdAndUpdate(
+            /*  console.log("a conversation already with id", doc[0]._id); */
+            myConversation.findByIdAndUpdate(
               { _id: doc[0]._id },
               {
                 updatedAt: Date.now(),
@@ -133,7 +161,7 @@ console.log("userNAme", receiverName .username)
                     "error whiled updating messages collection",
                     err
                   );
-                console.log("doc on updating messages collection", doc);
+                /*  console.log("doc on updating messages collection", doc); */
 
                 // At this point i am searching both the users and filtering their conversation according to the conversation id and then modifying the updated at
                 userApp.updateMany(
@@ -150,10 +178,10 @@ console.log("userNAme", receiverName .username)
                         "err occured while updating userprofile conversations",
                         err
                       );
-                    console.log(
+                    /*  console.log(
                       "Document of both users updated successfully",
                       doc
-                    );
+                    ); */
                   }
                 );
               }
@@ -233,6 +261,6 @@ export {
   addAReview,
   getReviews,
   addADirectMsg,
-  /* getDirectMsgs, */
   getConversations,
+  getDirectMsgs,
 };

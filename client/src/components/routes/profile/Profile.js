@@ -112,7 +112,7 @@ function Profile() {
               {msgToggle ? <MainButton onClick={() => setMsgToggle(false)} value="messages">
                 Hide Messages
               </ MainButton> : <MainButton onClick={mainToggle} value="messages">
-                Show Messages
+               Show Messages
               </MainButton>}
             </div>
           </>

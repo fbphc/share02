@@ -23,7 +23,7 @@ function OwnerProfile() {
     }
   }, [location.state.id]);
 
-  console.log(userInfo)
+
   return (
     <>
     {isAuthenticated ?

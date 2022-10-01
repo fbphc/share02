@@ -92,6 +92,7 @@ export const AuthProvider = ({ children }) => {
   function signOut() {
     dispatch({ type: "SIGN_OUT" });
     localStorage.removeItem("user");
+    navigate("/")
   }
   const resetError = () => {
     dispatch({ type: "CLR_ERR" });

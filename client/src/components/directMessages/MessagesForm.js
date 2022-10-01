@@ -22,6 +22,7 @@ function MessagesForm({userInfo}) {
 
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
+  
   const [requiredToggle, setRequiredToggle] = useState(false);
   const [message, setMessage] = useState(initState);
 
