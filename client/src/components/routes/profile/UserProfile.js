@@ -23,7 +23,7 @@ function OwnerProfile() {
     }
   }, [location.state.id]);
 
-  console.log(userInfo)
+
   return (
     <>
     {isAuthenticated ?
@@ -68,6 +68,14 @@ function OwnerProfile() {
               </div>
               {userInfo.isOwner && (
                 <div className="d-flex justify-content-between border-bottom border-light darkText">
+                <p>Availability:</p>
+                <p>
+                  {userInfo.availability}
+                </p>
+              </div>
+              )}
+              {userInfo.isOwner && (
+                <div className="d-flex justify-content-between border-bottom border-light darkText">
                   <p>Address:</p>
                   <p>
                     {userInfo.address.street}
@@ -76,6 +84,7 @@ function OwnerProfile() {
                   </p>
                 </div>
               )}
+             
               {userInfo.telNumber && (
                 <div className="d-flex justify-content-between border-bottom border-dark">
                   <p>Phone Number</p>

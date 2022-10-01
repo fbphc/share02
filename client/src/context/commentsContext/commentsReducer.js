@@ -4,7 +4,7 @@ export const commentsState = {
   comment: {},
   allComments: [],
   allReviews: [],
- /*  allDirectMsgs: [] */
+  allDirectMsgs: [],
  allConversations:[]
 };
 const commentsReducer = (state, action) => {
@@ -38,12 +38,12 @@ const commentsReducer = (state, action) => {
         allComments: payload,
       };
     }
-    /* case "ALL_DI_MSGS": {
+    case "ALL_DI_MSGS": {
       return{
         ...state,
         allDirectMsgs: payload
       }
-    } */
+    }
     case "ALL_CONVERSATIONS": {
       return {
         ...state,

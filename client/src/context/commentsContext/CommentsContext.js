@@ -7,7 +7,7 @@ import {
   addReview,
   allReviews,
   addDirectMsg,
-  /* getUserDirectMsgs, */
+  getUserDirectMsgs,
   getConversations
 } from "../../utils/axios-utils.js";
 
@@ -16,7 +16,6 @@ export const CommentsContext = createContext(commentsState);
 export const CommentsProvider = ({ children }) => {
   const [state, dispatch] = useReducer(commentsReducer, commentsState);
 
-  /*** ADD SOMETHING */
   async function addADirectMsg(msgObj) {
     const current = new Date();
     const msgObjComplete = {
@@ -34,7 +33,7 @@ export const CommentsProvider = ({ children }) => {
     try {
       const response = await addDirectMsg(msgObjComplete);
       dispatch({ type: "ADD_DI_MSG", payload: response.data });
-      console.log(response.data);
+      
     } catch (err) {
       console.log(err);
     }
@@ -84,25 +83,24 @@ export const CommentsProvider = ({ children }) => {
     }
   }
 
-  /*****GET SOMETHING */
-  //getUserDirectMsgs
   async function getAllConversations(convObj) {
     try {
-      const response = await getConversations(convObj); //
+      const response = await getConversations(convObj);
       dispatch({ type: "ALL_CONVERSATIONS", payload: response.data });
     } catch (err) {
       console.log(err);
     }
   }
 
-  /* async function getDirectMsgs(msgsObj) {
+  async function getDirectMsgs(conversationId) {
     try {
-      const response = await getUserDirectMsgs(msgsObj);
+      const response = await getUserDirectMsgs(conversationId);
       dispatch({ type: "ALL_DI_MSGS", payload: response.data });
     } catch (err) {
       console.log(err);
     }
-  } */
+  }
+  
   async function getAllComments() {
     try {
       const response = await allComments();
@@ -127,6 +125,7 @@ export const CommentsProvider = ({ children }) => {
     }
   }
 
+
   const value = {
     addAComment,
     getAllComments,
@@ -137,8 +136,8 @@ export const CommentsProvider = ({ children }) => {
     getReviews,
     addADirectMsg,
     directMsg: state.directMsg,
-    /* getDirectMsgs, */
-    /* allDirectMsgs: state.allDirectMsgs, */
+    getDirectMsgs,
+    allDirectMsgs: state.allDirectMsgs,
     getAllConversations,
     allConversations: state.allConversations,
   };

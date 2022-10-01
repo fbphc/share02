@@ -1,47 +1,25 @@
 import boardComment from "../models/boardComment.js";
 import reviewModel from "../models/reviewModel.js";
 import userApp from "../models/userApp.js";
-import myMsgs from "../models/directMessage.js";
+import myConversation from "../models/directMessage.js";
 
 const getConversations = async (req, res) => {
-  // us id 19
   const { userId } = req.body;
 
-  const userProfile = await userApp.find({ id: userId });
-  const userConv = userProfile[0].conversation;
-  console.log(userConv);
-  try {
-    res.status(200).json(userConv);
-  } catch (err) {
-    res.status(400).json(err);
-  }
+  const user = await userApp
+    .findOne({ id: userId }, (err, doc) => {
+      if (err) return res.status(400).json(err);
+      else {
+        const sortedConv = doc.activeConversation.sort(
+          (a, b) => b.updatedAt - a.updatedAt
+        );
+
+        res.status(200).json(sortedConv);
+      }
+    })
+    .clone();
 };
 
-/* const getDirectMsgs = async (req, res) => {
-  const { userId, selector } = req.body;
-  console.log(selector);
-  //inbox,new,sent
-  try {
-    const allMsgs = await directMessage
-      .find()
-      .populate("receiver")
-      .populate("sender");
-
-    const allUserMsgs = allMsgs.filter(
-      (item) => item.sender[0].id === userId || item.receiver[0].id === userId
-    );
-    let msgsArray = [];
-    if (selector === "inbox")
-      msgsArray = allUserMsgs.filter((item) => item.receiver[0].id === userId);
-    //if(selector === "new")  // if sel = new -> filter inbox return items.isNew = false
-    if (selector === "sent")
-      msgsArray = allUserMsgs.filter((item) => item.sender[0].id === userId);
-
-    res.status(200).json(msgsArray);
-  } catch (err) {
-    res.status(400).json(err);
-  }
-}; */
 const getAllComments = async (req, res) => {
   try {
     const response = await boardComment.find().populate("author");
@@ -71,97 +49,152 @@ const getReviews = async (req, res) => {
   }
 };
 
-const addADirectMsg = async (req, res) => {
-  const { directMsg, senderId, receiverId, createdAt, dateNow } = req.body;
-  /* const allDirectMsgs = await directMessage.find();
-
-  const directMsgId =
-    allDirectMsgs.reduce((a, b) => {
-      return Math.max(a, b.directMsgId);
-    }, 0) + 1; */
-  const sender = await userApp.find({ id: senderId });
-  const receiver = await userApp.find({ id: receiverId });
-
-  const newDirectMessage = await myMsgs.create({
-    senderName: sender[0].username,
-    sender: sender[0]._id.toString(),
-    receiverName: receiver[0].username,
-    receiver: receiver[0]._id.toString(),
-    directMsg,
-    /* directMsgId, */
-    createdAt,
-    dateNow,
-  });
-
-  let toString;
-  const conv = sender[0].conversation.map((item) => {
-    if (item.receiverObjID.toString() === receiver[0]._id.toString()) {
-      return (toString = receiver[0]._id);
-    }
-  });
-
-  if (sender[0].conversation.length === 0 || toString === undefined) {
-    newConv();
-    return toString = undefined
-  } else {
-    notNewConv();
-    return toString = undefined
-  }
-  //1664189743623
-  async function newConv() {
-    const xxx = await userApp.findOneAndUpdate(
-      { id: senderId },
-      {
-        $push: {
-          conversation: {
-            receiverObjID: receiver[0]._id,
-            receiverName: receiver[0].username,
-            updatedOn: Date.now(),
-            createdAt,
-            dateNow,
-          },
-        },
-      },
-      { new: true }
-    );
-  }
-
-  async function notNewConv() {
-    const yyy = await userApp.findOneAndUpdate(
-      { "conversation.receiverObjID": toString },
-      {
-        $set: {
-          "conversation.$.updatedOn": Date.now(),
-        },
-      }
-    );
-  }
-};
-
-/*  async function notNewConv(newReceiverObjID) {
-    const xxx = await userApp.findOneAndUpdate(
-      { id: senderId, receiverObjID: newReceiverObjID },
-      {
-        $set: {
-          conversation: {
-            receiverObjID: receiver[0]._id,
-            receiverName: receiver[0].username,
-            updatedOn:  Date.now(),
-            createdAt: createdAt,
-            dateNowv: dateNow,
-          }
-        },
-      },
-      { new: true }
-    );
-  }
+async function getDirectMsgs(req, res) {
+  const { conversationId } = req.body;
 
   try {
-    res.json(newDirectMessage);
+    const conversation = await myConversation.findOne({ _id: conversationId });
+    const sortedConv = conversation.messagesArray.sort(
+      (a, b) => b.creationTime - a.creationTime
+    );
+
+    const users = await userApp.find({
+      id: { $in: [conversation.senderId, conversation.receiverId] },
+    });
+    const response = {
+      sortedConv,
+      firId: users[0].id,
+      firName: users[0].username,
+      firImgProfile: users[0].imgProfile,
+      secId: users[1].id,
+      secName: users[1].username,
+      secImgProfile: users[1].imgProfile,
+    };
+    console.log(response);
+    res
+      .status(200)
+      .json(response);
   } catch (err) {
     res.status(400).json(err);
   }
-}; */
+}
+
+async function addADirectMsg(req, res) {
+  const { directMsg, senderId, receiverId, createdAt, dateNow } = req.body;
+
+  /*   console.log("my data", directMsg, senderId, receiverId, createdAt, dateNow); */
+
+  const receiverName = await userApp.findOne({ id: receiverId });
+  const senderName = await userApp.findOne({ id: senderId });
+
+  /* console.log("userNAme", receiverName.username); */
+  try {
+    myConversation.find(
+      {
+        $or: [
+          { senderId, receiverId },
+          { senderId: receiverId, receiverId: senderId },
+        ],
+      },
+      (err, doc) => {
+        if (err) return console.log("error", err);
+        else {
+          if (doc.length === 0) {
+            const newMessages = new myConversation({
+              createdAt,
+              senderId,
+              receiverId,
+              updatedAt: Date.now(),
+              dateNow: dateNow,
+              messagesArray: [
+                {
+                  messageText: directMsg,
+                  creationTime: Date.now(),
+                  currentMessageSender: senderId,
+                },
+              ],
+            });
+            newMessages.save((err, doc) => {
+              if (err) return console.log("err", err);
+
+              userApp.updateMany(
+                { $or: [{ id: senderId }, { id: receiverId }] },
+                {
+                  $push: {
+                    activeConversation: {
+                      conversationId: doc._id,
+                      updatedAt: Date.now(),
+                      senderId,
+                      receiverId,
+                      receiverName: receiverName.username,
+                      senderName: senderName.username,
+                      dateNow,
+                    },
+                  },
+                },
+                (err, doc) => {
+                  if (err) return console.log(("err", err));
+                  else console.log("doc", doc);
+                }
+              );
+            });
+          }
+          // if there was an ongoing conversation between both users
+          else {
+            /*  console.log("a conversation already with id", doc[0]._id); */
+            myConversation.findByIdAndUpdate(
+              { _id: doc[0]._id },
+              {
+                updatedAt: Date.now(),
+                $push: {
+                  messagesArray: {
+                    messageText: directMsg,
+                    creationTime: Date.now(),
+                    dateNow: dateNow,
+                    currentMessageSender: senderId,
+                  },
+                },
+              },
+              (err, doc) => {
+                if (err)
+                  return console.log(
+                    "error whiled updating messages collection",
+                    err
+                  );
+                /*  console.log("doc on updating messages collection", doc); */
+
+                // At this point i am searching both the users and filtering their conversation according to the conversation id and then modifying the updated at
+                userApp.updateMany(
+                  {
+                    $or: [{ id: senderId }, { id: receiverId }],
+                    "activeConversation.conversationId": doc._id,
+                  },
+                  {
+                    $set: { "activeConversation.$.updatedAt": Date.now() },
+                  },
+                  (err, doc) => {
+                    if (err)
+                      return console.log(
+                        "err occured while updating userprofile conversations",
+                        err
+                      );
+                    /*  console.log(
+                      "Document of both users updated successfully",
+                      doc
+                    ); */
+                  }
+                );
+              }
+            );
+          }
+        }
+      }
+    );
+  } catch (err) {
+    res.status(400).json(err);
+  }
+}
+
 const addAComment = async (req, res) => {
   try {
     const { comment, userId, createdAt, dateNow } = req.body;
@@ -228,6 +261,6 @@ export {
   addAReview,
   getReviews,
   addADirectMsg,
-  /* getDirectMsgs, */
   getConversations,
+  getDirectMsgs,
 };

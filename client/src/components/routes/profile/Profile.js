@@ -5,9 +5,10 @@ import noPhoto from "../../../img/noPhoto.png";
 import NotAuthorized from "../../error/NotAuthorized.js";
 import EditProfile from "../profile/EditProfile.js";
 import MyReviews from "./MyReviews.js";
-import DirectMessages from "../../directMessages/DirectMessages.js";
+
 
 import { MainButton, ImageStyled, ProfileImgDivStyled, ImgStyled } from "../../../components.styled/styledComponents.js";
+import Conversations from "../../directMessages/Conversations.js";
 
 function Profile() {
   const { isAuthenticated, getProfileInfo, userInfo } = useAuth();
@@ -70,6 +71,14 @@ function Profile() {
                   <p>{userInfo.email}</p>
                 </div>
                 {userInfo.isOwner && (
+                <div className="d-flex justify-content-between border-bottom border-light darkText">
+                <p>Availability:</p>
+                <p>
+                  {userInfo.availability}
+                </p>
+              </div>
+              )}
+                {userInfo.isOwner && (
                   <div className="d-flex justify-content-between border-bottom border-light">
                     <p>Address</p>
                     <p>
@@ -103,7 +112,7 @@ function Profile() {
               {msgToggle ? <MainButton onClick={() => setMsgToggle(false)} value="messages">
                 Hide Messages
               </ MainButton> : <MainButton onClick={mainToggle} value="messages">
-                Show Messages
+               Show Messages
               </MainButton>}
             </div>
           </>
@@ -115,7 +124,7 @@ function Profile() {
         <EditProfile editToggle={editToggle} setEditToggle={setEditToggle} />
       )}
       {reviewToggle && <MyReviews userInfo={userInfo} />}
-      {msgToggle && <DirectMessages />}
+      {msgToggle && <Conversations />}
     </div>
   );
 }
