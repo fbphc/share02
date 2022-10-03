@@ -147,7 +147,7 @@ export default function NavBar() {
                 </BurgerLinkStyled>
               </Link>
 
-              <Link
+             {isAuthenticated && <Link
                 className="text-dark text-decoration-none"
                 onClick={closeMenu}
                 to="germany"
@@ -156,7 +156,7 @@ export default function NavBar() {
                   <GoPlug className="me-2" />
                   Map
                 </BurgerLinkStyled>
-              </Link>
+              </Link>}
               {isAuthenticated && 
               <Link
               className="text-dark text-decoration-none"

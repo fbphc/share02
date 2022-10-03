@@ -6,6 +6,7 @@ import MainMapComp from "../mainMap/MainMapComp.js";
 import ModalSearchRoute from "./ModalSearchRoute.js";
 import useAuth from "../../../context/authContext/useAuth.js";
 import { MainButton } from "../../../components.styled/styledComponents.js";
+import NotAuthorized from "../../error/NotAuthorized.js";
 
 function MainMap() {
   const { isAuthenticated } = useAuth();
@@ -18,6 +19,7 @@ function MainMap() {
 
   return (
     <>
+    {isAuthenticated ? <>
       <div className="w-75 text-light">
         <div className="mt-3 mx-2">
           <MainButton onClick={toggle}>Calculate Route </MainButton>
@@ -63,6 +65,8 @@ function MainMap() {
       <div>
         <ModalSearchRoute modal={modal} toggle={toggle} />
       </div>
+      </>
+  : <NotAuthorized />}
     </>
   );
 }

@@ -15,7 +15,6 @@ import useAuth from "../../../context/authContext/useAuth.js";
 
 import noPhoto from "../../../img/noPhoto.png";
 import route2 from "../../../img/route2.png";
-import { FaRoute } from "react-icons/fa";
 
 import { ImageStyled, ImgStyled, PopupImgDivStyled } from "../../../components.styled/styledComponents"
 
@@ -36,6 +35,7 @@ function MainMapComp({ chargerFilter }) {
 
   return (
     <>
+    
       <div className="border rounded border-2">
         <MapContainer
           center={center}
@@ -49,7 +49,6 @@ function MainMapComp({ chargerFilter }) {
                 position={[item.latitude, item.longitude]}
                 key={idx + "marker"}
               >
-                {/* A BIT OF BOOTSTRAP-STYLING for the POP-UP*/}
                 <Popup>
                   <PopupImgDivStyled>
                     <Link
@@ -115,6 +114,7 @@ function MainMapComp({ chargerFilter }) {
           <LocationMarker />
         </MapContainer>
       </div>
+       
     </>
   );
 }
