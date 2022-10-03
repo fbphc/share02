@@ -3,6 +3,17 @@ import { Image } from "cloudinary-react";
 import { PaginationLink } from "reactstrap";
 import { Link } from "react-router-dom";
 
+
+
+export const ContactImgDiv = styled.div`
+width: 10rem;
+height: 10rem;
+border-radius: 50%;
+border: 2px solid var(--danger-color);
+margin: 2rem 3rem 1rem;
+`
+
+
 export const ParDisplayStyled = styled.p`
 text-align: center;
 font-size: 1.4rem;
