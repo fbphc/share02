@@ -1,8 +1,7 @@
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
-import { Image } from "cloudinary-react";
+import React, { useEffect, useState } from "react";
 import useComments from "../../../context/commentsContext/useComments";
 import useAuth from "../../../context/authContext/useAuth";
+import Pages from "../../pagination/Pages";
 
 import noPhoto from "../../../img/noPhoto.png";
 
@@ -14,6 +13,20 @@ function MyReviews({ userInfo }) {
 
   const { getReviews, allReviews } = useComments();
   const { getProfileInfo } = useAuth();
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [commentsPerPage] = useState(5);
+
+  const indexOfLastComment = currentPage * commentsPerPage;
+  const indexOfFirstComment = indexOfLastComment - commentsPerPage;
+  const currentReviews = allReviews.slice(
+    indexOfFirstComment,
+    indexOfLastComment
+  );
+
+  const numberOfPages = Math.ceil(allReviews.length / commentsPerPage);
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   useEffect(() => {
     if (localStorage.getItem("user")) {
       getReviews(userInfo.id);
@@ -23,7 +36,7 @@ function MyReviews({ userInfo }) {
 
   return (
     <>
-      {allReviews.map((item, idx) => {
+      {currentReviews.map((item, idx) => {
         return (
           <MainMsgDivStyled className="my-3 w-75" key={idx + "comment"}>
             <Row
@@ -64,6 +77,9 @@ function MyReviews({ userInfo }) {
           </MainMsgDivStyled>
         );
       })}
+      <div className="mt-5">
+        <Pages paginate={paginate} numberOfPages={numberOfPages} pages={allReviews} />
+      </div>
     </>
   );
 }

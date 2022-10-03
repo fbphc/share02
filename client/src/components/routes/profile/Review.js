@@ -38,7 +38,7 @@ function Review() {
 
   /** */
   const [currentPage, setCurrentPage] = useState(1);
-  const [commentsPerPage] = useState(3);
+  const [commentsPerPage] = useState(5);
 
   const indexOfLastComment = currentPage * commentsPerPage;
   const indexOfFirstComment = indexOfLastComment - commentsPerPage;

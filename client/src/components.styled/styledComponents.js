@@ -225,3 +225,11 @@ export const ImgStyled = styled.img`
   padding:0.2rem;
 `;
 
+export const LogoStyled = styled.div`
+  width: 50%;
+  padding: 0 1rem;
+  @media (min-width: 1000px) {
+    width: 25%;
+    padding: 0 0.5rem;
+  }
+`
