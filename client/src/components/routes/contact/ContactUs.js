@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { Form, FormGroup, Input } from "reactstrap";
 import emailjs from "@emailjs/browser";
+import fabPro from "../../../img/fabPro.jpg";
+import isrPro from "../../../img/isrPro.jpeg";
+import wilPro from "../../../img/wilPro.jpeg";
 
-import { MainButton } from "../../../components.styled/styledComponents";
+import { MainButton, ContactImgDiv, ImgStyled } from "../../../components.styled/styledComponents";
 
 export default function ContactUs() {
   const [value, setValue] = useState({});
@@ -37,10 +40,10 @@ export default function ContactUs() {
   };
 
   return (
-    <div className="text-light p-3 d-flex flex-column gap-5">
+    <div className="text-light p-2 d-flex flex-column gap-4">
       <div className="p-3 ">
-        <p className="h1 text-center titles ">Contact US</p>
-        <div className="text-wrap text-center">
+        <p className="h1 text-center">Contact Us</p>
+        <div className="text-center">
           <p>
             Please get in touch, and our expert support team will answer all
             your questions.
@@ -86,41 +89,40 @@ export default function ContactUs() {
           </div>
         </Form>
       </div>
-      <div className="d-flex flex-column align-items-center gap-2 p-3">
-        <p className="w-75 text-center">
-          Meet our brilliant and knowledgeable support team{" "}
+      <div className="d-flex flex-column align-items-center gap-1 p-2">
+        <p className="w-75 text-center h5">
+          Meet our brilliant and knowledgeable support team
         </p>
         <div className=" d-flex justify-content-center flex-wrap">
           <div>
-            <div className="d-flex flex-column align-items-center">
-              <img
-                className="teamPicture rounded-circle w-25"
-                src="https://media-exp1.licdn.com/dms/image/D4D35AQE1HotOGs040g/profile-framedphoto-shrink_400_400/0/1651757138417?e=1663758000&v=beta&t=xAyleQs-Xc2ZhsMiZZWbPDmpF68tnGRAa_qvJ8jIWjU"
-                alt=""
+            <ContactImgDiv>
+              <ImgStyled
+                src={fabPro}
+                alt="Fabio Petrella"
               />
-              <p className="pt-3">Fabio Petrella</p>
-            </div>
+            </ContactImgDiv>
+              <p className="text-center h4">Fabio Petrella</p>
           </div>
           <div>
-            <div className="d-flex flex-column align-items-center">
-              <img
-                className="teamPicture rounded-circle w-25"
-                src="https://media-exp1.licdn.com/dms/image/D4E35AQF2Xa4r9w-pAQ/profile-framedphoto-shrink_400_400/0/1652795569722?e=1664316000&v=beta&t=PUV2XdBtLctASFI9Xq9ZZzQXh6yRBWN5PM0DqB_VAZk"
-                alt=""
+          <ContactImgDiv>
+              <ImgStyled
+                src={isrPro}
+                alt="Isra Gonzalez"
               />
-              <p className="pt-3">Isra Gonzalez</p>
-            </div>
+              </ContactImgDiv>
+              <p className="text-center h4">Isra Gonzalez</p>
           </div>
           <div>
-            <div className="d-flex flex-column align-items-center">
-              <img
-                className="teamPicture rounded-circle w-25"
-                src="https://media-exp1.licdn.com/dms/image/D4E35AQGy6gx3t6g67A/profile-framedphoto-shrink_400_400/0/1656620607091?e=1663758000&v=beta&t=NJwnHRVfpEFwTpkB5o09j3u3HDJikuph7fauqzrnnO4"
-                alt=""
+          <ContactImgDiv>
+              <ImgStyled
+                src={wilPro}
+                alt="William Mallak"
               />
-              <p className="pt-3">William Mallak</p>
+              </ContactImgDiv>
+
+              <p className="text-center h4">William Mallak</p>
             </div>
-          </div>
+          
         </div>
       </div>
     </div>
