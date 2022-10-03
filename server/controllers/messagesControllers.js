@@ -71,9 +71,7 @@ async function getDirectMsgs(req, res) {
       secImgProfile: users[1].imgProfile,
     };
     console.log(response);
-    res
-      .status(200)
-      .json(response);
+    res.status(200).json(response);
   } catch (err) {
     res.status(400).json(err);
   }
@@ -106,13 +104,15 @@ async function addADirectMsg(req, res) {
               receiverId,
               updatedAt: Date.now(),
               dateNow: dateNow,
+              receiverName: receiverName.username,
+              senderName: senderName.username,
               messagesArray: [
                 {
                   messageText: directMsg,
                   creationTime: Date.now(),
                   currentMessageSender: senderId,
                 },
-              ],
+              ], 
             });
             newMessages.save((err, doc) => {
               if (err) return console.log("err", err);
@@ -128,7 +128,7 @@ async function addADirectMsg(req, res) {
                       receiverId,
                       receiverName: receiverName.username,
                       senderName: senderName.username,
-                      dateNow,
+                      dateNow: dateNow,
                     },
                   },
                 },
