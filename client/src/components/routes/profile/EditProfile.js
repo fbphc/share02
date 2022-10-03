@@ -107,7 +107,7 @@ function EditProfile({ editToggle, setEditToggle }) {
           role="button"
         />
       </ModalHeader>
-      <ModalBody className="secondary">
+      <ModalBody className="secondary darkText">
         <Form>
           <div onChange={(e) => registerFormHandler(e)}>
             <FormGroup>
@@ -164,7 +164,7 @@ function EditProfile({ editToggle, setEditToggle }) {
               <>
                 <div onChange={(e) => registerFormHandler(e)}>
                   <FormGroup>
-                    <Label>type of charger</Label>
+                    <Label><b>Type of charger</b></Label>
                     <Input name="typeOfCharger" type="select" bsSize="large">
                       <option value="Type 1">Type 1</option>
                       <option value="Type 2">Type 2</option>
@@ -173,7 +173,7 @@ function EditProfile({ editToggle, setEditToggle }) {
                     </Input>
                   </FormGroup>
                   <FormGroup>
-                    <Label>availability</Label>
+                    <Label><b>Availability</b></Label>
                     <Input name="availability" type="select" bsSize="3">
                       <option value="whole_week">Whole Week</option>
                       <option value="not_weekend">Not on the Weekend</option>
@@ -182,7 +182,7 @@ function EditProfile({ editToggle, setEditToggle }) {
                   </FormGroup>
                 </div>
 
-                <div onChange={(e) => addressHandler(e)}>
+                <div onChange={(e) => addressHandler(e)} >
                   <Label className="">
                     {" "}
                     <b>Address</b>

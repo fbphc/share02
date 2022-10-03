@@ -288,7 +288,7 @@ export default function Register({ modalRegister, toggleRegister, closeMenu }) {
                     onClick={() => show_hidePassword("password")}
                   />
                 )}
-                {error.password && <p>{error.password}</p>}
+                {error.password && <p className="darkText">{error.password}</p>}
               </FormGroup>
               <FormGroup style={{ position: "relative" }}>
                 <Input
@@ -318,7 +318,7 @@ export default function Register({ modalRegister, toggleRegister, closeMenu }) {
                   />
                 )}
               </FormGroup>
-              {error.confirmPassword && <p>{error.confirmPassword}</p>}
+              {error.confirmPassword && <p className="darkText">{error.confirmPassword}</p>}
               <FormGroup>
                 <Input type="tel" name="telNumber" placeholder="Phone Number" />
               </FormGroup>
@@ -326,9 +326,9 @@ export default function Register({ modalRegister, toggleRegister, closeMenu }) {
 
             {registerToggle && (
               <>
-                <div onChange={(e) => registerFormHandler(e)}>
+                <div onChange={(e) => registerFormHandler(e)} className="darkText">
                   <FormGroup>
-                    <Label>type of charger</Label>
+                    <Label>Type of charger</Label>
                     <Input required name="typeOfCharger" type="select" bsSize="4">
                       <option value="Type 1">Type 1</option>
                       <option value="Type 2">Type 2</option>
@@ -346,9 +346,8 @@ export default function Register({ modalRegister, toggleRegister, closeMenu }) {
                   </FormGroup>
                 </div>
 
-                <div onChange={(e) => addressHandler(e)}>
-                  <Label className="">
-                    {" "}
+                <div onChange={(e) => addressHandler(e)}  className="darkText">
+                  <Label >
                     <b>Address</b>
                   </Label>
 
