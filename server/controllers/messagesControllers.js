@@ -111,6 +111,8 @@ async function addADirectMsg(req, res) {
                   messageText: directMsg,
                   creationTime: Date.now(),
                   currentMessageSender: senderId,
+              dateNow: dateNow,
+
                 },
               ], 
             });
