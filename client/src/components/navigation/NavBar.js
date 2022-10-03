@@ -18,7 +18,8 @@ import {
   ImageStyled,
   ImgStyled,
   BurgerImgDivStyled,
-  LinkStyled
+  LinkStyled,
+  LogoStyled
 } from "../../components.styled/styledComponents.js";
 
 export default function NavBar() {
@@ -56,9 +57,9 @@ export default function NavBar() {
 
   return (
     <div className="d-flex align-items-center justify-content-between dark position-sticky fixed-top">
-      <div className="w-25 px-2">
+      <LogoStyled>
         <img src={logosmall} className="w-25" alt="logo" />
-      </div>
+      </LogoStyled>
       <div className="d-flex align-items-center">
         {isAuthenticated && <AiFillCar className="h3 secondaryText mx-2" />}
         <button

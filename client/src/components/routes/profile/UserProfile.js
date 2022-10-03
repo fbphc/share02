@@ -79,7 +79,7 @@ function OwnerProfile() {
                   <p>Address:</p>
                   <p>
                     {userInfo.address.street}
-                    {userInfo.address.houseNr}, {userInfo.address.postalcode}{" "}
+                    {userInfo.address.houseNr}, {userInfo.address.postalcode}
                     <br></br>{userInfo.address.city}
                   </p>
                 </div>

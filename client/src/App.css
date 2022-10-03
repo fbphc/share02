@@ -57,3 +57,6 @@ body {
 .arrowCSS:hover {
   color: var(--danger-color);
 }
+.btn-close{
+  background-color: var(--dark-color);
+}

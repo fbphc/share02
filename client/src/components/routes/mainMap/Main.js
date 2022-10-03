@@ -30,10 +30,9 @@ function MainMap() {
           <FormGroup className="my-1 mx-1">
             <Input
               className="w-75"
-              bsSize="sm"
               name="typeOfCharger"
               type="select"
-              bsSize="5"
+              bsSize="sm"
               onChange={(e) =>
                 setChargerFilter({
                   ...chargerFilter,
