@@ -166,10 +166,10 @@ function EditProfile({ editToggle, setEditToggle }) {
                   <FormGroup>
                     <Label>type of charger</Label>
                     <Input name="typeOfCharger" type="select" bsSize="large">
-                      <option value="type01">Type 1</option>
-                      <option value="type02">Type 2</option>
-                      <option value="type03">CCS</option>
-                      <option value="type04">CHAdeMO</option>
+                      <option value="Type 1">Type 1</option>
+                      <option value="Type 2">Type 2</option>
+                      <option value="CCS">CCS</option>
+                      <option value="CHAdeMO">CHAdeMO</option>
                     </Input>
                   </FormGroup>
                   <FormGroup>

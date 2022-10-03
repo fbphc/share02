@@ -40,10 +40,10 @@ function MainMap() {
               }
             >
               <option value="all">All</option>
-              <option value="type01">Type 1</option>
-              <option value="type02">Type 2</option>
-              <option value="type03">CCS</option>
-              <option value="type03">CHAdeMO</option>
+              <option value="Type 1">Type 1</option>
+              <option value="Type 2">Type 2</option>
+              <option value="CCS">CCS</option>
+              <option value="CHAdeMO">CHAdeMO</option>
             </Input>
           </FormGroup>
         </div>

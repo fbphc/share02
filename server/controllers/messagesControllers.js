@@ -1,11 +1,28 @@
 import boardComment from "../models/boardComment.js";
 import reviewModel from "../models/reviewModel.js";
 import userApp from "../models/userApp.js";
+import myConversation from "../models/directMessage.js";
+
+const getConversations = async (req, res) => {
+  const { userId } = req.body;
+
+  const user = await userApp
+    .findOne({ id: userId }, (err, doc) => {
+      if (err) return res.status(400).json(err);
+      else {
+        const sortedConv = doc.activeConversation.sort(
+          (a, b) => b.updatedAt - a.updatedAt
+        );
+
+        res.status(200).json(sortedConv);
+      }
+    })
+    .clone();
+};
 
 const getAllComments = async (req, res) => {
   try {
     const response = await boardComment.find().populate("author");
-    console.log(response[0])
     response.map((item) => {
       item.imgProfile = item.author[0].imgProfile;
       item.username = item.author[0].username;
@@ -31,6 +48,152 @@ const getReviews = async (req, res) => {
     res.status(400).json(err);
   }
 };
+
+async function getDirectMsgs(req, res) {
+  const { conversationId } = req.body;
+
+  try {
+    const conversation = await myConversation.findOne({ _id: conversationId });
+    const sortedConv = conversation.messagesArray.sort(
+      (a, b) => b.creationTime - a.creationTime
+    );
+
+    const users = await userApp.find({
+      id: { $in: [conversation.senderId, conversation.receiverId] },
+    });
+    const response = {
+      sortedConv,
+      firId: users[0].id,
+      firName: users[0].username,
+      firImgProfile: users[0].imgProfile,
+      secId: users[1].id,
+      secName: users[1].username,
+      secImgProfile: users[1].imgProfile,
+    };
+    console.log(response);
+    res
+      .status(200)
+      .json(response);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+}
+
+async function addADirectMsg(req, res) {
+  const { directMsg, senderId, receiverId, createdAt, dateNow } = req.body;
+
+  /*   console.log("my data", directMsg, senderId, receiverId, createdAt, dateNow); */
+
+  const receiverName = await userApp.findOne({ id: receiverId });
+  const senderName = await userApp.findOne({ id: senderId });
+
+  /* console.log("userNAme", receiverName.username); */
+  try {
+    myConversation.find(
+      {
+        $or: [
+          { senderId, receiverId },
+          { senderId: receiverId, receiverId: senderId },
+        ],
+      },
+      (err, doc) => {
+        if (err) return console.log("error", err);
+        else {
+          if (doc.length === 0) {
+            const newMessages = new myConversation({
+              createdAt,
+              senderId,
+              receiverId,
+              updatedAt: Date.now(),
+              dateNow: dateNow,
+              messagesArray: [
+                {
+                  messageText: directMsg,
+                  creationTime: Date.now(),
+                  currentMessageSender: senderId,
+                },
+              ],
+            });
+            newMessages.save((err, doc) => {
+              if (err) return console.log("err", err);
+
+              userApp.updateMany(
+                { $or: [{ id: senderId }, { id: receiverId }] },
+                {
+                  $push: {
+                    activeConversation: {
+                      conversationId: doc._id,
+                      updatedAt: Date.now(),
+                      senderId,
+                      receiverId,
+                      receiverName: receiverName.username,
+                      senderName: senderName.username,
+                      dateNow,
+                    },
+                  },
+                },
+                (err, doc) => {
+                  if (err) return console.log(("err", err));
+                  else console.log("doc", doc);
+                }
+              );
+            });
+          }
+          // if there was an ongoing conversation between both users
+          else {
+            /*  console.log("a conversation already with id", doc[0]._id); */
+            myConversation.findByIdAndUpdate(
+              { _id: doc[0]._id },
+              {
+                updatedAt: Date.now(),
+                $push: {
+                  messagesArray: {
+                    messageText: directMsg,
+                    creationTime: Date.now(),
+                    dateNow: dateNow,
+                    currentMessageSender: senderId,
+                  },
+                },
+              },
+              (err, doc) => {
+                if (err)
+                  return console.log(
+                    "error whiled updating messages collection",
+                    err
+                  );
+                /*  console.log("doc on updating messages collection", doc); */
+
+                // At this point i am searching both the users and filtering their conversation according to the conversation id and then modifying the updated at
+                userApp.updateMany(
+                  {
+                    $or: [{ id: senderId }, { id: receiverId }],
+                    "activeConversation.conversationId": doc._id,
+                  },
+                  {
+                    $set: { "activeConversation.$.updatedAt": Date.now() },
+                  },
+                  (err, doc) => {
+                    if (err)
+                      return console.log(
+                        "err occured while updating userprofile conversations",
+                        err
+                      );
+                    /*  console.log(
+                      "Document of both users updated successfully",
+                      doc
+                    ); */
+                  }
+                );
+              }
+            );
+          }
+        }
+      }
+    );
+  } catch (err) {
+    res.status(400).json(err);
+  }
+}
 
 const addAComment = async (req, res) => {
   try {
@@ -92,4 +255,12 @@ const addAReview = async (req, res) => {
   }
 };
 
-export { getAllComments, addAComment, addAReview, getReviews };
+export {
+  getAllComments,
+  addAComment,
+  addAReview,
+  getReviews,
+  addADirectMsg,
+  getConversations,
+  getDirectMsgs,
+};

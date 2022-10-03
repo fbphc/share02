@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import userApp from "./userApp.js";
-const {Schema}= mongoose
+const { Schema } = mongoose;
 
 const boardCommentSchema = new mongoose.Schema(
   {
@@ -12,9 +12,8 @@ const boardCommentSchema = new mongoose.Schema(
     imgProfile: { type: String },
     createdAt: { type: String },
     dateNow: { type: Array },
-    commentId: {type: Number},
-    author: [{type: Schema.Types.ObjectId, ref:"userApp"}],
- 
+    commentId: { type: Number },
+    author: [{ type: Schema.Types.ObjectId, ref: "userApp" }],
   },
   { timestamps: true }
 );

@@ -12,20 +12,24 @@ const RoutingComp = createControlComponent(({ from, to }) => {
     lineOptions: {
       styles: [
         {
-          color: "#FFA822",
+          color: "#134e6f",
+          weight: 5,
         },
       ],
     },
     createMarker: function (i, start, n) {
       let marker_icon = null;
+      let text = "";
       if (i === 0) {
         // This is the first marker, indicating start
         marker_icon = L.icon({
           iconUrl: redPos,
           iconSize: [25, 42],
           iconAnchor: [14, 34],
-          popupAnchor: [38, 38],
+          popupAnchor: [0, -26],
+          bounceOnAdd: true,
         });
+        text = "Your Position";
       } else if (i === n - 1) {
         //This is the last marker indicating destination
         marker_icon = L.icon({
@@ -35,13 +39,14 @@ const RoutingComp = createControlComponent(({ from, to }) => {
           popupAnchor: [0, -26],
           bounceOnAdd: true,
         });
+        text = "Your Destination";
       }
       let marker = L.marker(start.latLng, {
         draggable: true,
         bounceOnAdd: false,
         icon: marker_icon,
       });
-      return marker.bindPopup("Your Destination" + i);
+      return marker.bindPopup(text);
     },
   });
 

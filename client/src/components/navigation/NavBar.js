@@ -158,22 +158,24 @@ export default function NavBar() {
                   Map
                 </BurgerLinkStyled>
               </Link>
-
+              {isAuthenticated && 
               <Link
-                className="text-dark text-decoration-none"
-                onClick={closeMenu}
-                to="board"
+              className="text-dark text-decoration-none"
+              onClick={closeMenu}
+              to="board"
               >
                 <BurgerLinkStyled>
                   <GoPlug className="me-2" />
                   Messages
                 </BurgerLinkStyled>
               </Link>
+              }
               <Link
                 className="text-dark text-decoration-none"
                 onClick={closeMenu}
                 to="contact"
               >
+
                 <BurgerLinkStyled>
                   <GoPlug className="me-2" />
                   Contact us

@@ -48,7 +48,6 @@ export default function ContactUs() {
         </div>
         <Form
           className="d-flex flex-column align-items-center w-100"
-          // ref={form}
           onSubmit={sendEmail}
           onChange={contactHandler}
         >

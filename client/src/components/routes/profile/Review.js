@@ -15,16 +15,16 @@ import {
   MainMsgDivStyled,
   MsgImgDivStyled,
   ImgStyled,
-  LinkStyled
-} from "../../../components.styled/styledComponents"
+  LinkStyled,
+} from "../../../components.styled/styledComponents";
+import NotAuthorized from "../../error/NotAuthorized";
 
 function Review() {
   const location = useLocation();
   const pathUrl = location.pathname;
 
   const { addAReview, getReviews, allReviews, state } = useComments();
-  const { getProfileInfo } = useAuth();
-
+  const { getProfileInfo, isAuthenticated } = useAuth();
 
   const initState = {
     fromUsername: "",
@@ -32,7 +32,6 @@ function Review() {
     review: "",
     toUserId: null,
   };
-
 
   const [review, setReview] = useState(initState);
 
@@ -52,14 +51,14 @@ function Review() {
   /** */
 
   useEffect(() => {
-    const pathEnd = +location.pathname.split("/userProfile/")[1]
+    const pathEnd = +location.pathname.split("/userProfile/")[1];
     getReviews(pathEnd);
   }, [state.review]);
 
   useEffect(() => {
     if (localStorage.getItem("user")) {
       const user = JSON.parse(localStorage.getItem("user"));
-      const pathEnd = +location.pathname.split("/userProfile/")[1]
+      const pathEnd = +location.pathname.split("/userProfile/")[1];
       setReview({
         ...review,
         fromUserId: user.id,
@@ -74,7 +73,6 @@ function Review() {
     setReview((prevState) => {
       return { ...prevState, review: e.target.value };
     });
-
   }
   function submit(e) {
     e.preventDefault();
@@ -83,26 +81,28 @@ function Review() {
   }
   return (
     <div className="w-75 mx-auto">
-      {JSON.parse(localStorage.getItem("user")).id !==
-        +pathUrl.split("/userProfile/")[1] && (
-          <Form onSubmit={submit}>
-            <div onChange={changeHandler}>
-              <FormGroup>
-                <Input
-                  className="mt-2"
-                  id="exampleText"
-                  name="text"
-                  type="textarea"
-                  placeholder="Add a Review"
-                  required
-                />
-              </FormGroup>
-            </div>
-            <div className="text-center mt-4">
-              <MainButton type="submit">Send</MainButton>
-            </div>
-          </Form>
-        )}
+      {localStorage.getItem("user")
+        ? JSON.parse(localStorage.getItem("user")).id !==
+            +pathUrl.split("/userProfile/")[1] && (
+            <Form onSubmit={submit}>
+              <div onChange={changeHandler}>
+                <FormGroup>
+                  <Input
+                    className="mt-2"
+                    id="exampleText"
+                    name="text"
+                    type="textarea"
+                    placeholder="Add a Review"
+                    required
+                  />
+                </FormGroup>
+              </div>
+              <div className="text-center mt-4">
+                <MainButton type="submit">Send</MainButton>
+              </div>
+            </Form>
+          )
+        : null}
       {currentReviews.map((item, idx) => {
         return (
           <MainMsgDivStyled className="my-3" key={idx + ""}>
@@ -145,7 +145,11 @@ function Review() {
         );
       })}
       <div className="mt-5">
-        <Pages paginate={paginate} numberOfPages={numberOfPages} pages={allReviews} />
+        <Pages
+          paginate={paginate}
+          numberOfPages={numberOfPages}
+          pages={allReviews}
+        />
       </div>
     </div>
   );

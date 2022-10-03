@@ -11,7 +11,7 @@ import { ProfileImgDivStyled, ImageStyled, ImgStyled, ProfileDataStyled, Profile
 
 
 function OwnerProfile() {
-  const { getProfileInfo, userInfo } = useAuth();
+  const { getProfileInfo, userInfo, isAuthenticated } = useAuth();
 
   const location = useLocation();
 
@@ -23,9 +23,12 @@ function OwnerProfile() {
     }
   }, [location.state.id]);
 
+
   return (
+    <>
+    {isAuthenticated ?
     <div>
-      {userInfo ? (
+     
         <>
           <ProfileContainerStyled>
             {userInfo.imgProfile && userInfo.imgProfile !== "no_photo" ? (
@@ -36,13 +39,14 @@ function OwnerProfile() {
                     publicId={userInfo.imgProfile}
                   />
                 </ProfileImgDivStyled>
-                <MessagesForm />
+                <MessagesForm userInfo={userInfo}/>
               </div>
             ) : (
               <div>
                 <ProfileImgDivStyled>
                   <ImgStyled src={noPhoto} alt="user" />
                 </ProfileImgDivStyled>
+                <MessagesForm userInfo={userInfo}/>
               </div>
             )}
             <ProfileDataStyled>
@@ -64,6 +68,14 @@ function OwnerProfile() {
               </div>
               {userInfo.isOwner && (
                 <div className="d-flex justify-content-between border-bottom border-light darkText">
+                <p>Availability:</p>
+                <p>
+                  {userInfo.availability}
+                </p>
+              </div>
+              )}
+              {userInfo.isOwner && (
+                <div className="d-flex justify-content-between border-bottom border-light darkText">
                   <p>Address:</p>
                   <p>
                     {userInfo.address.street}
@@ -72,6 +84,7 @@ function OwnerProfile() {
                   </p>
                 </div>
               )}
+             
               {userInfo.telNumber && (
                 <div className="d-flex justify-content-between border-bottom border-dark">
                   <p>Phone Number</p>
@@ -83,10 +96,11 @@ function OwnerProfile() {
 
           <Review />
         </>
-      ) : (
-        <NotAuthorized />
-      )}
-    </div>
+      
+      
+    </div> : <NotAuthorized/>}
+    </>
+    
   );
 }
 export default OwnerProfile;
