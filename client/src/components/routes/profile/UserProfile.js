@@ -86,7 +86,7 @@ function OwnerProfile() {
               )}
              
               {userInfo.telNumber && (
-                <div className="d-flex justify-content-between border-bottom border-dark">
+                <div className="d-flex justify-content-between border-bottom border-light darkText">
                   <p>Phone Number</p>
                   <p>{userInfo.telNumber}</p>
                 </div>

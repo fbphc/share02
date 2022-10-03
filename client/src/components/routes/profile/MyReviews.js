@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Pages from "../../pagination/Pages";
 import useComments from "../../../context/commentsContext/useComments";
 import useAuth from "../../../context/authContext/useAuth";
+import Pages from "../../pagination/Pages";
 
 import noPhoto from "../../../img/noPhoto.png";
 

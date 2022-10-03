@@ -33,7 +33,6 @@ function Conversations() {
 
   useEffect(() => {
     getDirectMsgs({ conversationId: dirMsgs });
-   
   }, [modal]);
 
   useEffect(() => {
@@ -64,6 +63,7 @@ function Conversations() {
     addADirectMsg(message);
     toggle();
   }
+console.log(allDirectMsgs)
   return (
     <Fade className="mx-auto w-75 mt-4 p-2">
       {allConversations.map((item, idx) => {
@@ -154,8 +154,8 @@ function Conversations() {
                       className="d-flex align-items-center border border-bottom-0 border-start-0 border-end-0 pt-3 mb-2"
                     >
                       <>
-                        {user.id === allDirectMsgs.secId ? (
-                          allDirectMsgs.firImgProfile === "no_photo" ? (
+                        {user.id === allDirectMsgs.firId ? (
+                          allDirectMsgs.secImgProfile === "no_photo" ? (
                             <>
                               <div>
                                 <DiMsgImgDivStyled>
@@ -174,7 +174,7 @@ function Conversations() {
                                 <DiMsgImgDivStyled>
                                   <ImageStyled
                                     cloudName="schoolgroupfinal"
-                                    publicId={allDirectMsgs.firImgProfile}
+                                    publicId={allDirectMsgs.secImgProfile}
                                   />
                                 </DiMsgImgDivStyled>
                                 <p className="my-auto ms-1 sm">
@@ -185,7 +185,7 @@ function Conversations() {
                               </div>
                             </>
                           )
-                        ) : allDirectMsgs.firImgProfile === "no_photo" ? (
+                        ) : allDirectMsgs.firImgProfile === "no_photo" ? ( // else
                           <>
                             <div>
                               <DiMsgImgDivStyled>
