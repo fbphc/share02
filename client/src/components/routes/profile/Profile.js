@@ -71,7 +71,7 @@ function Profile() {
                   <p>{userInfo.email}</p>
                 </div>
                 {userInfo.isOwner && (
-                <div className="d-flex justify-content-between border-bottom border-light darkText">
+                <div className="d-flex justify-content-between border-bottom border-light">
                 <p>Availability:</p>
                 <p>
                   {userInfo.availability}
@@ -90,7 +90,7 @@ function Profile() {
                 )}
               </div>
               {userInfo.telNumber && (
-                <div className="d-flex justify-content-between border-bottom border-dark">
+                <div className="d-flex justify-content-between border-bottom border-light">
                   <p>Phone Number</p>
                   <p>{userInfo.telNumber}</p>
                 </div>

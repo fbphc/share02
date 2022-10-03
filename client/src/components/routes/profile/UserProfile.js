@@ -50,24 +50,24 @@ function OwnerProfile() {
               </div>
             )}
             <ProfileDataStyled>
-              <div className="d-flex justify-content-between border-bottom border-light darkText">
+              <div className="d-flex justify-content-between border-bottom border-light">
                 <p>User Name:</p>
                 <p>{userInfo.username}</p>
               </div>
-              <div className="d-flex justify-content-between border-bottom border-light darkText">
+              <div className="d-flex justify-content-between border-bottom border-light">
                 <p>First Name:</p>
                 <p>{userInfo.fname}</p>
               </div>
-              <div className="d-flex justify-content-between border-bottom border-light darkText">
+              <div className="d-flex justify-content-between border-bottom border-light">
                 <p>Last Name:</p>
                 <p>{userInfo.lname}</p>
               </div>
-              <div className="d-flex justify-content-between border-bottom border-light darkText">
+              <div className="d-flex justify-content-between border-bottom border-light">
                 <p>Email:</p>
                 <p>{userInfo.email}</p>
               </div>
               {userInfo.isOwner && (
-                <div className="d-flex justify-content-between border-bottom border-light darkText">
+                <div className="d-flex justify-content-between border-bottom border-light">
                 <p>Availability:</p>
                 <p>
                   {userInfo.availability}

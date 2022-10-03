@@ -33,6 +33,7 @@ function Conversations() {
 
   useEffect(() => {
     getDirectMsgs({ conversationId: dirMsgs });
+    
   }, [modal]);
 
   useEffect(() => {
@@ -40,22 +41,19 @@ function Conversations() {
       const user = JSON.parse(localStorage.getItem("user"));
       setUser(user);
       getAllConversations({ userId: user.id });
-      setMessage({
-        directMsg: "",
-        senderId: user !== null ? user.id : null,
-        receiverId:
-          allDirectMsgs.firId === user.id
-            ? allDirectMsgs.secId
-            : allDirectMsgs.firId,
-      });
+      
     }
   }, []);
   
   function inputHandler(e) {
-    setMessage((prev) => ({
-      ...prev,
+    setMessage((prev)=>({
       directMsg: e.target.value,
-    }));
+      senderId: user !== null ? user.id : null,
+      receiverId:
+        allDirectMsgs.firId === user.id
+          ? allDirectMsgs.secId
+          : allDirectMsgs.firId,
+    }))
   }
   function submit(e) {
     
@@ -81,7 +79,7 @@ console.log(allDirectMsgs)
           </div>
         );
       })}
-      <Modal isOpen={modal} toggle={toggle} className="w-75">
+      <Modal isOpen={modal} toggle={toggle} fullscreen>
         <ModalHeader toggle={toggle}>Messages</ModalHeader>
         <ModalBody className="secondary darkText ">
           <div className="pb-3 border border-top-0 border-start-0 border-end-0">

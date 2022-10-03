@@ -15,9 +15,13 @@ import useAuth from "../../../context/authContext/useAuth.js";
 
 import noPhoto from "../../../img/noPhoto.png";
 import route2 from "../../../img/route2.png";
-import { FaRoute } from "react-icons/fa";
 
-import { ImageStyled, ImgStyled, PopupImgDivStyled } from "../../../components.styled/styledComponents"
+import {
+  ImageStyled,
+  ImgStyled,
+  PopupImgDivStyled,
+  RouteImgDivStyled,
+} from "../../../components.styled/styledComponents";
 
 function MainMapComp({ chargerFilter }) {
   const { isAuthenticated } = useAuth();
@@ -45,73 +49,68 @@ function MainMapComp({ chargerFilter }) {
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
           {isAuthenticated
             ? locations.map((item, idx) => (
-              <Marker
-                position={[item.latitude, item.longitude]}
-                key={idx + "marker"}
-              >
-                {/* A BIT OF BOOTSTRAP-STYLING for the POP-UP*/}
-                <Popup>
-                  <PopupImgDivStyled>
-                    <Link
-                      to={`/userProfile/${item.id}`}
-                      state={{ id: item.id }}
-                    >
-                      {item.imgProfile && item.imgProfile !== "no_photo" ? (
-                        <ImageStyled
-                          cloudName="schoolgroupfinal"
-                          publicId={item.imgProfile}
-                        />
-                      ) : (
-                        <ImgStyled
-                          src={noPhoto}
-                          alt="user"
-                        />
+                <Marker
+                  position={[item.latitude, item.longitude]}
+                  key={idx + "marker"}
+                >
+                  <Popup>
+                    <PopupImgDivStyled>
+                      <Link
+                        to={`/userProfile/${item.id}`}
+                        state={{ id: item.id }}
+                      >
+                        {item.imgProfile && item.imgProfile !== "no_photo" ? (
+                          <ImageStyled
+                            cloudName="schoolgroupfinal"
+                            publicId={item.imgProfile}
+                          />
+                        ) : (
+                          <ImgStyled src={noPhoto} alt="user" />
+                        )}
+                      </Link>
+                    </PopupImgDivStyled>
+                    <div className="text-center mx-auto h5">
+                      <p>
+                        <b>{item.username}</b>
+                      </p>
+                      <p>{item.typeOfCharger}</p>
+                      {startPoint !== null && (
+                        <Link
+                          to="/calc_route"
+                          onClick={(e) =>
+                            getCoordinates({
+                              lat: item.latitude,
+                              lng: item.longitude,
+                            })
+                          }
+                        >
+                          <RouteImgDivStyled>
+                            <ImgStyled src={route2} alt="route" />
+                          </RouteImgDivStyled>
+                        </Link>
                       )}
-                    </Link>
-                  </PopupImgDivStyled>
-                  <div className="text-center mx-auto h5">
-                    <p>
+                    </div>
+                  </Popup>
+                </Marker>
+              ))
+            : locations.map((item, idx) => (
+                <CircleMarker
+                  center={[item.latitude, item.longitude]}
+                  pathOptions={{
+                    fillColor: "blue",
+                    fillOpacity: 0.6,
+                    color: "lightblue",
+                  }}
+                  radius={10}
+                  key={idx + "marker"}
+                >
+                  <Popup>
+                    <p className="text-center">
                       <b>{item.username}</b>
                     </p>
-                    <p>{item.typeOfCharger}</p>
-                    {startPoint !== null && (
-                      <Link
-                        to="/calc_route"
-                        onClick={(e) =>
-                          getCoordinates({
-                            lat: item.latitude,
-                            lng: item.longitude,
-                          })
-                        }
-                      >
-                        <ImgStyled
-                          src={route2}
-                          alt="route"
-                        />
-                      </Link>
-                    )}
-                  </div>
-                </Popup>
-              </Marker>
-            ))
-            : locations.map((item, idx) => (
-              <CircleMarker
-                center={[item.latitude, item.longitude]}
-                pathOptions={{
-                  fillColor: "blue",
-                  fillOpacity: 0.6,
-                  color: "lightblue",
-                }}
-                radius={10}
-                key={idx + "marker"}
-              >
-                <Popup>
-                  <p className="text-center">
-                    <b>{item.username}</b>
-                  </p>
-                </Popup>
-              </CircleMarker>
-            ))}
+                  </Popup>
+                </CircleMarker>
+              ))}
           <LocationMarker />
         </MapContainer>
       </div>

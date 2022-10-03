@@ -57,7 +57,6 @@ async function getDirectMsgs(req, res) {
     const sortedConv = conversation.messagesArray.sort(
       (a, b) => b.creationTime - a.creationTime
     );
-
     const users = await userApp.find({
       id: { $in: [conversation.senderId, conversation.receiverId] },
     });
@@ -70,7 +69,6 @@ async function getDirectMsgs(req, res) {
       secName: users[1].username,
       secImgProfile: users[1].imgProfile,
     };
-    console.log(response);
     res.status(200).json(response);
   } catch (err) {
     res.status(400).json(err);
@@ -80,12 +78,14 @@ async function getDirectMsgs(req, res) {
 async function addADirectMsg(req, res) {
   const { directMsg, senderId, receiverId, createdAt, dateNow } = req.body;
 
-  /*   console.log("my data", directMsg, senderId, receiverId, createdAt, dateNow); */
+    console.log("my data", directMsg, senderId, receiverId, createdAt, dateNow);
 
   const receiverName = await userApp.findOne({ id: receiverId });
   const senderName = await userApp.findOne({ id: senderId });
 
-  /* console.log("userNAme", receiverName.username); */
+  console.log("receiver", receiverName.username);
+  console.log("sender", receiverName.username);
+
   try {
     myConversation.find(
       {
