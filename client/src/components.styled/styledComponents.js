@@ -40,17 +40,25 @@ export const ProfileImgDivStyled = styled.div`
   }
 `;
 export const PopupImgDivStyled = styled.div`
-  width: 5rem;
-  height: 5rem;
+  width: 4rem;
+  height: 4rem;
   border: 5px solid var(--dark-color);
   border-radius: 50%;
   margin: 1.5rem auto 0;
 `
 
+export const RouteImgDivStyled = styled.div`
+  width: 5rem;
+  height: 5rem;
+  border: 2px solid var(--dark-color);
+  border-radius: 50%;
+  margin: 0 auto;
+  `
 export const ProfileDataStyled = styled.div`
   width: 100%;
   margin-left: 2.5rem;
   padding-top: 2.5rem;
+  color: var(--dark-color);
   @media (max-width: 800px) {
     margin: 0 auto;
   }

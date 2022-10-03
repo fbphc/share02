@@ -36,7 +36,7 @@ function MyReviews({ userInfo }) {
 
   return (
     <>
-      {allReviews.length === 0 ? <p className="text-center h2 mt-3">You have no reviews</p> : allReviews.map((item, idx) => {
+      {currentReviews.length === 0 ? <p className="text-center h2 mt-3">You have no reviews</p> : currentReviews.map((item, idx) => {
         return (
           <MainMsgDivStyled className="my-3 w-75" key={idx + "comment"}>
             <Row
