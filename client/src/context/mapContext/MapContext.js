@@ -48,7 +48,6 @@ const navigate =  useNavigate()
   }
 
   function routeCoordiantes(routeForm) {
-
     (async function(){
       const startPoint = await axios.get(
         `http://api.positionstack.com/v1/forward?access_key=${process.env.REACT_APP_POS_STACK_API}&query=${routeForm.fromHouseNr}%20${routeForm.fromStreet}%20${routeForm.fromTypeOfStreet},%20${routeForm.fromCity}%20DE`
