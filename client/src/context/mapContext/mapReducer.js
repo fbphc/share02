@@ -33,7 +33,6 @@ const mapReducer = (state, action) => {
       };
     }
     case "CALC_ROUTE":{
-      console.log(payload)
       return{
         ...state,
         startPoint:{lat: payload.startLat_Long.lat, lng: payload.startLat_Long.long},

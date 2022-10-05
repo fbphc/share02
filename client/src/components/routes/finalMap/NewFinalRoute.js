@@ -24,6 +24,7 @@ function FinalRoute() {
   const [newPosition, setNewPosition] = useState();
   const [newEndPoint, setNewEndPoint] = useState();
   const center = newPosition;
+  console.log(newPosition);
 
   useEffect(() => {
     ownerArray("all");
@@ -31,7 +32,7 @@ function FinalRoute() {
       const actualPosition = localStorage.getItem("position");
       const parsedPos = JSON.parse(actualPosition);
       setNewPosition(parsedPos);
-      
+  
       if (localStorage.getItem("goalpoint")) {
       const goalpoint = localStorage.getItem("goalpoint");
       console.log(JSON.parse(goalpoint));

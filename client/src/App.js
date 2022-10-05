@@ -18,6 +18,8 @@ import EditProfile from "./components/routes/profile/EditProfile.js";
 // routes-maps
 import Main from "./components/routes/mainMap/Main.js";
 import FinalRoute from "./components/routes/finalMap/FinalRoute.js";
+import NewFinalRoute from "./components/routes/finalMap/NewFinalRoute.js";
+
 // components
 import NavBar from "./components/navigation/NavBar.js";
 import Messages from "./components/routes/messages/MessageBoard";
@@ -49,6 +51,7 @@ function App() {
 
               <Route path="/germany" element={<Main />} />
               <Route path="/calc_route" element={<FinalRoute />} />
+              <Route path="/calc_newroute" element={<NewFinalRoute />} />
 
               <Route path="/board" element={<Messages />} />
             </Routes>

@@ -4,6 +4,8 @@ import "dotenv/config";
 
 import userRouter from "./routes/userRouter.js";
 import messagesRouter from "./routes/messagesRouter.js"
+import mapRouter from "./routes/mapRouter.js";
+
 /* import path from "path" */
 
 import connectDB from "./helpers/dbConnect.js"
@@ -14,8 +16,6 @@ const PORT = process.env.PORT || 5007;
 
 app.use(cors());
 app.use(express.json());
-
-
 
 
 /* --- DATABASE --- */
@@ -30,14 +30,9 @@ mongoose.connection.on("error", (error)=>{
 
 /* --------------- */
 
-
-
-
 app.use("/user", userRouter)
 app.use("/messages", messagesRouter)
-
-
-
+app.use("/openMaps", mapRouter)
 
 
 app.listen(PORT, (req, res) => console.log("Listening at port:", PORT));

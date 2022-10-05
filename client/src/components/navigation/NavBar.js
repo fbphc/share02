@@ -165,7 +165,7 @@ export default function NavBar() {
               >
                 <BurgerLinkStyled>
                   <GoPlug className="me-2" />
-                  Messages
+                  Message Board
                 </BurgerLinkStyled>
               </Link>
               }

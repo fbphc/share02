@@ -35,6 +35,8 @@ function MainMapComp({ chargerFilter }) {
   }, [chargerFilter]);
 
   function getCoordinates(routeData) {
+    localStorage.setItem("goalpoint", JSON.stringify(routeData))
+    
     getEndPoint(routeData);
   }
 
@@ -43,7 +45,7 @@ function MainMapComp({ chargerFilter }) {
       <div className="border rounded border-2">
         <MapContainer
           center={center}
-          zoom={5}
+          zoom={6}
           className="leaflet-container fullscreen"
         >
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />

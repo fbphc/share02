@@ -24,7 +24,7 @@ const RoutingComp = createControlComponent(({ from, to }) => {
         // This is the first marker, indicating start
         marker_icon = L.icon({
           iconUrl: redPos,
-          iconSize: [25, 42],
+          iconSize: [28, 46],
           iconAnchor: [14, 34],
           popupAnchor: [0, -26],
           bounceOnAdd: true,
@@ -34,12 +34,12 @@ const RoutingComp = createControlComponent(({ from, to }) => {
         //This is the last marker indicating destination
         marker_icon = L.icon({
           iconUrl: greenPos,
-          iconSize: [25, 42],
-          iconAnchor: [14, 34],
+          iconSize: [1, 1],
+          iconAnchor: [16, 42],
           popupAnchor: [0, -26],
           bounceOnAdd: true,
         });
-        text = "Your Destination";
+        
       }
       let marker = L.marker(start.latLng, {
         draggable: true,
