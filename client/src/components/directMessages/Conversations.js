@@ -61,7 +61,7 @@ function Conversations() {
     addADirectMsg(message);
     toggle();
   }
-console.log(allDirectMsgs)
+
   return (
     <Fade className="mx-auto w-75 mt-4 p-2">
       {allConversations.map((item, idx) => {

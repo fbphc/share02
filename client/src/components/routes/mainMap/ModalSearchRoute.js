@@ -35,6 +35,16 @@ function ModalSearchRoute({ modal, toggle }) {
     toTypeOfStreet: "strasse",
   });
 
+  
+  function routeChangeHandler(e) {
+    const element = e.target.name;
+    const value = e.target.value;
+    setRouteForm((prevState) => {
+      console.log(routeForm);
+      return { ...prevState, [element]: value };
+    });
+  }
+  
   function submit(e) {
     e.preventDefault();
     const isIncludedFrom = typeOfStreetDataset.filter((item) =>
@@ -62,16 +72,6 @@ function ModalSearchRoute({ modal, toggle }) {
 
     routeCoordiantes(routeForm);
   }
-
-  function routeChangeHandler(e) {
-    const element = e.target.name;
-    const value = e.target.value;
-    setRouteForm((prevState) => {
-      console.log(routeForm);
-      return { ...prevState, [element]: value };
-    });
-  }
-
   return (
     <Modal isOpen={modal} toggle={toggle} /* external={externalCloseBtn} */>
       <Form onSubmit={(e) => submit(e)}>

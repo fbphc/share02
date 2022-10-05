@@ -20,11 +20,15 @@ export const validateToken = () => {
 };
 export const getProfile = (userId) =>
   clientAPI.post("/user/profileInfo", { id: userId });
+  
 export const getAllOwners = (typeOfCharger) =>
   clientAPI.post("/user/getAllOwners", { typeOfCharger: typeOfCharger });
 
 export const editProfile = (editedUser, id) =>
   clientAPI.put(`/user/updateProfile/${id}`, editedUser);
+
+export const getRouteCoordiantes = (routeForm) =>
+  clientAPI.post("/openMaps/getCoordinates", { routeForm });
 
 export const addComment = (comment) =>
   clientAPI.post("/messages/addAComment", comment);
@@ -41,6 +45,6 @@ export const addDirectMsg = (msgObj) =>
 
 export const getUserDirectMsgs = (conversationId) =>
   clientAPI.post("/messages/getDirectMsgs", conversationId);
-  
+
 export const getConversations = (convObj) =>
   clientAPI.post("/messages/getConversations", convObj);

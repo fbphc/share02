@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Marker, Popup, useMapEvents, Tooltip } from "react-leaflet";
 import useMap from "../../../context/mapContext/useMap.js";
 import * as L from "leaflet";
-import redPos from "../../../../src/img/redPos.png"
+import redPos from "../../../../src/img/redPos.png";
 
 function LocationMarker() {
   const { getActualPosition } = useMap();
@@ -10,6 +10,8 @@ function LocationMarker() {
 
   useEffect(() => {
     getActualPosition(position);
+
+    localStorage.setItem("position", JSON.stringify(position));
   }, [position]);
   const map = useMapEvents({
     dblclick() {
@@ -26,13 +28,10 @@ function LocationMarker() {
     iconSize: [25, 42],
     iconAnchor: [14, 34],
     popupAnchor: [38, 38],
-    
-});
+  });
 
   return position === null ? null : (
-    <Marker position={position} icon={myIcon}>
-      
-    </Marker>
+    <Marker position={position} icon={myIcon}></Marker>
   );
 }
 
