@@ -18,8 +18,7 @@ import {
   ImageStyled,
   ImgStyled,
   BurgerImgDivStyled,
-  LinkStyled,
-  LogoStyled
+  LinkStyled
 } from "../../components.styled/styledComponents.js";
 
 export default function NavBar() {
@@ -57,9 +56,9 @@ export default function NavBar() {
 
   return (
     <div className="d-flex align-items-center justify-content-between dark position-sticky fixed-top">
-      <LogoStyled>
+      <div className="w-25 px-2">
         <img src={logosmall} className="w-25" alt="logo" />
-      </LogoStyled>
+      </div>
       <div className="d-flex align-items-center">
         {isAuthenticated && <AiFillCar className="h3 secondaryText mx-2" />}
         <button
@@ -148,7 +147,7 @@ export default function NavBar() {
                 </BurgerLinkStyled>
               </Link>
 
-             {isAuthenticated && <Link
+              <Link
                 className="text-dark text-decoration-none"
                 onClick={closeMenu}
                 to="germany"
@@ -157,7 +156,7 @@ export default function NavBar() {
                   <GoPlug className="me-2" />
                   Map
                 </BurgerLinkStyled>
-              </Link>}
+              </Link>
               {isAuthenticated && 
               <Link
               className="text-dark text-decoration-none"
@@ -166,7 +165,7 @@ export default function NavBar() {
               >
                 <BurgerLinkStyled>
                   <GoPlug className="me-2" />
-                  Board
+                  Messages
                 </BurgerLinkStyled>
               </Link>
               }
