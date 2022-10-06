@@ -81,7 +81,7 @@ function Review() {
     e.target.reset();
   }
   return (
-    <div className="w-75 mx-auto">
+    <div className=" mx-auto">
       {localStorage.getItem("user")
         ? JSON.parse(localStorage.getItem("user")).id !==
             +pathUrl.split("/userProfile/")[1] && (
@@ -89,7 +89,7 @@ function Review() {
               <div onChange={changeHandler}>
                 <FormGroup>
                   <Input
-                    className="mt-2"
+                    className="mt-2 w-75 mx-auto"
                     id="exampleText"
                     name="text"
                     type="textarea"
@@ -108,7 +108,7 @@ function Review() {
         return (
           <MainMsgDivStyled key={idx + ""}>
             <Row
-              className="d-flex mt-1 border border-top-0 border-start-0 border-end-0 pb-1"
+              className="d-flex mt-1 pb-1"
             >
               <MessageQueryStyled>
               <Col className="my-2 col-3 col-xs-6 mx-auto text-center">
@@ -134,13 +134,13 @@ function Review() {
                 </LinkStyled>
               </Col>
               <Col className="mx-auto">
-                <p className="mb-3">
+                <p className="mb-3 mx-2">
                   <b>Date: </b> {item.dateNow[0]} 
                 </p>
-                <p className="my-0">
+                <p className="my-0 mx-2">
                   <b>Message: </b>{" "}
                 </p>
-                <p className="my-0">{item.review}</p>
+                <p className="mt-0 mb-2 mx-2 border border-top-0 border-start-0 border-end-0">{item.review}</p>
               </Col>
               </MessageQueryStyled>
             </Row>

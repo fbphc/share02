@@ -2,40 +2,35 @@ import styled from "styled-components";
 import { Image } from "cloudinary-react";
 import { PaginationLink } from "reactstrap";
 import { Link } from "react-router-dom";
-import { Row, Col } from "reactstrap";
-
-
 
 export const ContactImgDiv = styled.div`
-width: 10rem;
-height: 10rem;
-border-radius: 50%;
-border: 2px solid var(--danger-color);
-margin: 2rem 3rem 1rem;
-`
-
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
+  border: 2px solid var(--danger-color);
+  margin: 2rem 3rem 1rem;
+`;
 
 export const ParDisplayStyled = styled.p`
-text-align: center;
-font-size: 1.4rem;
-transition: all 0.3s;
-color: var(--dark-color);
-border: 1px solid var(--danger-color);
-border-radius: 2rem;
-margin: 0.4rem 0;
-&:hover{
-  background-color: var(--secondarybla-color);
-  cursor: pointer;
-}
-
-`
+  text-align: center;
+  font-size: 1.4rem;
+  transition: all 0.3s;
+  color: var(--dark-color);
+  border: 1px solid var(--danger-color);
+  border-radius: 2rem;
+  margin: 0.4rem 0;
+  &:hover {
+    background-color: var(--secondarybla-color);
+    cursor: pointer;
+  }
+`;
 
 export const ProfileContainerStyled = styled.div`
   display: flex;
   width: 60%;
   text-align: center;
   margin: 2.5rem auto;
-  ${'' /* padding: 0 0 0 2.5rem; */}
+  ${"" /* padding: 0 0 0 2.5rem; */}
   @media (max-width: 800px) {
     display: block;
     padding: 0;
@@ -48,7 +43,7 @@ export const ProfileImgDivStyled = styled.div`
   border-radius: 50%;
   margin-top: 2.2rem;
   @media (max-width: 800px) {
-    margin: 1rem auto;   
+    margin: 1rem auto;
   }
 `;
 export const PopupImgDivStyled = styled.div`
@@ -57,7 +52,7 @@ export const PopupImgDivStyled = styled.div`
   border: 5px solid var(--dark-color);
   border-radius: 50%;
   margin: 1.5rem auto 0;
-`
+`;
 
 export const RouteImgDivStyled = styled.div`
   width: 5rem;
@@ -65,7 +60,7 @@ export const RouteImgDivStyled = styled.div`
   border: 2px solid var(--dark-color);
   border-radius: 50%;
   margin: 0 auto;
-  `
+`;
 export const ProfileDataStyled = styled.div`
   width: 100%;
   margin-left: 2.5rem;
@@ -74,7 +69,7 @@ export const ProfileDataStyled = styled.div`
   @media (max-width: 800px) {
     margin: 0 auto;
   }
-`
+`;
 
 export const MsgImgDivStyled = styled.div`
   width: 5rem;
@@ -94,11 +89,11 @@ export const MainMsgDivStyled = styled.div`
   width: 90%;
   margin: 1rem auto;
   color: var(--dark-color);
-  padding: 1rem 2rem;
+  padding: 1rem 0rem;
   background-color: #114360;
   border-radius: 1rem;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  margin-bottom: 5rem;
+  margin-bottom: 2rem;
 `;
 export const BurgerImgDivStyled = styled.div`
   width: 3rem;
@@ -241,7 +236,7 @@ export const ImageStyled = styled(Image)`
   height: 100%;
   object-fit: cover;
   border-radius: 50%;
-  padding:0.2rem;
+  padding: 0.2rem;
   display: block;
 `;
 
@@ -250,7 +245,7 @@ export const ImgStyled = styled.img`
   height: 100%;
   object-fit: cover;
   border-radius: 50%;
-  padding:0.2rem;
+  padding: 0.2rem;
   display: block;
 `;
 
@@ -261,9 +256,12 @@ export const LogoStyled = styled.div`
     width: 25%;
     padding: 0 0.5rem;
   }
-`
+`;
 export const MessageQueryStyled = styled.div`
-@media (min-width: 700px) {
   display: flex;
-}
-`
+  
+  @media (max-width: 700px) {
+    display: block;
+    text-align: center;
+  }
+`;

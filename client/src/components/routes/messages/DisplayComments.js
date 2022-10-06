@@ -40,11 +40,12 @@ function DisplayComments() {
         {currentComments.map((item, idx) => {
           return (
             <Row
-              className="d-flex mt-3 border border-top-0 border-start-0 border-end-0 pb-3"
+              className="mt-3 mx-auto  pb-3"
               key={idx + "comment"}
+              
             >
               <MessageQueryStyled>
-              <Col className="my-2 col-3 col-xs-6 mx-auto text-center">
+              <Col className="my-2 text-center mx-auto col-md-3 ">
                 {item.imgProfile === "no_photo" ? (
                   <MsgImgDivStyled>
                     <ImgStyled src={noPhoto} alt="user" />
@@ -60,26 +61,30 @@ function DisplayComments() {
                 <LinkStyled
                   to={`/userProfile/${item.userId}`}
                   state={{ id: item.userId }}
+                  className="text-center"
                 >
                   {item.username}
                 </LinkStyled>
               </Col>
 
-              <Col className="mx-4">
+              <Col className="mx-0  px-2 border border-top-0 border-start-0 border-end-0">
                 <p className="mb-3">
                   <b>Date: </b> {item.dateNow[0]} {/* {item.dateNow[1]} */}
                 </p>
                 <p className="my-0">
                   <b>Message: </b>{" "}
                 </p>
-                <p className="my-0">{item.comment}</p>
+                <p className="mt-0 mb-1">{item.comment}</p>
               </Col>
               </MessageQueryStyled>
             </Row>
           );
         })}
       </MainMsgDivStyled>
+      <div className="mt-5">
+
       <Pages paginate={paginate} numberOfPages={numberOfPages} pages={allComments} />
+      </div>
     </>
   );
 }
