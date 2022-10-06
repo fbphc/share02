@@ -55,7 +55,6 @@ const navigate =  useNavigate()
     try {
       localStorage.setItem("goalpoint", JSON.stringify(response.data.endLat_Long))
       localStorage.setItem("position", JSON.stringify(response.data.startLat_Long))
-
       dispatch({ type: "CALC_ROUTE", payload:{startLat_Long:  response.data.startLat_Long, endLat_Long: response.data.endLat_Long}});
       navigate("/calc_route")
     } catch (err) {

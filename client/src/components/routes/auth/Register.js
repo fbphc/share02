@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Form,
@@ -22,7 +22,7 @@ import axios from "axios";
 import { MainButton } from "../../../components.styled/styledComponents.js";
 
 export default function Register({ modalRegister, toggleRegister, closeMenu }) {
-  const { signUp, resetError } = useAuth();
+  const { signUp, resetError, authToggle,setAuthToggle } = useAuth();
   const navigate = useNavigate();
 
   // show and hide wall-box owner state
@@ -65,6 +65,18 @@ export default function Register({ modalRegister, toggleRegister, closeMenu }) {
     password: "",
     confirmPassword: "",
   });
+
+
+useEffect(()=>{
+if(authToggle.signUp){
+    closeMenu();
+    toggleRegister();
+    setAuthToggle({signUp:false, login:false})
+
+}
+},[authToggle])
+
+
 
   // form changes function
   function registerFormHandler(e) {
@@ -151,6 +163,7 @@ export default function Register({ modalRegister, toggleRegister, closeMenu }) {
     inputValidator(e);
   };
 
+  
   function submit(e) {
     e.preventDefault();
     if (input.password !== input.confirmPassword)
@@ -170,9 +183,7 @@ export default function Register({ modalRegister, toggleRegister, closeMenu }) {
     }
     
     signUp(registerForm);
-    navigate("/germany");
-    closeMenu();
-    toggleRegister();
+    
   }
   /****** IMAGES ***** */
   const [imageSelected, setImageSelected] = useState("");

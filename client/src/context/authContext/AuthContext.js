@@ -14,6 +14,7 @@ let userInfo = {};
 export const AuthProvider = ({ children }) => {
   const navigate = useNavigate()
   const [state, dispatch] = useReducer(authReducer, authState);
+  const [authToggle,setAuthToggle] = useState({login:false, signUp: false})
 
   async function signUp(FormData) {
     try {
@@ -26,6 +27,8 @@ export const AuthProvider = ({ children }) => {
         imgProfile: response.data.user.imgProfile,
       };
       localStorage.setItem("user", JSON.stringify(userStorage));
+      setAuthToggle({signUp:true, login:false})
+      navigate("/germany");
       return response;
     } catch (err) {
       dispatch({ type: "SIGNIN_ERR", payload: err.message });
@@ -45,7 +48,8 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem("user", JSON.stringify(userStorage));
 
       userInfo = response.data.user;
-
+      setAuthToggle({login:true, signUp:false})
+      navigate("/germany");
       return response;
     } catch (err) {
       dispatch({ type: "SIGNIN_ERR", payload: err.message });
@@ -94,12 +98,13 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("user");
     localStorage.removeItem("goalpoint");
     localStorage.removeItem("position");
-
+    setAuthToggle(false)
     navigate("/")
   }
   const resetError = () => {
     dispatch({ type: "CLR_ERR" });
   };
+  console.log(state)
   const value = {
     logIn,
     signUp,
@@ -111,6 +116,8 @@ export const AuthProvider = ({ children }) => {
     userInfo: state.userInfo,
     editUserProfile,
     resetError,
+    authToggle, setAuthToggle,
+    loginError: state.loginError
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

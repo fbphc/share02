@@ -1,4 +1,4 @@
-# fullstack_final_project
+# EV-Connection
 DCI - Full Stack Final Project
 
-william
+## https://evconnection.herokuapp.com/

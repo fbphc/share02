@@ -10,9 +10,18 @@ import mapRouter from "./routes/mapRouter.js";
 
 import connectDB from "./helpers/dbConnect.js"
 import mongoose from "mongoose";
+import path from "path";
+import { fileURLToPath } from "url";
+
+
 
 const app = express();
 const PORT = process.env.PORT || 5007;
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename)
+
+app.use(express.static(path.join(__dirname, "../client/build")))
 
 app.use(cors());
 app.use(express.json());
@@ -34,5 +43,8 @@ app.use("/user", userRouter)
 app.use("/messages", messagesRouter)
 app.use("/openMaps", mapRouter)
 
+app.get("*", (req, res)=>{
+    res.sendFile(path.join(__dirname, "../client", "build", "index.html" ))
+})
 
 app.listen(PORT, (req, res) => console.log("Listening at port:", PORT));
