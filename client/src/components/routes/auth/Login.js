@@ -1,7 +1,6 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
-  Button,
   Form,
   FormGroup,
   Input,
@@ -9,23 +8,24 @@ import {
   ModalBody,
   ModalFooter,
   ModalHeader,
+  Fade,
 } from "reactstrap";
 import useAuth from "../../../context/authContext/useAuth";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { IoCloseOutline } from "react-icons/io5";
-import {MainButton} from '../../../components.styled/styledComponents.js'
+import { MainButton } from "../../../components.styled/styledComponents.js";
 
 //isratest@gmail.com
 export default function Login({ modalLogin, toggleLogin, closeMenu }) {
-  const navigate = useNavigate();
-  const { logIn, isAuthenticated } = useAuth();
+  const { logIn, authToggle, setAuthToggle, loginError, resetError } =
+    useAuth();
+  const [requiredToggle, setRequiredToggle] = useState(false);
 
   const [logInForm, setLogInForm] = useState({
     email: "",
     password: "",
   });
 
- 
   function changeHandler(e) {
     const element = e.target.name;
     const value = e.target.value;
@@ -44,13 +44,28 @@ export default function Login({ modalLogin, toggleLogin, closeMenu }) {
       showPassword: e === passToggle.showPassword ? "" : e,
     });
   }
-  
+  useEffect(() => {
+    if (authToggle.login) {
+      closeMenu();
+      toggleLogin();
+      setAuthToggle({ signUp: false, login: false });
+    }
+  }, [authToggle.login]);
+
+  useEffect(() => {
+    setRequiredToggle(false);
+    resetError();
+  }, [modalLogin]);
+
+  useEffect(() => {
+    loginError ? setRequiredToggle(true) : setRequiredToggle(false);
+  }, [loginError]);
+
   function submit(e) {
     e.preventDefault();
+    //loginError ? setRequiredToggle(true) : setRequiredToggle(false)
     logIn(logInForm);
-    navigate("/germany");
-    closeMenu();
-    toggleLogin();
+    resetError();
   }
 
   return (
@@ -92,11 +107,19 @@ export default function Login({ modalLogin, toggleLogin, closeMenu }) {
                 />
               )}
             </FormGroup>
+            {requiredToggle && (
+              <Fade className="my-2 mx-1 darkText">
+                Your 
+                <span className="danger mx-1">
+                  <b>Password</b>
+                </span> or <span className="danger mx-1">
+                  <b>E-mail</b>
+                </span> are not correct!
+              </Fade>
+            )}
           </div>
           <ModalFooter>
-            <MainButton type="submit">
-              Login
-            </MainButton>
+            <MainButton type="submit">Login</MainButton>
           </ModalFooter>
         </Form>
       </ModalBody>

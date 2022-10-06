@@ -2,6 +2,7 @@ export const authState = {
     isAuthenticated: false,
     userInfo: {},
     error: false,
+    loginError: true,
     imgProfile: {}
   };
 
@@ -35,6 +36,7 @@ export const authState = {
         return {
           ...state,
           error: payload,
+          loginError: true
         };
       }
       case "AUTH_VALID": {
@@ -49,6 +51,7 @@ export const authState = {
         return {
           ...state,
           error: false,
+          loginError: false
         };
       }
   case "USER_INFO": {
