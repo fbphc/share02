@@ -10,6 +10,7 @@ import {
   ImgStyled,
   MainMsgDivStyled,
   LinkStyled,
+  MessageQueryStyled
 } from "../../../components.styled/styledComponents";
 
 function DisplayComments() {
@@ -42,7 +43,8 @@ function DisplayComments() {
               className="d-flex mt-3 border border-top-0 border-start-0 border-end-0 pb-3"
               key={idx + "comment"}
             >
-              <Col className="my-2 col-3 col-xs-6 me-3 text-center">
+              <MessageQueryStyled>
+              <Col className="my-2 col-3 col-xs-6 mx-auto text-center">
                 {item.imgProfile === "no_photo" ? (
                   <MsgImgDivStyled>
                     <ImgStyled src={noPhoto} alt="user" />
@@ -72,6 +74,7 @@ function DisplayComments() {
                 </p>
                 <p className="my-0">{item.comment}</p>
               </Col>
+              </MessageQueryStyled>
             </Row>
           );
         })}

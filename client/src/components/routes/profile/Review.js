@@ -16,6 +16,7 @@ import {
   MsgImgDivStyled,
   ImgStyled,
   LinkStyled,
+  MessageQueryStyled
 } from "../../../components.styled/styledComponents";
 import NotAuthorized from "../../error/NotAuthorized";
 
@@ -105,11 +106,12 @@ function Review() {
         : null}
       {currentReviews.map((item, idx) => {
         return (
-          <MainMsgDivStyled className="my-3" key={idx + ""}>
+          <MainMsgDivStyled key={idx + ""}>
             <Row
               className="d-flex mt-1 border border-top-0 border-start-0 border-end-0 pb-1"
             >
-              <Col className="my-2 col-3 col-xs-6 me-3 text-center">
+              <MessageQueryStyled>
+              <Col className="my-2 col-3 col-xs-6 mx-auto text-center">
                 {item.fromImgProfile === "no_photo" ? (
                   <MsgImgDivStyled>
                     <ImgStyled src={noPhoto} alt="user" />
@@ -131,7 +133,7 @@ function Review() {
                   {item.fromUsername}
                 </LinkStyled>
               </Col>
-              <Col className="mx-4">
+              <Col className="mx-auto">
                 <p className="mb-3">
                   <b>Date: </b> {item.dateNow[0]} 
                 </p>
@@ -140,6 +142,7 @@ function Review() {
                 </p>
                 <p className="my-0">{item.review}</p>
               </Col>
+              </MessageQueryStyled>
             </Row>
           </MainMsgDivStyled>
         );

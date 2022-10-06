@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Image } from "cloudinary-react";
 import { PaginationLink } from "reactstrap";
 import { Link } from "react-router-dom";
+import { Row, Col } from "reactstrap";
 
 
 
@@ -241,6 +242,7 @@ export const ImageStyled = styled(Image)`
   object-fit: cover;
   border-radius: 50%;
   padding:0.2rem;
+  display: block;
 `;
 
 export const ImgStyled = styled.img`
@@ -249,6 +251,7 @@ export const ImgStyled = styled.img`
   object-fit: cover;
   border-radius: 50%;
   padding:0.2rem;
+  display: block;
 `;
 
 export const LogoStyled = styled.div`
@@ -258,4 +261,9 @@ export const LogoStyled = styled.div`
     width: 25%;
     padding: 0 0.5rem;
   }
+`
+export const MessageQueryStyled = styled.div`
+@media (min-width: 700px) {
+  display: flex;
+}
 `
