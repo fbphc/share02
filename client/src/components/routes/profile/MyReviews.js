@@ -40,7 +40,7 @@ function MyReviews({ userInfo }) {
         return (
           <MainMsgDivStyled className="my-3 w-75" key={idx + "comment"}>
             <Row
-              className="d-flex mt-1 border border-top-0 border-start-0 border-end-0 pb-1"
+              className="d-flex mt-1 pb-1"
             >
               <Col className="my-2 col-3 col-xs-6 me-3 text-center">
                 {item.fromImgProfile === "no_photo" ? (

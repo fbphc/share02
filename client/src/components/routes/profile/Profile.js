@@ -6,7 +6,7 @@ import NotAuthorized from "../../error/NotAuthorized.js";
 import EditProfile from "../profile/EditProfile.js";
 import MyReviews from "./MyReviews.js";
 
-
+import {ProfileQueryStyled} from "../../../components.styled/styledComponents.js"
 import { MainButton, ImageStyled, ProfileImgDivStyled, ImgStyled } from "../../../components.styled/styledComponents.js";
 import Conversations from "../../directMessages/Conversations.js";
 
@@ -54,46 +54,46 @@ function Profile() {
                 </ProfileImgDivStyled>
               )}
               <div>
-                <div className="d-flex justify-content-between border-bottom border-light">
+                <ProfileQueryStyled>
                   <p>User Name</p>
                   <p>{userInfo.username}</p>
-                </div>
-                <div className="d-flex justify-content-between border-bottom border-light">
+                </ProfileQueryStyled>
+                <ProfileQueryStyled >
                   <p>First Name</p>
                   <p>{userInfo.fname}</p>
-                </div>
-                <div className="d-flex justify-content-between border-bottom border-light">
+                </ProfileQueryStyled>
+                <ProfileQueryStyled >
                   <p>Last Name</p>
                   <p>{userInfo.lname}</p>
-                </div>
-                <div className="d-flex justify-content-between border-bottom border-light">
+                </ProfileQueryStyled>
+                <ProfileQueryStyled >
                   <p>Email</p>
                   <p>{userInfo.email}</p>
-                </div>
+                </ProfileQueryStyled>
                 {userInfo.isOwner && (
-                <div className="d-flex justify-content-between border-bottom border-light">
+                <ProfileQueryStyled >
                 <p>Availability:</p>
                 <p>
                   {userInfo.availability}
                 </p>
-              </div>
+              </ProfileQueryStyled>
               )}
                 {userInfo.isOwner && (
-                  <div className="d-flex justify-content-between border-bottom border-light">
-                    <p>Address</p>
+                  <ProfileQueryStyled >
+                    <p>Address:</p>
                     <p>
                       {userInfo.address.street}
                       {userInfo.address.houseNr}, {userInfo.address.postalcode}{" "}
                       {userInfo.address.city}
                     </p>
-                  </div>
+                  </ProfileQueryStyled>
                 )}
               </div>
               {userInfo.telNumber && (
-                <div className="d-flex justify-content-between border-bottom border-light">
+                <ProfileQueryStyled >
                   <p>Phone Number</p>
                   <p>{userInfo.telNumber}</p>
-                </div>
+                </ProfileQueryStyled>
               )}
             </div>
             <div className="mx-auto w-50 d-flex justify-content-around gap-1 px-5 pt-2">

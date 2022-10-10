@@ -49,6 +49,7 @@ body {
   --max: 4em;
 }
 
+
 @media (min-width: 389px) and (max-width: 600px) {
   .imageCSS {
     padding-top: 40%;

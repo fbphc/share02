@@ -30,7 +30,7 @@ export const ProfileContainerStyled = styled.div`
   width: 60%;
   text-align: center;
   margin: 2.5rem auto;
-  ${"" /* padding: 0 0 0 2.5rem; */}
+  
   @media (max-width: 800px) {
     display: block;
     padding: 0;
@@ -263,5 +263,15 @@ export const MessageQueryStyled = styled.div`
   @media (max-width: 700px) {
     display: block;
     text-align: center;
+  }
+`;
+export const ProfileQueryStyled = styled.div`
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--dark-color);
+  @media (max-width: 400px) {
+    display: block;
+    text-align: center;
+    font-weight: bold;
   }
 `;

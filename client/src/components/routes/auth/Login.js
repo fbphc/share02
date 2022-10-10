@@ -82,12 +82,12 @@ export default function Login({ modalLogin, toggleLogin, closeMenu }) {
         <Form onSubmit={(e) => submit(e)}>
           <div onChange={(e) => changeHandler(e)}>
             <FormGroup>
-              <Input name="email" placeholder="email" type="email" required />
+              <Input name="email" placeholder="E-mail" type="email" required />
             </FormGroup>
             <FormGroup className="position-relative">
               <Input
                 name="password"
-                placeholder="password placeholder"
+                placeholder="Password"
                 type={
                   passToggle.showPassword === "password" ? "text" : "password"
                 }

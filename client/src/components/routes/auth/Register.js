@@ -272,13 +272,13 @@ if(authToggle.signUp){
                 </FormGroup>
               </div>
               <FormGroup>
-                <Input required name="email" placeholder="Email" type="email" />
+                <Input required name="email" placeholder="E-mail" type="email" />
               </FormGroup>
               <FormGroup className="position-relative">
                 <Input
                   required
                   name="password"
-                  placeholder="password"
+                  placeholder="Password"
                   type={
                     passToggle.showPassword === "password" ? "text" : "password"
                   }
@@ -305,7 +305,7 @@ if(authToggle.signUp){
                 <Input
                   required
                   name="confirmPassword"
-                  placeholder="confirmPassword"
+                  placeholder="Confirm Password"
                   type={
                     passToggle.showConfirmPassword === "confirmPassword"
                       ? "text"
@@ -331,7 +331,7 @@ if(authToggle.signUp){
               </FormGroup>
               {error.confirmPassword && <p className="darkText">{error.confirmPassword}</p>}
               <FormGroup>
-                <Input type="tel" name="telNumber" placeholder="Phone Number" />
+                <Input type="tel" name="telNumber" placeholder="Telephone ( optional )" />
               </FormGroup>
             </div>
 
@@ -366,7 +366,7 @@ if(authToggle.signUp){
                     <Input
                       required
                       name="city"
-                      placeholder="city"
+                      placeholder="City"
                       type="text"
                     />
                   </FormGroup>
@@ -374,7 +374,7 @@ if(authToggle.signUp){
                     <Input
                       required
                       name="street"
-                      placeholder="street"
+                      placeholder="Street"
                       type="text"
                     />
                   </FormGroup>
@@ -401,7 +401,7 @@ if(authToggle.signUp){
                       <Input
                         required
                         name="houseNr"
-                        placeholder="houseNr"
+                        placeholder="House Nr."
                         type="text"
                       />
                     </FormGroup>
@@ -409,7 +409,7 @@ if(authToggle.signUp){
                       <Input
                         required
                         name="postalcode"
-                        placeholder="postal Code"
+                        placeholder="Postal Code"
                         type="text"
                       />
                     </FormGroup>
@@ -422,7 +422,7 @@ if(authToggle.signUp){
                 type="submit"
                 onClick={() => (registerForm ? toggleRegister : null)}
               >
-                sign up
+                Sign-Up
               </MainButton>
             </ModalFooter>
           </Form>

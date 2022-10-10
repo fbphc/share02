@@ -81,10 +81,10 @@ export default function ContactUs() {
           </FormGroup>
           <div className="d-flex gap-3">
             <MainButton outline type="submit" value="send">
-              send
+              Send
             </MainButton>
             <MainButton outline type="reset">
-              reset
+              Reset
             </MainButton>
           </div>
         </Form>

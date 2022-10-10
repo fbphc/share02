@@ -9,7 +9,7 @@ import {
   DiMsgImgDivStyled,
   LinkStyled,
   MainButton,
-  ParDisplayStyled
+  ParDisplayStyled,
 } from "../../components.styled/styledComponents.js";
 
 import noPhoto from "../../img/noPhoto.png";
@@ -19,7 +19,7 @@ function Conversations() {
     allConversations,
     getDirectMsgs,
     allDirectMsgs,
-    addADirectMsg
+    addADirectMsg,
   } = useComments();
   const [user, setUser] = useState({});
   const [dirMsgs, setDirMsgs] = useState();
@@ -33,7 +33,6 @@ function Conversations() {
 
   useEffect(() => {
     getDirectMsgs({ conversationId: dirMsgs });
-    
   }, [modal]);
 
   useEffect(() => {
@@ -41,23 +40,21 @@ function Conversations() {
       const user = JSON.parse(localStorage.getItem("user"));
       setUser(user);
       getAllConversations({ userId: user.id });
-      
     }
   }, []);
-  
+
   function inputHandler(e) {
-    setMessage((prev)=>({
+    setMessage((prev) => ({
       directMsg: e.target.value,
       senderId: user !== null ? user.id : null,
       receiverId:
         allDirectMsgs.firId === user.id
           ? allDirectMsgs.secId
           : allDirectMsgs.firId,
-    }))
+    }));
   }
   function submit(e) {
-    
-    if (message.directMsg === "") return setRequiredToggle(true)
+    if (message.directMsg === "") return setRequiredToggle(true);
     addADirectMsg(message);
     toggle();
   }
@@ -66,9 +63,8 @@ function Conversations() {
     <Fade className="mx-auto w-75 mt-4 p-2">
       {allConversations.map((item, idx) => {
         return (
-          <div key={idx + ""} >
+          <div key={idx + ""}>
             <ParDisplayStyled
-              
               onClick={() => {
                 setDirMsgs(item.conversationId);
                 setModal(!modal);
@@ -104,9 +100,7 @@ function Conversations() {
                 )}
               </FormGroup>
             </Form>
-              <MainButton onClick={submit}>
-                Reply
-              </MainButton>
+            <MainButton onClick={submit}>Reply</MainButton>
             {allDirectMsgs.sortedConv &&
               allDirectMsgs.sortedConv.map((item, idx) => {
                 if (item.currentMessageSender === user.id) {
@@ -209,7 +203,7 @@ function Conversations() {
                             </div>
                           </>
                         )}
-                        <div>
+                        <div className="w-75">
                           <LinkStyled
                             to={
                               user.id === allDirectMsgs.secId
@@ -223,13 +217,15 @@ function Conversations() {
                             }
                             className="my-0"
                           >
-                            <p className="my-0">
-                              <b>
-                                {user.id === allDirectMsgs.secId
-                                  ? allDirectMsgs.firName
-                                  : allDirectMsgs.secName}
-                              </b>
-                            </p>
+                            <div>
+                              <p className="my-0 w-25 border border-1 rounded-pill">
+                                <b>
+                                  {user.id === allDirectMsgs.secId
+                                    ? allDirectMsgs.firName
+                                    : allDirectMsgs.secName}
+                                </b>
+                              </p>
+                            </div>
                           </LinkStyled>
                           <p className="my-0 mx-2">{item.messageText}</p>
                         </div>
