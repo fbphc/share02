@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Image } from "cloudinary-react";
 import { PaginationLink } from "reactstrap";
 import { Link } from "react-router-dom";
+import mapImg from "../img/mapImg.jpg"
 
 export const ContactImgDiv = styled.div`
   width: 10rem;
@@ -133,21 +134,17 @@ export const MainButton = styled.button`
 
 // images
 // home page
-export const MapImgStyled = styled.img`
-  @media (max-width: 1100px) {
-    margin-top: 10%;
-    margin-bottom: 15%;
-  }
-  @media (max-width: 700px) {
-    margin-top: 30%;
-    margin-bottom: 30%;
-  }
+export const MapStyled = styled.div`
+margin: 0 auto;
+background: url(${mapImg}) right / cover no-repeat ;
+height: 100vh;
+
 `;
 
 // about us
 export const ImgAboutStyled = styled.img`
   width: 100%;
-  max-height: 40rem;
+  max-height: 30rem;
   object-fit: cover;
   margin-bottom: 1rem;
 `;

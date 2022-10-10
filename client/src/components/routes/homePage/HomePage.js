@@ -1,16 +1,16 @@
 import React from "react";
-import mapImg from "../../../img/mapImg.png";
-import { MapImgStyled } from "../../../components.styled/styledComponents"
+
+import { MapStyled } from "../../../components.styled/styledComponents"
 
 function LandingPage() {
   return (
     <>
 
-      <div className="position-realtive w-75 mx-auto mt-2">
-        <MapImgStyled src={mapImg} alt="landing-map" className=" w-100" />
+      <div className="position-realtive mx-auto">
+        <MapStyled/>
       </div>
-      <div className="text-center">
-        <p className="h1 text-light"> WELCOME TO <br></br>EV-<span className="text-warning"><b>C</b></span>ONNECTION</p>
+      <div className="text-center position-absolute top-50 start-50 translate-middle">
+        <p className="home text-light"> WELCOME TO <br></br>EV-<span className="text-warning"><b>C</b></span>ONNECTION</p>
       </div>
     </>
   );

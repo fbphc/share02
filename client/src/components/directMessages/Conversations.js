@@ -33,7 +33,8 @@ function Conversations() {
 
   useEffect(() => {
     getDirectMsgs({ conversationId: dirMsgs });
-  }, [modal]);
+    console.log(allDirectMsgs)
+  }, [modal, addADirectMsg]);
 
   useEffect(() => {
     if (localStorage.getItem("user")) {
@@ -56,7 +57,6 @@ function Conversations() {
   function submit(e) {
     if (message.directMsg === "") return setRequiredToggle(true);
     addADirectMsg(message);
-    toggle();
   }
 
   return (

@@ -48,7 +48,15 @@ body {
   --val: 4vw;
   --max: 4em;
 }
-
+.home {
+  font-size: clamp(var(--min), var(--val), var(--max));
+  --min: 1.8em;
+  --val: 5.8vw;
+  --max: 4.8em;
+  
+  text-shadow: 0px 0px 18px #000000;
+  font-weight: bold;
+}
 
 @media (min-width: 389px) and (max-width: 600px) {
   .imageCSS {
@@ -61,3 +69,4 @@ body {
 .btn-close{
   background-color: var(--dark-color);
 }
+
